@@ -163,6 +163,8 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="FacturatieModel.cs" />
+    <Compile Include="KostenSchema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
