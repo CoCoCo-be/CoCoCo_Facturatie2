@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-using Word = Microsoft.Office.Interop.Word;
-using Office = Microsoft.Office.Core;
-using Microsoft.Office.Tools.Word;
-using System.Data.Common;
-using MySql.Data.MySqlClient;
+﻿using System.Data.Entity;
+using CoCoCo_Facturatie.Migrations;
 
 namespace CoCoCo_Facturatie
 {
@@ -15,11 +7,12 @@ namespace CoCoCo_Facturatie
     {
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<FacturatieModel, Configuration>());
+
             using (var db = new FacturatieModel())
             {
                 //Create and save a new KostenModel
-                var kostenSchema1 = new KostenSchema { Id = 1 };
+                var kostenSchema1 = new KostenSchema { Archive = false, BTW = 0, Dactylo = 0, Fotokopie = 0, Mail = 0, Naam = "0 = eerste test", Prestaties = 0, Verplaatsing = 0, Wacht = 0 };
                 db.KostenSchemas.Add(kostenSchema1);
                 db.SaveChanges();
             }

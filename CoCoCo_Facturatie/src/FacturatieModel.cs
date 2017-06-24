@@ -1,10 +1,8 @@
 namespace CoCoCo_Facturatie
 {
-    using System;
     using System.Data.Common;
     using System.Data.Entity;
     using MySql.Data.Entity;
-    using System.Linq;
 
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class FacturatieModel : DbContext
@@ -35,6 +33,11 @@ namespace CoCoCo_Facturatie
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
         public virtual DbSet<KostenSchema> KostenSchemas{ get; set; }
+        public virtual DbSet<Provisie> Provisies { get; set; }
+        public virtual DbSet<Factuur> Facturen { get; set; }
+        public virtual DbSet<EreloonNota> EreloonNotas { get; set; }
+        public virtual DbSet<Aanmaning> Aanmaningen { get; set; }
+
     }
 
     //public class MyEntity
