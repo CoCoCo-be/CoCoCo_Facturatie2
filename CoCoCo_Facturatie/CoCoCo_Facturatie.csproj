@@ -192,6 +192,9 @@
       <DependentUpon>201706242053509_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Ribbon.cs">
+      <XmlRibbon>true</XmlRibbon>
+    </Compile>
     <Compile Include="src\Aanmaning.cs" />
     <Compile Include="src\EreloonNota.cs" />
     <Compile Include="src\FacturatieModel.cs" />
@@ -199,10 +202,22 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\FacturatieRibbon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="src\FacturatieRibbon.Designer.cs">
+      <DependentUpon>FacturatieRibbon.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\Factuur.cs" />
     <Compile Include="src\KostenSchema.cs" />
     <Compile Include="src\DerdenGelden.cs" />
     <Compile Include="src\Provisie.cs" />
+    <Compile Include="src\ProvisieNotaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\ProvisieNotaForm.Designer.cs">
+      <DependentUpon>ProvisieNotaForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Migrations\201706242053509_Initial.resx">
       <DependentUpon>201706242053509_Initial.cs</DependentUpon>
     </EmbeddedResource>
@@ -214,7 +229,14 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="src\FacturatieRibbon.resx">
+      <DependentUpon>FacturatieRibbon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\ProvisieNotaForm.resx">
+      <DependentUpon>ProvisieNotaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
@@ -239,8 +261,16 @@
     </Compile>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <EmbeddedResource Include="Ribbon.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\derdengelden.ico" />
+    <Content Include="Resources\ereloon.ico" />
+    <Content Include="Resources\factuur.ico" />
+    <Content Include="Resources\overzicht.ico" />
+    <Content Include="Resources\provisie.ico" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
