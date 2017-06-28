@@ -14,9 +14,10 @@ namespace CoCoCo_Facturatie
     public partial class ProvisieNotaForm : Form
     {
         #region Variables
-        private static CultureInfo Culture = new CultureInfo("nl-BE");
-        private double Gerechtskosten = 0, Ereloon = 0, BTW = 0;
-        private static NumberStyles Style = NumberStyles.Currency ;
+        private static CultureInfo Culture = Variabelen.Cultuur;
+        public double Gerechtskosten = 0, Ereloon = 0, BTW = 0, Totaal = 0;
+        public Boolean IC = false;
+        private static NumberStyles Style = Variabelen.NummerStijl;
         #endregion
 
         public ProvisieNotaForm()
@@ -29,8 +30,27 @@ namespace CoCoCo_Facturatie
             ProvisieNotaForm_Validated(sender, e);
         }
 
+        private void InterCompany_CheckedChanged(object sender, EventArgs e)
+        {
+            IC = InterCompany.Checked;
+            if (IC)
+            {
+                BTWBedrag.Hide();
+                BTWTotaal.Hide();
+            } else
+            {
+                BTWBedrag.Show();
+                BTWTotaal.Show();
+            }
+            ProvisieNotaForm_Validated(sender, e);
+        }
+
         private void ProvisieNotaForm_Validated(object sender, EventArgs e)
         {
+            if (IC)
+                BTW = 0;
+            else
+                BTW = Ereloon * 0.21;
             EreloonBedrag.Text = Ereloon.ToString("C", Culture);
             BTWBedrag.Text = BTW.ToString("C", Culture);
             BTWTotaal.Text = BTWBedrag.Text;
@@ -38,7 +58,8 @@ namespace CoCoCo_Facturatie
             GerechtskostenBedrag.Text = Gerechtskosten.ToString("C", Culture);
             GerechtskostenTotaal.Text = GerechtskostenBedrag.Text;
             BedragTotaal.Text = (Gerechtskosten + Ereloon).ToString("C");
-            Totaal.Text = (Gerechtskosten + BTW + Ereloon).ToString("C");
+            Totaal = Gerechtskosten + BTW + Ereloon;
+            TotaalBedrag.Text = (Totaal.ToString("C"));
         }
 
         private void EreloonBedrag_Validating(object sender, CancelEventArgs e)
@@ -48,7 +69,6 @@ namespace CoCoCo_Facturatie
                 MessageBox.Show("Waarde in veld is geen getal of bedrag.", "Foutieve Waarde", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 EreloonBedrag.Text = Ereloon.ToString("C", Culture);
             }
-            BTW = Ereloon * 0.21;
         }
 
         private void GerechtskostenBedrag_Validating(object sender, CancelEventArgs e)

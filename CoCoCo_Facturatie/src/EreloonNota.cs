@@ -46,9 +46,9 @@ namespace CoCoCo_Facturatie
         [Required]
         public virtual KostenSchema KostenSchema { get; set; }
 
-        public virtual ICollection<Provisie> Provisies { get; set; }
-        public virtual ICollection<Factuur> Facturen { get; set; }
-        public virtual ICollection<Aanmaning> Aanmaningen { get; set; }
+        public virtual ICollection<Provisie> Provisies { get; }
+        public virtual ICollection<Factuur> Facturen { get; }
+        public virtual ICollection<Aanmaning> Aanmaningen { get; }
     #endregion
     }
 

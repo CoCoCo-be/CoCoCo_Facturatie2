@@ -30,7 +30,7 @@ namespace CoCoCo_Facturatie
         #endregion
 
     #region ForeignKeys
-        public virtual ICollection<Aanmaning> Aanmaningen { get; set; }
+        public virtual ICollection<Aanmaning> Aanmaningen { get; }
     #endregion 
     }
 }

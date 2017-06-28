@@ -36,7 +36,7 @@
             this.BTWBedrag = new System.Windows.Forms.TextBox();
             this.EreloonTotaal = new System.Windows.Forms.TextBox();
             this.GerechtskostenTotaal = new System.Windows.Forms.TextBox();
-            this.Totaal = new System.Windows.Forms.TextBox();
+            this.TotaalBedrag = new System.Windows.Forms.TextBox();
             this.BTWTotaal = new System.Windows.Forms.TextBox();
             this.BedragTotaal = new System.Windows.Forms.TextBox();
             this.LabelTotaal = new System.Windows.Forms.Label();
@@ -46,6 +46,7 @@
             this.LabelBTW = new System.Windows.Forms.Label();
             this.LabelBedrag = new System.Windows.Forms.Label();
             this.LabelTotaal2 = new System.Windows.Forms.Label();
+            this.InterCompany = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // LabelEreloon
@@ -134,18 +135,18 @@
             this.GerechtskostenTotaal.TabStop = false;
             this.GerechtskostenTotaal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // Totaal
+            // TotaalBedrag
             // 
-            this.Totaal.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Totaal.CausesValidation = false;
-            this.Totaal.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Totaal.Location = new System.Drawing.Point(610, 122);
-            this.Totaal.Name = "Totaal";
-            this.Totaal.ReadOnly = true;
-            this.Totaal.Size = new System.Drawing.Size(100, 19);
-            this.Totaal.TabIndex = 1;
-            this.Totaal.TabStop = false;
-            this.Totaal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.TotaalBedrag.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TotaalBedrag.CausesValidation = false;
+            this.TotaalBedrag.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotaalBedrag.Location = new System.Drawing.Point(610, 122);
+            this.TotaalBedrag.Name = "TotaalBedrag";
+            this.TotaalBedrag.ReadOnly = true;
+            this.TotaalBedrag.Size = new System.Drawing.Size(100, 19);
+            this.TotaalBedrag.TabIndex = 1;
+            this.TotaalBedrag.TabStop = false;
+            this.TotaalBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // BTWTotaal
             // 
@@ -214,6 +215,7 @@
             this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKButton.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OKButton.Location = new System.Drawing.Point(469, 177);
             this.OKButton.Name = "OKButton";
@@ -255,18 +257,32 @@
             this.LabelTotaal2.Text = "Totaal";
             this.LabelTotaal2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // InterCompany
+            // 
+            this.InterCompany.AutoSize = true;
+            this.InterCompany.Location = new System.Drawing.Point(488, 56);
+            this.InterCompany.Name = "InterCompany";
+            this.InterCompany.Size = new System.Drawing.Size(91, 17);
+            this.InterCompany.TabIndex = 5;
+            this.InterCompany.Text = "InterCompany";
+            this.InterCompany.UseVisualStyleBackColor = true;
+            this.InterCompany.CheckedChanged += new System.EventHandler(this.InterCompany_CheckedChanged);
+            this.InterCompany.Validated += new System.EventHandler(this.ProvisieNotaForm_Validated);
+            // 
             // ProvisieNotaForm
             // 
             this.AcceptButton = this.OKButton;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.CancelButton = this.CancelButton1;
             this.ClientSize = new System.Drawing.Size(734, 221);
+            this.Controls.Add(this.InterCompany);
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.CancelButton1);
             this.Controls.Add(this.LabelLine);
             this.Controls.Add(this.GerechtskostenBedrag);
             this.Controls.Add(this.BedragTotaal);
             this.Controls.Add(this.BTWTotaal);
-            this.Controls.Add(this.Totaal);
+            this.Controls.Add(this.TotaalBedrag);
             this.Controls.Add(this.GerechtskostenTotaal);
             this.Controls.Add(this.EreloonTotaal);
             this.Controls.Add(this.BTWBedrag);
@@ -296,7 +312,7 @@
         private System.Windows.Forms.TextBox BTWBedrag;
         private System.Windows.Forms.TextBox EreloonTotaal;
         private System.Windows.Forms.TextBox GerechtskostenTotaal;
-        private System.Windows.Forms.TextBox Totaal;
+        private System.Windows.Forms.TextBox TotaalBedrag;
         private System.Windows.Forms.TextBox BTWTotaal;
         private System.Windows.Forms.TextBox BedragTotaal;
         private System.Windows.Forms.Label LabelTotaal;
@@ -306,5 +322,6 @@
         private System.Windows.Forms.Label LabelBTW;
         private System.Windows.Forms.Label LabelBedrag;
         private System.Windows.Forms.Label LabelTotaal2;
+        private System.Windows.Forms.CheckBox InterCompany;
     }
 }

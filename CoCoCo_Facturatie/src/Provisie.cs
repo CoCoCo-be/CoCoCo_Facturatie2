@@ -34,8 +34,28 @@ namespace CoCoCo_Facturatie
     #endregion
 
     #region ForeignKeys
-        public virtual ICollection<Factuur> Facturen { get; set; }
-        public virtual ICollection<Aanmaning> Aanmaningen { get; set; }
+        public virtual ICollection<Factuur> Facturen { get; }
+        public virtual ICollection<Aanmaning> Aanmaningen { get; }
     #endregion
+
+        public Provisie(Decimal _Ereloon, Decimal _BTW, Decimal _Gerechtskosten, Decimal _Totaal, Boolean _InterCompany)
+        {
+            Tijd = DateTime.Now;
+            Wie = Properties.Settings.Default.GebruikerInitialen;
+            DossierNummer = Variabelen.DossierNummer;
+            DossierNaam = Variabelen.DossierName;
+            Partij = Variabelen.Partij;
+            Ereloon = _Ereloon;
+            BTW = _BTW;
+            Gerechtskosten = _Gerechtskosten;
+            Totaal = _Totaal;
+            Betaald = false;
+            //OGMNummer = GenereerVolgendOGMNummer();
+            EreloonBetaald = 0;
+            BTWBetaald = 0;
+            GerechtskostenBetaald = 0;
+            Status = 0;
+            InterCompany = _InterCompany;
+        }
     }
 }
