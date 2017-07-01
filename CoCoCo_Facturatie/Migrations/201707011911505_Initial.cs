@@ -1,6 +1,7 @@
 namespace CoCoCo_Facturatie.Migrations
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Migrations;
     
     public partial class Initial : DbMigration
@@ -12,7 +13,7 @@ namespace CoCoCo_Facturatie.Migrations
                 c => new
                     {
                         AanmaningId = c.Int(nullable: false, identity: true),
-                        Tijd = c.DateTime(nullable: false, precision: 0),
+                        Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP()"),
                         Wie = c.String(nullable: false, maxLength: 2, storeType: "nvarchar"),
                         DossierNummer = c.String(nullable: false, unicode: false),
                         DossierNaam = c.String(nullable: false, unicode: false),
@@ -35,7 +36,7 @@ namespace CoCoCo_Facturatie.Migrations
                 c => new
                     {
                         EreloonNotaId = c.Int(nullable: false, identity: true),
-                        Tijd = c.DateTime(nullable: false, precision: 0),
+                        Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP()"),
                         Wie = c.String(nullable: false, maxLength: 2, storeType: "nvarchar"),
                         DossierNummer = c.String(nullable: false, unicode: false),
                         DossierNaam = c.String(nullable: false, unicode: false),
@@ -64,42 +65,42 @@ namespace CoCoCo_Facturatie.Migrations
                 .PrimaryKey(t => t.EreloonNotaId)
                 .ForeignKey("dbo.KostenSchemas", t => t.KostenSchema_KostenSchemaId, cascadeDelete: true)
                 .Index(t => t.KostenSchema_KostenSchemaId);
-            
+
             CreateTable(
                 "dbo.Facturen",
                 c => new
-                    {
-                        FactuurJaar = c.Int(nullable: false),
-                        FactuurID = c.Int(nullable: false),
-                        Tijd = c.DateTime(nullable: false, precision: 0),
-                        Wie = c.String(nullable: false, maxLength: 2, storeType: "nvarchar"),
-                        DossierNummer = c.String(nullable: false, unicode: false),
-                        DossierNaam = c.String(nullable: false, unicode: false),
-                        Partij_AanspreekTitel = c.String(nullable: false, unicode: false),
-                        Partij_Naam = c.String(nullable: false, unicode: false),
-                        Partij_Adres = c.String(nullable: false, unicode: false),
-                        Partij_Adres2 = c.String(nullable: false, unicode: false),
-                        BijkomendeKosten = c.Decimal(precision: 18, scale: 2),
-                        Forfait = c.Decimal(precision: 18, scale: 2),
-                        EreloonUren = c.Time(precision: 0),
-                        WachtUren = c.Time(precision: 0),
-                        BTW = c.Decimal(precision: 18, scale: 2),
-                        Rolzetting = c.Decimal(precision: 18, scale: 2),
-                        Dagvaarding = c.Decimal(precision: 18, scale: 2),
-                        Betekening = c.Decimal(precision: 18, scale: 2),
-                        Uitvoering = c.Decimal(precision: 18, scale: 2),
-                        Anderen = c.Decimal(precision: 18, scale: 2),
-                        Derden = c.Decimal(precision: 18, scale: 2),
-                        Totaal = c.Decimal(precision: 18, scale: 2),
-                        ProvisieErelonen = c.Decimal(precision: 18, scale: 2),
-                        ProvisieBTW = c.Decimal(precision: 18, scale: 2),
-                        ProvisiegerechtsKosten = c.Decimal(precision: 18, scale: 2),
-                        Totaal1 = c.Decimal(precision: 18, scale: 2),
-                        Discriminator = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
-                        KostenSchema_KostenSchemaId = c.Int(),
-                        EreloonNota_EreloonNotaId = c.Int(),
-                        Provisie_ProvisieId = c.Int(),
-                    })
+                {
+                    FactuurJaar = c.Int(nullable: false),
+                    FactuurID = c.Int(nullable: false),
+                    Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                    Wie = c.String(nullable: false, maxLength: 2, storeType: "nvarchar"),
+                    DossierNummer = c.String(nullable: false, unicode: false),
+                    DossierNaam = c.String(nullable: false, unicode: false),
+                    Partij_AanspreekTitel = c.String(nullable: false, unicode: false),
+                    Partij_Naam = c.String(nullable: false, unicode: false),
+                    Partij_Adres = c.String(nullable: false, unicode: false),
+                    Partij_Adres2 = c.String(nullable: false, unicode: false),
+                    BijkomendeKosten = c.Decimal(precision: 18, scale: 2),
+                    Forfait = c.Decimal(precision: 18, scale: 2),
+                    EreloonUren = c.Time(precision: 0),
+                    WachtUren = c.Time(precision: 0),
+                    BTW = c.Decimal(precision: 18, scale: 2),
+                    Rolzetting = c.Decimal(precision: 18, scale: 2),
+                    Dagvaarding = c.Decimal(precision: 18, scale: 2),
+                    Betekening = c.Decimal(precision: 18, scale: 2),
+                    Uitvoering = c.Decimal(precision: 18, scale: 2),
+                    Anderen = c.Decimal(precision: 18, scale: 2),
+                    Derden = c.Decimal(precision: 18, scale: 2),
+                    Totaal = c.Decimal(precision: 18, scale: 2),
+                    ProvisieErelonen = c.Decimal(precision: 18, scale: 2),
+                    ProvisieBTW = c.Decimal(precision: 18, scale: 2),
+                    ProvisiegerechtsKosten = c.Decimal(precision: 18, scale: 2),
+                    Totaal1 = c.Decimal(precision: 18, scale: 2),
+                    Discriminator = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
+                    KostenSchema_KostenSchemaId = c.Int(),
+                    EreloonNota_EreloonNotaId = c.Int(),
+                    Provisie_ProvisieId = c.Int(),
+                })
                 .PrimaryKey(t => new { t.FactuurJaar, t.FactuurID })
                 .ForeignKey("dbo.KostenSchemas", t => t.KostenSchema_KostenSchemaId, cascadeDelete: true)
                 .ForeignKey("dbo.EreloonNotas", t => t.EreloonNota_EreloonNotaId)
@@ -107,7 +108,7 @@ namespace CoCoCo_Facturatie.Migrations
                 .Index(t => t.KostenSchema_KostenSchemaId)
                 .Index(t => t.EreloonNota_EreloonNotaId)
                 .Index(t => t.Provisie_ProvisieId);
-            
+
             CreateTable(
                 "dbo.KostenSchemas",
                 c => new
@@ -130,7 +131,7 @@ namespace CoCoCo_Facturatie.Migrations
                 c => new
                     {
                         ProvisieId = c.Int(nullable: false, identity: true),
-                        Tijd = c.DateTime(nullable: false, precision: 0),
+                        Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP()"),
                         Wie = c.String(nullable: false, maxLength: 2, storeType: "nvarchar"),
                         DossierNummer = c.String(nullable: false, unicode: false),
                         DossierNaam = c.String(nullable: false, unicode: false),

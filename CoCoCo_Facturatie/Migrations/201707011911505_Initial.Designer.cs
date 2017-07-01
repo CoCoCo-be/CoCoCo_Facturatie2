@@ -13,7 +13,7 @@ namespace CoCoCo_Facturatie.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201706242053509_Initial"; }
+            get { return "201707011911505_Initial"; }
         }
         
         string IMigrationMetadata.Source

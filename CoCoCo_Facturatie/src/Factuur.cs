@@ -11,9 +11,9 @@ namespace CoCoCo_Facturatie
     #region Fields
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None), Column(Order = 1)]
         public int FactuurJaar { get; set; }
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Computed), Column(Order = 2)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Column(Order = 2), Index(IsUnique = true)]
         public int FactuurID { get; set; }
-        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime Tijd { get; set; }
         [Required, StringLength(2)]
         public String Wie { get; set; }

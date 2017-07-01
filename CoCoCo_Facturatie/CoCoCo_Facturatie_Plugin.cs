@@ -11,7 +11,7 @@ namespace CoCoCo_Facturatie
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<FacturatieModel, Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<FacturatieModel, Configuration>());
 
             try
             {

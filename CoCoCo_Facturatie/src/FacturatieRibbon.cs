@@ -14,8 +14,6 @@ namespace CoCoCo_Facturatie
 
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "wil")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "voor")]
         private void ProvisieNota_Click(object sender, RibbonControlEventArgs e)
         {
             Boolean einde = false;
@@ -50,6 +48,7 @@ namespace CoCoCo_Facturatie
                     Convert.ToDecimal(form.Gerechtskosten), Convert.ToDecimal(form.Totaal), form.IC);
 
                 context.Provisies.Add(provisie);
+                provisie.PrintText(Globals.CoCoCo_Facturatie_Plugin.Application.Selection);
                 context.SaveChanges();
             }
         }
