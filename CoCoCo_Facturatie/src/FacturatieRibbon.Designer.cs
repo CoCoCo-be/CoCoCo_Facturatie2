@@ -36,15 +36,18 @@
         {
             this.Facturatietab1 = this.Factory.CreateRibbonTab();
             this.FacturatieGroep1 = this.Factory.CreateRibbonGroup();
-            this.FacturatieGroep2 = this.Factory.CreateRibbonGroup();
             this.ProvisieNota = this.Factory.CreateRibbonButton();
             this.EreloonNota = this.Factory.CreateRibbonButton();
             this.DerdenGeldenNota = this.Factory.CreateRibbonButton();
+            this.FacturatieGroep2 = this.Factory.CreateRibbonGroup();
             this.Facturen = this.Factory.CreateRibbonButton();
             this.BetalingsOverzicht = this.Factory.CreateRibbonButton();
+            this.Gegevens = this.Factory.CreateRibbonGroup();
+            this.LeesCSV = this.Factory.CreateRibbonButton();
             this.Facturatietab1.SuspendLayout();
             this.FacturatieGroep1.SuspendLayout();
             this.FacturatieGroep2.SuspendLayout();
+            this.Gegevens.SuspendLayout();
             this.SuspendLayout();
             // 
             // Facturatietab1
@@ -52,6 +55,7 @@
             this.Facturatietab1.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
             this.Facturatietab1.Groups.Add(this.FacturatieGroep1);
             this.Facturatietab1.Groups.Add(this.FacturatieGroep2);
+            this.Facturatietab1.Groups.Add(this.Gegevens);
             this.Facturatietab1.Label = "Advogenk";
             this.Facturatietab1.Name = "Facturatietab1";
             // 
@@ -62,13 +66,6 @@
             this.FacturatieGroep1.Items.Add(this.DerdenGeldenNota);
             this.FacturatieGroep1.Label = "Invoegen";
             this.FacturatieGroep1.Name = "FacturatieGroep1";
-            // 
-            // FacturatieGroep2
-            // 
-            this.FacturatieGroep2.Items.Add(this.Facturen);
-            this.FacturatieGroep2.Items.Add(this.BetalingsOverzicht);
-            this.FacturatieGroep2.Label = "Overzichten";
-            this.FacturatieGroep2.Name = "FacturatieGroep2";
             // 
             // ProvisieNota
             // 
@@ -86,6 +83,7 @@
             this.EreloonNota.Label = "Ereloon Nota";
             this.EreloonNota.Name = "EreloonNota";
             this.EreloonNota.ShowImage = true;
+            this.EreloonNota.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.EreloonNota_Click);
             // 
             // DerdenGeldenNota
             // 
@@ -94,6 +92,13 @@
             this.DerdenGeldenNota.Label = "Derden Gelden Nota";
             this.DerdenGeldenNota.Name = "DerdenGeldenNota";
             this.DerdenGeldenNota.ShowImage = true;
+            // 
+            // FacturatieGroep2
+            // 
+            this.FacturatieGroep2.Items.Add(this.Facturen);
+            this.FacturatieGroep2.Items.Add(this.BetalingsOverzicht);
+            this.FacturatieGroep2.Label = "Overzichten";
+            this.FacturatieGroep2.Name = "FacturatieGroep2";
             // 
             // Facturen
             // 
@@ -111,6 +116,20 @@
             this.BetalingsOverzicht.Name = "BetalingsOverzicht";
             this.BetalingsOverzicht.ShowImage = true;
             // 
+            // Gegevens
+            // 
+            this.Gegevens.Items.Add(this.LeesCSV);
+            this.Gegevens.Label = "Gegevens";
+            this.Gegevens.Name = "Gegevens";
+            // 
+            // LeesCSV
+            // 
+            this.LeesCSV.Image = global::CoCoCo_Facturatie.Properties.Resources.group;
+            this.LeesCSV.Label = "Lees partij informatie";
+            this.LeesCSV.Name = "LeesCSV";
+            this.LeesCSV.ShowImage = true;
+            this.LeesCSV.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.LeesCSV_Click);
+            // 
             // FacturatieRibbon
             // 
             this.Name = "FacturatieRibbon";
@@ -123,6 +142,8 @@
             this.FacturatieGroep1.PerformLayout();
             this.FacturatieGroep2.ResumeLayout(false);
             this.FacturatieGroep2.PerformLayout();
+            this.Gegevens.ResumeLayout(false);
+            this.Gegevens.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -137,6 +158,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup FacturatieGroep2;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Facturen;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton BetalingsOverzicht;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup Gegevens;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton LeesCSV;
     }
 
     partial class ThisRibbonCollection

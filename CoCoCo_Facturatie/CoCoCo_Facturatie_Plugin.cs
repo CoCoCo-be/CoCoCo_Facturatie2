@@ -11,18 +11,12 @@ namespace CoCoCo_Facturatie
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<FacturatieModel, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<FacturatieModel, Configuration>());
 
             try
             {
                 if (! Variabelen.LeesCSV())
-                {
-                    var ribbon = Globals.Ribbons.FacturatieRibbon;
-                    ribbon.ProvisieNota.Enabled = false;
-                    ribbon.EreloonNota.Enabled = false;
-                    ribbon.DerdenGeldenNota.Enabled = false;
-                    ribbon.Facturen.Enabled = false;
-                }
+                    Globals.Ribbons.FacturatieRibbon.ToggleKnoppen(false);
             }
             catch (Exception ex)
             {
