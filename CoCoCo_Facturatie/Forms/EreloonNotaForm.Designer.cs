@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabEreloonNotaForm = new System.Windows.Forms.TabControl();
             this.tabBureelKosten = new System.Windows.Forms.TabPage();
             this.ForfaitBedrag = new System.Windows.Forms.TextBox();
@@ -70,6 +71,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.tabKostenSchema = new System.Windows.Forms.TabPage();
             this.KostenSchemaCB = new System.Windows.Forms.ComboBox();
+            this.KostenSchemaButton = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
             this.tabOverzicht = new System.Windows.Forms.TabPage();
             this.label26 = new System.Windows.Forms.Label();
@@ -85,13 +87,16 @@
             this.label25 = new System.Windows.Forms.Label();
             this.CancelButton1 = new System.Windows.Forms.Button();
             this.OKButton = new System.Windows.Forms.Button();
-            this.KostenSchemaButton = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabEreloonNotaForm.SuspendLayout();
             this.tabBureelKosten.SuspendLayout();
             this.TabErelonen.SuspendLayout();
             this.tabGerechtskosten.SuspendLayout();
             this.tabKostenSchema.SuspendLayout();
             this.tabOverzicht.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
             this.SuspendLayout();
             // 
             // tabEreloonNotaForm
@@ -143,7 +148,7 @@
             this.ForfaitBedrag.Location = new System.Drawing.Point(312, 167);
             this.ForfaitBedrag.Name = "ForfaitBedrag";
             this.ForfaitBedrag.Size = new System.Drawing.Size(100, 26);
-            this.ForfaitBedrag.TabIndex = 2;
+            this.ForfaitBedrag.TabIndex = 6;
             this.ForfaitBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // BijkomendeKostenBedrag
@@ -152,7 +157,7 @@
             this.BijkomendeKostenBedrag.Location = new System.Drawing.Point(312, 135);
             this.BijkomendeKostenBedrag.Name = "BijkomendeKostenBedrag";
             this.BijkomendeKostenBedrag.Size = new System.Drawing.Size(100, 26);
-            this.BijkomendeKostenBedrag.TabIndex = 2;
+            this.BijkomendeKostenBedrag.TabIndex = 5;
             this.BijkomendeKostenBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // VerplaatsingAantal
@@ -161,7 +166,8 @@
             this.VerplaatsingAantal.Location = new System.Drawing.Point(312, 103);
             this.VerplaatsingAantal.Name = "VerplaatsingAantal";
             this.VerplaatsingAantal.Size = new System.Drawing.Size(100, 26);
-            this.VerplaatsingAantal.TabIndex = 2;
+            this.VerplaatsingAantal.TabIndex = 4;
+            this.VerplaatsingAantal.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.VerplaatsingAantal.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // MailAantal
@@ -170,7 +176,8 @@
             this.MailAantal.Location = new System.Drawing.Point(312, 71);
             this.MailAantal.Name = "MailAantal";
             this.MailAantal.Size = new System.Drawing.Size(100, 26);
-            this.MailAantal.TabIndex = 2;
+            this.MailAantal.TabIndex = 3;
+            this.MailAantal.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.MailAantal.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // FotokopiesAantal
@@ -180,6 +187,7 @@
             this.FotokopiesAantal.Name = "FotokopiesAantal";
             this.FotokopiesAantal.Size = new System.Drawing.Size(100, 26);
             this.FotokopiesAantal.TabIndex = 2;
+            this.FotokopiesAantal.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.FotokopiesAantal.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // DactyloAantal
@@ -188,7 +196,8 @@
             this.DactyloAantal.Location = new System.Drawing.Point(312, 7);
             this.DactyloAantal.Name = "DactyloAantal";
             this.DactyloAantal.Size = new System.Drawing.Size(100, 26);
-            this.DactyloAantal.TabIndex = 2;
+            this.DactyloAantal.TabIndex = 1;
+            this.DactyloAantal.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.DactyloAantal.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // label5
@@ -337,7 +346,7 @@
             this.VerplaatsingMinuten.Location = new System.Drawing.Point(367, 39);
             this.VerplaatsingMinuten.Name = "VerplaatsingMinuten";
             this.VerplaatsingMinuten.Size = new System.Drawing.Size(32, 26);
-            this.VerplaatsingMinuten.TabIndex = 5;
+            this.VerplaatsingMinuten.TabIndex = 4;
             this.VerplaatsingMinuten.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // VerplaatsingUren
@@ -346,7 +355,7 @@
             this.VerplaatsingUren.Location = new System.Drawing.Point(264, 39);
             this.VerplaatsingUren.Name = "VerplaatsingUren";
             this.VerplaatsingUren.Size = new System.Drawing.Size(32, 26);
-            this.VerplaatsingUren.TabIndex = 5;
+            this.VerplaatsingUren.TabIndex = 3;
             this.VerplaatsingUren.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // EreloonMinuten
@@ -355,7 +364,7 @@
             this.EreloonMinuten.Location = new System.Drawing.Point(367, 7);
             this.EreloonMinuten.Name = "EreloonMinuten";
             this.EreloonMinuten.Size = new System.Drawing.Size(32, 26);
-            this.EreloonMinuten.TabIndex = 6;
+            this.EreloonMinuten.TabIndex = 2;
             this.EreloonMinuten.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // EreloonUren
@@ -364,7 +373,7 @@
             this.EreloonUren.Location = new System.Drawing.Point(264, 7);
             this.EreloonUren.Name = "EreloonUren";
             this.EreloonUren.Size = new System.Drawing.Size(32, 26);
-            this.EreloonUren.TabIndex = 6;
+            this.EreloonUren.TabIndex = 1;
             this.EreloonUren.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // label15
@@ -465,7 +474,7 @@
             this.AndereBedrag.Location = new System.Drawing.Point(312, 135);
             this.AndereBedrag.Name = "AndereBedrag";
             this.AndereBedrag.Size = new System.Drawing.Size(100, 26);
-            this.AndereBedrag.TabIndex = 8;
+            this.AndereBedrag.TabIndex = 5;
             this.AndereBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // UitvoeringBedrag
@@ -474,7 +483,7 @@
             this.UitvoeringBedrag.Location = new System.Drawing.Point(312, 103);
             this.UitvoeringBedrag.Name = "UitvoeringBedrag";
             this.UitvoeringBedrag.Size = new System.Drawing.Size(100, 26);
-            this.UitvoeringBedrag.TabIndex = 9;
+            this.UitvoeringBedrag.TabIndex = 4;
             this.UitvoeringBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // BetekeningBedrag
@@ -483,7 +492,7 @@
             this.BetekeningBedrag.Location = new System.Drawing.Point(312, 71);
             this.BetekeningBedrag.Name = "BetekeningBedrag";
             this.BetekeningBedrag.Size = new System.Drawing.Size(100, 26);
-            this.BetekeningBedrag.TabIndex = 10;
+            this.BetekeningBedrag.TabIndex = 3;
             this.BetekeningBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // DagvaardingBedrag
@@ -492,7 +501,7 @@
             this.DagvaardingBedrag.Location = new System.Drawing.Point(312, 39);
             this.DagvaardingBedrag.Name = "DagvaardingBedrag";
             this.DagvaardingBedrag.Size = new System.Drawing.Size(100, 26);
-            this.DagvaardingBedrag.TabIndex = 11;
+            this.DagvaardingBedrag.TabIndex = 2;
             this.DagvaardingBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // RolzettingBedrag
@@ -501,7 +510,7 @@
             this.RolzettingBedrag.Location = new System.Drawing.Point(312, 7);
             this.RolzettingBedrag.Name = "RolzettingBedrag";
             this.RolzettingBedrag.Size = new System.Drawing.Size(100, 26);
-            this.RolzettingBedrag.TabIndex = 12;
+            this.RolzettingBedrag.TabIndex = 1;
             this.RolzettingBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // label16
@@ -585,6 +594,18 @@
             this.KostenSchemaCB.Size = new System.Drawing.Size(384, 30);
             this.KostenSchemaCB.TabIndex = 3;
             this.KostenSchemaCB.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
+            // 
+            // KostenSchemaButton
+            // 
+            this.KostenSchemaButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.KostenSchemaButton.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KostenSchemaButton.Location = new System.Drawing.Point(309, 96);
+            this.KostenSchemaButton.Name = "KostenSchemaButton";
+            this.KostenSchemaButton.Size = new System.Drawing.Size(140, 32);
+            this.KostenSchemaButton.TabIndex = 3;
+            this.KostenSchemaButton.Text = "Kostenschema\'s";
+            this.KostenSchemaButton.UseVisualStyleBackColor = true;
+            this.KostenSchemaButton.Click += new System.EventHandler(this.KostenSchemaButton_Click);
             // 
             // label21
             // 
@@ -757,7 +778,7 @@
             this.CancelButton1.Location = new System.Drawing.Point(405, 248);
             this.CancelButton1.Name = "CancelButton1";
             this.CancelButton1.Size = new System.Drawing.Size(100, 32);
-            this.CancelButton1.TabIndex = 4;
+            this.CancelButton1.TabIndex = 11;
             this.CancelButton1.Text = "Cancel";
             this.CancelButton1.UseVisualStyleBackColor = true;
             // 
@@ -769,22 +790,18 @@
             this.OKButton.Location = new System.Drawing.Point(288, 249);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(100, 32);
-            this.OKButton.TabIndex = 3;
+            this.OKButton.TabIndex = 10;
             this.OKButton.Text = "OK";
             this.OKButton.UseVisualStyleBackColor = true;
             this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
-            // KostenSchemaButton
+            // errorProvider1
             // 
-            this.KostenSchemaButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.KostenSchemaButton.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KostenSchemaButton.Location = new System.Drawing.Point(309, 96);
-            this.KostenSchemaButton.Name = "KostenSchemaButton";
-            this.KostenSchemaButton.Size = new System.Drawing.Size(140, 32);
-            this.KostenSchemaButton.TabIndex = 3;
-            this.KostenSchemaButton.Text = "Kostenschema\'s";
-            this.KostenSchemaButton.UseVisualStyleBackColor = true;
-            this.KostenSchemaButton.Click += new System.EventHandler(this.KostenSchemaButton_Click);
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // errorProvider2
+            // 
+            this.errorProvider2.ContainerControl = this;
             // 
             // EreloonNotaForm
             // 
@@ -810,6 +827,8 @@
             this.tabKostenSchema.PerformLayout();
             this.tabOverzicht.ResumeLayout(false);
             this.tabOverzicht.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -874,5 +893,7 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Button KostenSchemaButton;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ErrorProvider errorProvider2;
     }
 }

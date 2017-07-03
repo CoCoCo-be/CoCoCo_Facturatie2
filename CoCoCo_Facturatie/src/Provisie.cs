@@ -44,7 +44,7 @@ namespace CoCoCo_Facturatie
             Tijd = DateTime.Now;
             Wie = Properties.Settings.Default.GebruikerInitialen;
             DossierNummer = Variabelen.DossierNummer;
-            DossierNaam = Variabelen.DossierName;
+            DossierNaam = Variabelen.DossierNaam;
             Partij = Variabelen.Partij;
             Ereloon = _Ereloon;
             BTW = _BTW;

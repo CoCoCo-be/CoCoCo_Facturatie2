@@ -9,14 +9,13 @@ namespace CoCoCo_Facturatie.Migrations
         {
             CreateIndex("dbo.Facturen", "FactuurID");
 
-            Sql(
-                "ALTER TABLE `Facturen` CHANGE `FactuurID` `FactuurID` INT(11) NOT NULL AUTO_INCREMENT;");
+            Sql( "ALTER TABLE `Facturen` CHANGE `FactuurID` `FactuurID` INT(11) NOT NULL AUTO_INCREMENT;" );
         }
         
         public override void Down()
         {
-            Sql(
-                "ALTER TABLE `Facturen` CHANGE `FactuurID` `FactuurID` INT(11) NOT NULL;");
+            Sql( "ALTER TABLE `Facturen` CHANGE `FactuurID` `FactuurID` INT(11) NOT NULL;");
+
             DropIndex("dbo.Facturen", new[] { "FactuurID" });
         }
     }

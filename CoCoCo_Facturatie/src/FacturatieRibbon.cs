@@ -69,7 +69,7 @@ namespace CoCoCo_Facturatie
 
                 if (form.DialogResult == System.Windows.Forms.DialogResult.OK)
                 {
-                    Double Totaal = form.Totaal;
+                    Decimal Totaal = form.Totaal;
                     DialogResult Bevestigd = MessageBox.Show("Klopt het dat je een ereloon nota voor " + Totaal.ToString("C", Variabelen.Cultuur) + " wil invoegen?",
                         "Bevestiging", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (Bevestigd == DialogResult.Yes)

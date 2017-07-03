@@ -11,13 +11,17 @@ namespace CoCoCo_Facturatie
     {
         public static Partij Partij { get; set; }
         public static String DossierNummer { get; set; }
-        public static String DossierName { get; set; }
+        public static String DossierNaam { get; set; }
+        public static String Wie { get; internal set; }
+
         public static CultureInfo Cultuur = new CultureInfo("nl-BE");
         public static NumberStyles NummerStijl = NumberStyles.Currency ;
         
         public static Boolean LeesCSV()
         {
             Boolean result = false;
+
+            Wie = Properties.Settings.Default.GebruikerInitialen;
             try
             {
                 using (var reader = new StreamReader(Properties.Settings.Default.PartijFile))
@@ -28,7 +32,7 @@ namespace CoCoCo_Facturatie
                         var line = reader.ReadLine();
                         var values = line.Split(';');
                         DossierNummer = values[0];
-                        DossierName = values[1];
+                        DossierNaam = values[1];
                         Partij = new Partij(values[2], values[3], values[4], values[5]);
                         result = true;
                     }
