@@ -42,7 +42,7 @@ namespace CoCoCo_Facturatie
         public Provisie(Decimal _Ereloon, Decimal _BTW, Decimal _Gerechtskosten, Decimal _Totaal, Boolean _InterCompany)
         {
             Tijd = DateTime.Now;
-            Wie = Properties.Settings.Default.GebruikerInitialen;
+            Wie = Variabelen.Wie;
             DossierNummer = Variabelen.DossierNummer;
             DossierNaam = Variabelen.DossierNaam;
             Partij = Variabelen.Partij;

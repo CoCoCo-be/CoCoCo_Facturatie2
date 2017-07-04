@@ -88,7 +88,6 @@
             this.CancelButton1 = new System.Windows.Forms.Button();
             this.OKButton = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabEreloonNotaForm.SuspendLayout();
             this.tabBureelKosten.SuspendLayout();
             this.TabErelonen.SuspendLayout();
@@ -96,7 +95,6 @@
             this.tabKostenSchema.SuspendLayout();
             this.tabOverzicht.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
             this.SuspendLayout();
             // 
             // tabEreloonNotaForm
@@ -149,6 +147,8 @@
             this.ForfaitBedrag.Name = "ForfaitBedrag";
             this.ForfaitBedrag.Size = new System.Drawing.Size(100, 26);
             this.ForfaitBedrag.TabIndex = 6;
+            this.ForfaitBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ForfaitBedrag.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_CurrentValidation);
             this.ForfaitBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // BijkomendeKostenBedrag
@@ -158,6 +158,8 @@
             this.BijkomendeKostenBedrag.Name = "BijkomendeKostenBedrag";
             this.BijkomendeKostenBedrag.Size = new System.Drawing.Size(100, 26);
             this.BijkomendeKostenBedrag.TabIndex = 5;
+            this.BijkomendeKostenBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.BijkomendeKostenBedrag.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_CurrentValidation);
             this.BijkomendeKostenBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // VerplaatsingAantal
@@ -167,6 +169,7 @@
             this.VerplaatsingAantal.Name = "VerplaatsingAantal";
             this.VerplaatsingAantal.Size = new System.Drawing.Size(100, 26);
             this.VerplaatsingAantal.TabIndex = 4;
+            this.VerplaatsingAantal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.VerplaatsingAantal.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.VerplaatsingAantal.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
@@ -177,6 +180,7 @@
             this.MailAantal.Name = "MailAantal";
             this.MailAantal.Size = new System.Drawing.Size(100, 26);
             this.MailAantal.TabIndex = 3;
+            this.MailAantal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.MailAantal.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.MailAantal.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
@@ -187,6 +191,7 @@
             this.FotokopiesAantal.Name = "FotokopiesAantal";
             this.FotokopiesAantal.Size = new System.Drawing.Size(100, 26);
             this.FotokopiesAantal.TabIndex = 2;
+            this.FotokopiesAantal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.FotokopiesAantal.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.FotokopiesAantal.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
@@ -197,6 +202,7 @@
             this.DactyloAantal.Name = "DactyloAantal";
             this.DactyloAantal.Size = new System.Drawing.Size(100, 26);
             this.DactyloAantal.TabIndex = 1;
+            this.DactyloAantal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.DactyloAantal.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.DactyloAantal.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
@@ -347,6 +353,8 @@
             this.VerplaatsingMinuten.Name = "VerplaatsingMinuten";
             this.VerplaatsingMinuten.Size = new System.Drawing.Size(32, 26);
             this.VerplaatsingMinuten.TabIndex = 4;
+            this.VerplaatsingMinuten.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.VerplaatsingMinuten.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.VerplaatsingMinuten.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // VerplaatsingUren
@@ -356,6 +364,8 @@
             this.VerplaatsingUren.Name = "VerplaatsingUren";
             this.VerplaatsingUren.Size = new System.Drawing.Size(32, 26);
             this.VerplaatsingUren.TabIndex = 3;
+            this.VerplaatsingUren.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.VerplaatsingUren.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.VerplaatsingUren.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // EreloonMinuten
@@ -365,6 +375,8 @@
             this.EreloonMinuten.Name = "EreloonMinuten";
             this.EreloonMinuten.Size = new System.Drawing.Size(32, 26);
             this.EreloonMinuten.TabIndex = 2;
+            this.EreloonMinuten.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.EreloonMinuten.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.EreloonMinuten.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // EreloonUren
@@ -374,6 +386,8 @@
             this.EreloonUren.Name = "EreloonUren";
             this.EreloonUren.Size = new System.Drawing.Size(32, 26);
             this.EreloonUren.TabIndex = 1;
+            this.EreloonUren.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.EreloonUren.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_IntValidating);
             this.EreloonUren.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // label15
@@ -475,6 +489,8 @@
             this.AndereBedrag.Name = "AndereBedrag";
             this.AndereBedrag.Size = new System.Drawing.Size(100, 26);
             this.AndereBedrag.TabIndex = 5;
+            this.AndereBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.AndereBedrag.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_CurrentValidation);
             this.AndereBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // UitvoeringBedrag
@@ -484,6 +500,8 @@
             this.UitvoeringBedrag.Name = "UitvoeringBedrag";
             this.UitvoeringBedrag.Size = new System.Drawing.Size(100, 26);
             this.UitvoeringBedrag.TabIndex = 4;
+            this.UitvoeringBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.UitvoeringBedrag.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_CurrentValidation);
             this.UitvoeringBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // BetekeningBedrag
@@ -493,6 +511,8 @@
             this.BetekeningBedrag.Name = "BetekeningBedrag";
             this.BetekeningBedrag.Size = new System.Drawing.Size(100, 26);
             this.BetekeningBedrag.TabIndex = 3;
+            this.BetekeningBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.BetekeningBedrag.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_CurrentValidation);
             this.BetekeningBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // DagvaardingBedrag
@@ -502,6 +522,8 @@
             this.DagvaardingBedrag.Name = "DagvaardingBedrag";
             this.DagvaardingBedrag.Size = new System.Drawing.Size(100, 26);
             this.DagvaardingBedrag.TabIndex = 2;
+            this.DagvaardingBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.DagvaardingBedrag.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_CurrentValidation);
             this.DagvaardingBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // RolzettingBedrag
@@ -511,6 +533,8 @@
             this.RolzettingBedrag.Name = "RolzettingBedrag";
             this.RolzettingBedrag.Size = new System.Drawing.Size(100, 26);
             this.RolzettingBedrag.TabIndex = 1;
+            this.RolzettingBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.RolzettingBedrag.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_CurrentValidation);
             this.RolzettingBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // label16
@@ -593,6 +617,7 @@
             this.KostenSchemaCB.Name = "KostenSchemaCB";
             this.KostenSchemaCB.Size = new System.Drawing.Size(384, 30);
             this.KostenSchemaCB.TabIndex = 3;
+            this.KostenSchemaCB.Validating += new System.ComponentModel.CancelEventHandler(this.KostenSchemaCB_Validating);
             this.KostenSchemaCB.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // KostenSchemaButton
@@ -661,6 +686,7 @@
             this.TotaalBedrag.Size = new System.Drawing.Size(100, 23);
             this.TotaalBedrag.TabIndex = 7;
             this.TotaalBedrag.TabStop = false;
+            this.TotaalBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // DerdenBedrag
             // 
@@ -669,6 +695,8 @@
             this.DerdenBedrag.Name = "DerdenBedrag";
             this.DerdenBedrag.Size = new System.Drawing.Size(100, 26);
             this.DerdenBedrag.TabIndex = 7;
+            this.DerdenBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.DerdenBedrag.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_CurrentValidation);
             this.DerdenBedrag.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // ProvisieGerechtskostenBedrag
@@ -683,6 +711,7 @@
             this.ProvisieGerechtskostenBedrag.Size = new System.Drawing.Size(100, 19);
             this.ProvisieGerechtskostenBedrag.TabIndex = 8;
             this.ProvisieGerechtskostenBedrag.TabStop = false;
+            this.ProvisieGerechtskostenBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // ProvisieErelonenBedrag
             // 
@@ -696,6 +725,7 @@
             this.ProvisieErelonenBedrag.Size = new System.Drawing.Size(100, 19);
             this.ProvisieErelonenBedrag.TabIndex = 9;
             this.ProvisieErelonenBedrag.TabStop = false;
+            this.ProvisieErelonenBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // TeBetalenBedrag
             // 
@@ -709,6 +739,7 @@
             this.TeBetalenBedrag.Size = new System.Drawing.Size(100, 19);
             this.TeBetalenBedrag.TabIndex = 10;
             this.TeBetalenBedrag.TabStop = false;
+            this.TeBetalenBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label27
             // 
@@ -793,15 +824,10 @@
             this.OKButton.TabIndex = 10;
             this.OKButton.Text = "OK";
             this.OKButton.UseVisualStyleBackColor = true;
-            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // errorProvider2
-            // 
-            this.errorProvider2.ContainerControl = this;
             // 
             // EreloonNotaForm
             // 
@@ -828,7 +854,6 @@
             this.tabOverzicht.ResumeLayout(false);
             this.tabOverzicht.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -894,6 +919,5 @@
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Button KostenSchemaButton;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.ErrorProvider errorProvider2;
     }
 }

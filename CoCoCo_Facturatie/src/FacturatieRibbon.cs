@@ -54,12 +54,14 @@ namespace CoCoCo_Facturatie
                 context.SaveChanges();
             }
             #endregion
+
+            form.Dispose();    
         }
 
         private void EreloonNota_Click(object sender, RibbonControlEventArgs e)
         {
             Boolean einde = false;
-            //EreloonNota ereloonNota = null;
+            EreloonNota ereLoonNota = null;
             EreloonNotaForm form = new EreloonNotaForm();
 
             #region Bevestiging
@@ -85,6 +87,18 @@ namespace CoCoCo_Facturatie
                 }
             }
             #endregion
+
+            #region Vul text in en bewaar ereloon
+            using (var context = new FacturatieModel())
+            {
+                ereLoonNota = form.EreloonNota;
+                context.EreloonNotas.Add(ereLoonNota);
+                ereLoonNota.PrintText(Globals.CoCoCo_Facturatie_Plugin.Application.Selection);
+                context.SaveChanges();
+            }
+            #endregion
+
+                form.Dispose();
         }
 
         private void LeesCSV_Click(object sender, RibbonControlEventArgs e)

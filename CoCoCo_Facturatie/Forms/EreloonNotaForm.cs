@@ -17,9 +17,9 @@ namespace CoCoCo_Facturatie
         private static CultureInfo Culture = Variabelen.Cultuur;
         private static NumberStyles Style = Variabelen.NummerStijl;
         public decimal Totaal = 0;
-        public decimal provisiesErelonen, provisiesGerechtsKosten = 0;
+        public int ereloonUrenWaarde, ereloonMinutenWaarde, verplaatsingUrenWaarde, verplaatsingMinutenWaarde = 0;
         IList<KostenSchema> kostenSchemasLijst;
-        EreloonNota ereloonNota = new EreloonNota();
+        public EreloonNota EreloonNota { get; } = new EreloonNota();
         #endregion
 
         public EreloonNotaForm()
@@ -35,27 +35,92 @@ namespace CoCoCo_Facturatie
                 KostenSchemaCB.DataSource = kostenSchemasLijst;
                 KostenSchemaCB.ValueMember = "KostenSchemaId";
                 KostenSchemaCB.DisplayMember = "Naam";
+                EreloonNota.KostenSchema = (KostenSchema)KostenSchemaCB.SelectedItem;
             }
+            ProvisieGerechtskostenBedrag.Text = EreloonNota.TotaalProvisiesGerechtskosten.ToString("C", Culture);
+            ProvisieErelonenBedrag.Text = (EreloonNota.TotaalProvisiesGerechtskosten + EreloonNota.TotaalProvisiesBTW).ToString("C", Culture);
+        }
+
+        private void EreloonNotaForm_CurrentValidation(object sender, CancelEventArgs e)
+        {
+            if (decimal.TryParse(((TextBox)sender).Text, NumberStyles.Currency, Culture, out decimal waarde))
+            {
+                errorProvider1.Clear();
+                switch (((TextBox)sender).Name)
+                {
+                    case "BijkomendeKostenBedrag":
+                        EreloonNota.BijkomendeKosten = waarde;
+                        break;
+                    case "ForfaitBedrag":
+                        EreloonNota.Forfait = waarde;
+                        break;
+                    case "RolzettingBedrag":
+                        EreloonNota.Rolzetting = waarde;
+                        break;
+                    case "DagvaardingBedrag":
+                        EreloonNota.Dagvaarding = waarde;
+                        break;
+                    case "BetekeningBedrag":
+                        EreloonNota.Betekening = waarde;
+                        break;
+                    case "UitvoeringBedrag":
+                        EreloonNota.Uitvoering = waarde;
+                        break;
+                    case "AndereBedrag":
+                        EreloonNota.Anderen = waarde;
+                        break;
+                    case "DerdenBedrag":
+                        EreloonNota.Derden = waarde;
+                        break;
+                }
+                ((TextBox)sender).Text = waarde.ToString("C", Culture);
+            }
+            else
+            {
+                errorProvider1.SetError((TextBox)sender,"Alleen getallen");
+                e.Cancel = true;
+            }
+        }
+
+        private void KostenSchemaCB_Validating(object sender, CancelEventArgs e)
+        {
+            EreloonNota.KostenSchema = (KostenSchema)KostenSchemaCB.SelectedItem;
         }
 
         private void EreloonNotaForm_IntValidating(object sender, CancelEventArgs e)
         {
-            ushort waarde;
-            if (UInt16.TryParse(((TextBox)sender).Text, NumberStyles.Integer, Culture, out waarde))
+            if (UInt16.TryParse(((TextBox)sender).Text, NumberStyles.Integer, Culture, out ushort waarde))
             {
+                errorProvider1.Clear();
                 switch (((TextBox)sender).Name)
                 {
                     case "DactyloAantal":
-                        ereloonNota.Dactylo = waarde;
+                        EreloonNota.Dactylo = waarde;
                         break;
                     case "FotokopiesAantal":
-                        ereloonNota.Fotokopie = waarde;
+                        EreloonNota.Fotokopie = waarde;
                         break;
                     case "MailAantal":
-                        ereloonNota.Fax = waarde;
+                        EreloonNota.Fax = waarde;
                         break;
                     case "VerplaatsingAantal":
-                        ereloonNota.Verplaatsing = waarde;
+                        EreloonNota.Verplaatsing = waarde;
+                        break;
+                    case "EreloonUren":
+                        ereloonUrenWaarde = waarde;
+                        EreloonNota.EreloonUren = new TimeSpan(ereloonUrenWaarde, ereloonMinutenWaarde, 0);
+                        break;
+                    case "EreloonMinuten":
+                        ereloonMinutenWaarde = waarde;
+                        EreloonNota.EreloonUren = new TimeSpan(ereloonUrenWaarde, ereloonMinutenWaarde, 0);
+                        break;
+                    case "VerplaatsingUren":
+                        verplaatsingUrenWaarde = waarde;
+                        EreloonNota.WachtUren = new TimeSpan(verplaatsingUrenWaarde, verplaatsingMinutenWaarde, 0);
+                        break;
+                    case "VerplaatsingMinuten":
+                        verplaatsingMinutenWaarde = waarde;
+                        EreloonNota.WachtUren = new TimeSpan(verplaatsingUrenWaarde, verplaatsingMinutenWaarde, 0);
                         break;
                 }
             }
@@ -68,18 +133,11 @@ namespace CoCoCo_Facturatie
 
         private void EreloonNotaForm_Validated(object sender, EventArgs e)
         {
-            ereloonNota.Berekenen();
-            Totaal = ereloonNota.Totaal - provisiesErelonen - provisiesGerechtsKosten - ereloonNota.Derden;
-
-            TeBetalenBedrag.Text = ereloonNota.Totaal.ToString("C", Culture);
-            ProvisieErelonenBedrag.Text = provisiesErelonen.ToString("C", Culture);
-            ProvisieGerechtskostenBedrag.Text = provisiesGerechtsKosten.ToString("C", Culture);
+            EreloonNota.Berekenen();
+            Totaal = EreloonNota.Totaal - EreloonNota.TotaalProvisiesBTW - EreloonNota.TotaalProvisiesErelonen 
+                - EreloonNota.TotaalProvisiesGerechtskosten - EreloonNota.Derden;
+            TeBetalenBedrag.Text = EreloonNota.Totaal.ToString("C", Culture);
             TotaalBedrag.Text = Totaal.ToString("C", Culture);
-        }
-
-        private void OKButton_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void KostenSchemaButton_Click(object sender, EventArgs e)
