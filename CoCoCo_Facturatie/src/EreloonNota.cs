@@ -191,7 +191,7 @@ namespace CoCoCo_Facturatie
             if (WachtUren.Ticks > 0) InsertKostRij(tabel, "- verplaatsingen/wachtuur", WachtUren, KostenSchema.Wacht, "uren");
 
             cels.Merge();
-            cels[1].Range.Font.Bold = 0;
+            cels[1].Range.Font.Bold = 1;
             cels.Borders[WdBorderType.wdBorderBottom].Visible = true;
 
             if (totaalBTW > 0)
