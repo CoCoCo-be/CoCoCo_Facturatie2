@@ -92,6 +92,7 @@ namespace CoCoCo_Facturatie
             using (var context = new FacturatieModel())
             {
                 ereLoonNota = form.EreloonNota;
+                context.Entry(ereLoonNota.KostenSchema).State = System.Data.Entity.EntityState.Unchanged;
                 context.EreloonNotas.Add(ereLoonNota);
                 ereLoonNota.PrintText(Globals.CoCoCo_Facturatie_Plugin.Application.Selection);
                 context.SaveChanges();
