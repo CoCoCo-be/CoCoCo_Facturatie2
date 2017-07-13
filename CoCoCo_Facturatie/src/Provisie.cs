@@ -51,7 +51,7 @@ namespace CoCoCo_Facturatie
             Gerechtskosten = _Gerechtskosten;
             Totaal = _Totaal;
             Betaald = false;
-            //OGMNummer = GenereerVolgendOGMNummer();
+            OGMNummer = new OGMNummer(DossierNummer).ToString();
             EreloonBetaald = 0;
             BTWBetaald = 0;
             GerechtskostenBetaald = 0;

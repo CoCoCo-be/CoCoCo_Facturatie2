@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EreloonNota));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProvisieNotaForm));
             this.LabelEreloon = new System.Windows.Forms.Label();
             this.LabelGerechtskosten = new System.Windows.Forms.Label();
             this.EreloonBedrag = new System.Windows.Forms.TextBox();

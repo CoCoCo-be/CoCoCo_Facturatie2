@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EreloonNotaForm));
             this.tabEreloonNotaForm = new System.Windows.Forms.TabControl();
             this.tabBureelKosten = new System.Windows.Forms.TabPage();
             this.ForfaitBedrag = new System.Windows.Forms.TextBox();
@@ -839,6 +840,7 @@
             this.Controls.Add(this.tabEreloonNotaForm);
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.CancelButton1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EreloonNotaForm";
             this.Text = "EreloonNotaForm";
             this.Load += new System.EventHandler(this.EreloonNotaForm_Load);

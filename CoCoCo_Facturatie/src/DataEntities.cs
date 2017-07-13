@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace CoCoCo_Facturatie
@@ -76,4 +77,39 @@ namespace CoCoCo_Facturatie
     }
     
  
+    public class OGMNummer
+    {
+        #region Variables
+        String Dossier;
+        public int Year;
+        public int DossierNr;
+        #endregion  
+
+        public OGMNummer(string DossierNummer)
+        {
+            int positieMinTeken = DossierNummer.IndexOf("-");
+            if (positieMinTeken > 0)
+                Dossier = DossierNummer.Substring(0, positieMinTeken);
+            else
+                Dossier = DossierNummer;
+            Year = int.Parse(Dossier.Substring(0, 4));
+            DossierNr = int.Parse(Dossier.Substring(6));
+        }
+
+        public override string ToString()
+        {
+            int count;
+            long value=0;
+            int rest;
+            using (var context = new FacturatieModel())
+            {
+                count = context.Provisies.Where(p => p.DossierNummer.Contains(Dossier)).Count();
+                count += context.Aanmaningen.Where(p => p.DossierNummer.Contains(Dossier)).Count();
+            }
+            value = ((long)DossierNr * 10000 + (long)Year) * 10000 + (long)count;
+            rest = (int)(value % 97);
+
+            return string.Format("+++{0:000}/{1:0000}/{2:000000}+++", DossierNr, Year, count*100+rest);
+        }
+    }
 }

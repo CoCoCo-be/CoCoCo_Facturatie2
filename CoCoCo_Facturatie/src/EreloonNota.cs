@@ -74,7 +74,7 @@ namespace CoCoCo_Facturatie
             Dactylo = Fotokopie = Fax = Verplaatsing = 0;
             BijkomendeKosten = Forfait = BTW = Rolzetting = Dagvaarding = Betekening = Uitvoering = Anderen = Derden = Totaal = 0;
             EreloonUren = WachtUren = new TimeSpan(0);
-            OGMNummer = "+++000/0000/00000+++";
+            OGMNummer = new OGMNummer(DossierNummer).ToString();
             Status = 0;
             Betaald = InterCompany = false;
             KostenSchema = null;
