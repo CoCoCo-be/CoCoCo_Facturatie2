@@ -64,7 +64,7 @@ namespace CoCoCo_Facturatie
 
         private void EreloonBedrag_Validating(object sender, CancelEventArgs e)
         {
-            if (! Double.TryParse(EreloonBedrag.Text, Style, Culture, out Ereloon))
+            if ((EreloonBedrag.Text.Length != 0) && (! Double.TryParse(EreloonBedrag.Text, Style, Culture, out Ereloon)))
             {
                 MessageBox.Show("Waarde in veld is geen getal of bedrag.", "Foutieve Waarde", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 EreloonBedrag.Text = Ereloon.ToString("C", Culture);
@@ -73,7 +73,7 @@ namespace CoCoCo_Facturatie
 
         private void GerechtskostenBedrag_Validating(object sender, CancelEventArgs e)
         {
-            if (!Double.TryParse(GerechtskostenBedrag.Text, Style, Culture, out Gerechtskosten))
+            if ((GerechtskostenBedrag.Text.Length != 0) && (!Double.TryParse(GerechtskostenBedrag.Text, Style, Culture, out Gerechtskosten)))
             {
                 MessageBox.Show("Waarde in veld is geen getal of bedrag.", "Foutieve Waarde", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 GerechtskostenBedrag.Text = Gerechtskosten.ToString("C", Culture);

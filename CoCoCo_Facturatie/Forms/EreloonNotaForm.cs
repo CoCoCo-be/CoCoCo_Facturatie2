@@ -43,7 +43,7 @@ namespace CoCoCo_Facturatie
 
         private void EreloonNotaForm_CurrentValidation(object sender, CancelEventArgs e)
         {
-            if (decimal.TryParse(((TextBox)sender).Text, NumberStyles.Currency, Culture, out decimal waarde))
+            if ((((TextBox)sender).Text.Length != 0) && (decimal.TryParse(((TextBox)sender).Text, NumberStyles.Currency, Culture, out decimal waarde)))
             {
                 errorProvider1.Clear();
                 switch (((TextBox)sender).Name)
@@ -75,7 +75,7 @@ namespace CoCoCo_Facturatie
                 }
                 ((TextBox)sender).Text = waarde.ToString("C", Culture);
             }
-            else
+            else if (((TextBox)sender).Text.Length != 0)
             {
                 errorProvider1.SetError((TextBox)sender,"Alleen getallen");
                 e.Cancel = true;
@@ -89,7 +89,7 @@ namespace CoCoCo_Facturatie
 
         private void EreloonNotaForm_IntValidating(object sender, CancelEventArgs e)
         {
-            if (UInt16.TryParse(((TextBox)sender).Text, NumberStyles.Integer, Culture, out ushort waarde))
+            if ((((TextBox)sender).Text.Length != 0) && (UInt16.TryParse(((TextBox)sender).Text, NumberStyles.Integer, Culture, out ushort waarde)))
             {
                 errorProvider1.Clear();
                 switch (((TextBox)sender).Name)
@@ -124,7 +124,7 @@ namespace CoCoCo_Facturatie
                         break;
                 }
             }
-            else
+            else if (((TextBox)sender).Text.Length != 0)
             {
                 errorProvider1.SetError((TextBox)sender,"Alleen getallen");
                 e.Cancel = true;

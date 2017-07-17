@@ -9,10 +9,6 @@ namespace CoCoCo_Facturatie
     [Table("DerdenGelden")]
     public class DerdenGeld
     {
-        private decimal v1;
-        private decimal v2;
-        private decimal v3;
-
         #region Fields
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DerdenGeldId { get; set; }
