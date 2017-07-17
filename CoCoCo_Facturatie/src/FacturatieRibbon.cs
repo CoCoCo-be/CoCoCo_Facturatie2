@@ -102,6 +102,51 @@ namespace CoCoCo_Facturatie
                 form.Dispose();
         }
 
+        private void DerdenGeldNota_Klick(object sender, RibbonControlEventArgs e)
+        {
+            Boolean einde = false;
+            DerdenGeld derdengeld = null;
+            DerdenGeldenForm form = new DerdenGeldenForm();
+
+            #region Bevestiging
+            while (!einde)
+            {
+                form.ShowDialog();
+
+                if (form.DialogResult == System.Windows.Forms.DialogResult.OK)
+                {
+                    Double Totaal = form.Totaal;
+                    DialogResult Bevestigd = MessageBox.Show("Klopt het dat je een derdengeld voor " + Totaal.ToString("C", Variabelen.Cultuur) + " wil invoegen?",
+                        "Bevestiging", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if(Bevestigd == DialogResult.Yes)
+                    {
+                        einde = true;
+                        form.Hide();
+                    }
+                }
+                else
+                {
+                    form.Dispose();
+                    return;
+                }
+            }
+            #endregion
+
+            #region Vul text in en bewaar provisie
+            using (var context = new FacturatieModel())
+            {
+                derdengeld = new DerdenGeld(Convert.ToDecimal(form.SchadeloosStelling), Convert.ToDecimal(form.Gerechtskosten),
+                    Convert.ToDecimal(form.Totaal));
+
+                context.DerdenGelden.Add(derdengeld);
+                derdengeld.PrintText(Globals.CoCoCo_Facturatie_Plugin.Application.Selection);
+                context.SaveChanges();
+            }
+            #endregion
+
+            form.Dispose();
+        }
+
         private void LeesCSV_Click(object sender, RibbonControlEventArgs e)
         {
             try

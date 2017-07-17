@@ -37,6 +37,7 @@ namespace CoCoCo_Facturatie
         public virtual DbSet<Factuur> Facturen { get; set; }
         public virtual DbSet<EreloonNota> EreloonNotas { get; set; }
         public virtual DbSet<Aanmaning> Aanmaningen { get; set; }
+        public virtual DbSet<DerdenGeld> DerdenGelden { get; set; }
 
     }
 

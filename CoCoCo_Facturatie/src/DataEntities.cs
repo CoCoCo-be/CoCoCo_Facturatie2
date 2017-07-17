@@ -83,9 +83,10 @@ namespace CoCoCo_Facturatie
         String Dossier;
         public int Year;
         public int DossierNr;
+        public bool DerdenGelden;
         #endregion  
 
-        public OGMNummer(string DossierNummer)
+        public OGMNummer(string DossierNummer, bool _DerdenGelden = false)
         {
             int positieMinTeken = DossierNummer.IndexOf("-");
             if (positieMinTeken > 0)
@@ -94,6 +95,7 @@ namespace CoCoCo_Facturatie
                 Dossier = DossierNummer;
             Year = int.Parse(Dossier.Substring(0, 4));
             DossierNr = int.Parse(Dossier.Substring(6));
+            DerdenGelden = _DerdenGelden;
         }
 
         public override string ToString()
@@ -106,6 +108,8 @@ namespace CoCoCo_Facturatie
                 count = context.Provisies.Where(p => p.DossierNummer.Contains(Dossier)).Count();
                 count += context.Aanmaningen.Where(p => p.DossierNummer.Contains(Dossier)).Count();
             }
+            if (DerdenGelden)
+                count += 3000;
             value = ((long)DossierNr * 10000 + (long)Year) * 10000 + (long)count;
             rest = (int)(value % 97);
 

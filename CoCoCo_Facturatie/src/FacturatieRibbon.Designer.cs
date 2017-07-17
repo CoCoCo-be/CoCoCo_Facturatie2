@@ -92,6 +92,7 @@
             this.DerdenGeldenNota.Label = "Derden Gelden Nota";
             this.DerdenGeldenNota.Name = "DerdenGeldenNota";
             this.DerdenGeldenNota.ShowImage = true;
+            this.DerdenGeldenNota.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.DerdenGeldNota_Klick);
             // 
             // FacturatieGroep2
             // 

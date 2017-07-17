@@ -199,6 +199,12 @@
     <Compile Include="Forms\EreloonNotaForm.Designer.cs">
       <DependentUpon>EreloonNotaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DerdenGeldenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DerdenGeldenForm.Designer.cs">
+      <DependentUpon>DerdenGeldenForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Migrations\201707011911505_Initial.cs" />
     <Compile Include="Migrations\201707011911505_Initial.Designer.cs">
@@ -207,6 +213,10 @@
     <Compile Include="Migrations\201707012020380_Factuur_Increment.cs" />
     <Compile Include="Migrations\201707012020380_Factuur_Increment.Designer.cs">
       <DependentUpon>201707012020380_Factuur_Increment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707172000061_DerdenGelden.cs" />
+    <Compile Include="Migrations\201707172000061_DerdenGelden.Designer.cs">
+      <DependentUpon>201707172000061_DerdenGelden.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Ribbon.cs">
@@ -241,11 +251,17 @@
     <EmbeddedResource Include="Forms\EreloonNotaForm.resx">
       <DependentUpon>EreloonNotaForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DerdenGeldenForm.resx">
+      <DependentUpon>DerdenGeldenForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707011911505_Initial.resx">
       <DependentUpon>201707011911505_Initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707012020380_Factuur_Increment.resx">
       <DependentUpon>201707012020380_Factuur_Increment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707172000061_DerdenGelden.resx">
+      <DependentUpon>201707172000061_DerdenGelden.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
