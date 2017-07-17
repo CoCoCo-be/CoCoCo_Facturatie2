@@ -12,7 +12,7 @@ namespace CoCoCo_Facturatie
         #region Fields
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DerdenGeldId { get; set; }
-        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime Tijd { get; set; }
         [Required, StringLength(2)]
         public String Wie { get; set; }

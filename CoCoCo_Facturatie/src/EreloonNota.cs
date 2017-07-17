@@ -81,9 +81,12 @@ namespace CoCoCo_Facturatie
             using (var context = new FacturatieModel())
             {
                 IQueryable<Provisie> provisies = context.Provisies.Where(p => (p.Betaald == false) && (p.DossierNummer == DossierNummer));
-                TotaalProvisiesErelonen = provisies.Sum(p => p.Ereloon) - provisies.Sum(p => p.EreloonBetaald);
-                TotaalProvisiesBTW = provisies.Sum(p => p.BTW) - provisies.Sum(p => p.BTWBetaald);
-                TotaalProvisiesGerechtskosten = provisies.Sum(p =>p.Gerechtskosten) - provisies.Sum(p => p.GerechtskostenBetaald);
+                if (provisies.Count() > 0)
+                {
+                    TotaalProvisiesErelonen = provisies.Sum(p => p.Ereloon) - provisies.Sum(p => p.EreloonBetaald);
+                    TotaalProvisiesBTW = provisies.Sum(p => p.BTW) - provisies.Sum(p => p.BTWBetaald);
+                    TotaalProvisiesGerechtskosten = provisies.Sum(p => p.Gerechtskosten) - provisies.Sum(p => p.GerechtskostenBetaald);
+                }
             }
         }
 
