@@ -108,6 +108,7 @@
             this.Facturen.Label = "Maken Factuur";
             this.Facturen.Name = "Facturen";
             this.Facturen.ShowImage = true;
+            this.Facturen.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Factuur_Klick);
             // 
             // BetalingsOverzicht
             // 

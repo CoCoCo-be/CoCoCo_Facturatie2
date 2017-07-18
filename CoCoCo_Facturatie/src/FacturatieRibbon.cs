@@ -147,6 +147,13 @@ namespace CoCoCo_Facturatie
             form.Dispose();
         }
 
+        private void Factuur_Klick(object sender, RibbonControlEventArgs e)
+        {
+            Boolean einde = false;
+            FacturatieForm1 form = new FacturatieForm1();
+
+            form.ShowDialog();
+        }
         private void LeesCSV_Click(object sender, RibbonControlEventArgs e)
         {
             try

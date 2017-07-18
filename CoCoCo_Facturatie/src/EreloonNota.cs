@@ -64,7 +64,6 @@ namespace CoCoCo_Facturatie
         public virtual ICollection<Aanmaning> Aanmaningen { get; }
         #endregion
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         internal EreloonNota()
         {
             Partij = Variabelen.Partij;

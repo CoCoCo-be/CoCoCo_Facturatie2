@@ -205,6 +205,12 @@
     <Compile Include="Forms\DerdenGeldenForm.Designer.cs">
       <DependentUpon>DerdenGeldenForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FacturatieForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FacturatieForm1.Designer.cs">
+      <DependentUpon>FacturatieForm1.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Migrations\201707011911505_Initial.cs" />
     <Compile Include="Migrations\201707011911505_Initial.Designer.cs">
@@ -253,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DerdenGeldenForm.resx">
       <DependentUpon>DerdenGeldenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FacturatieForm1.resx">
+      <DependentUpon>FacturatieForm1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707011911505_Initial.resx">
       <DependentUpon>201707011911505_Initial.cs</DependentUpon>
