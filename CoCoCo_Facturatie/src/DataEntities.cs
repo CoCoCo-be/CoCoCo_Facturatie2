@@ -74,6 +74,10 @@ namespace CoCoCo_Facturatie
             Adres = _Adres;
             Adres2 = _Adres2;
         }
+
+        internal Partij()
+        {
+        }
     }
     
  
@@ -83,11 +87,14 @@ namespace CoCoCo_Facturatie
         String Dossier;
         public int Year;
         public int DossierNr;
+        public int Count;
+        public int Rest;
         public bool DerdenGelden;
         #endregion  
 
         public OGMNummer(string DossierNummer, bool _DerdenGelden = false)
         {
+            long value=0;
             int positieMinTeken = DossierNummer.IndexOf("-");
             if (positieMinTeken > 0)
                 Dossier = DossierNummer.Substring(0, positieMinTeken);
@@ -96,24 +103,36 @@ namespace CoCoCo_Facturatie
             Year = int.Parse(Dossier.Substring(0, 4));
             DossierNr = int.Parse(Dossier.Substring(6));
             DerdenGelden = _DerdenGelden;
+
+            using (var context = new FacturatieModel())
+            {
+                Count = context.Provisies.Where(p => p.DossierNummer.Contains(Dossier)).Count();
+                Count += context.Aanmaningen.Where(p => p.DossierNummer.Contains(Dossier)).Count();
+            }
+            if (DerdenGelden)
+                Count += 3000;
+
+            value = ((long)DossierNr * 10000 + (long)Year) * 1000 + (long)Count;
+            Rest = (int)(value % 97);
+        }
+
+        public OGMNummer(string code1, string code2, string code3)
+        {
+            DossierNr = int.Parse(code1);
+            Year = int.Parse(code2);
+            Count = int.Parse(code3.Substring(0, 3));
+            Rest = int.Parse(code3.Substring(3, 2));
+        }
+
+        public Boolean Geldig()
+        {
+            long value = ((long)DossierNr * 10000 + (long)Year) * 1000 + (long)Count;
+            return (Rest == (int)(value % 97));
         }
 
         public override string ToString()
         {
-            int count;
-            long value=0;
-            int rest;
-            using (var context = new FacturatieModel())
-            {
-                count = context.Provisies.Where(p => p.DossierNummer.Contains(Dossier)).Count();
-                count += context.Aanmaningen.Where(p => p.DossierNummer.Contains(Dossier)).Count();
-            }
-            if (DerdenGelden)
-                count += 3000;
-            value = ((long)DossierNr * 10000 + (long)Year) * 10000 + (long)count;
-            rest = (int)(value % 97);
-
-            return string.Format("+++{0:000}/{1:0000}/{2:000000}+++", DossierNr, Year, count*100+rest);
+            return string.Format("+++{0:000}/{1:0000}/{2:00000}+++", DossierNr, Year, Count*100+Rest);
         }
     }
 }

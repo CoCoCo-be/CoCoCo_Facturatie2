@@ -89,7 +89,7 @@ namespace CoCoCo_Facturatie
 
         private void EreloonNotaForm_IntValidating(object sender, CancelEventArgs e)
         {
-            if ((((TextBox)sender).Text.Length != 0) && (UInt16.TryParse(((TextBox)sender).Text, NumberStyles.Integer, Culture, out ushort waarde)))
+            if ((((TextBox)sender).Text.Length != 0) && (Int16.TryParse(((TextBox)sender).Text, NumberStyles.Integer, Culture, out short waarde)))
             {
                 errorProvider1.Clear();
                 switch (((TextBox)sender).Name)

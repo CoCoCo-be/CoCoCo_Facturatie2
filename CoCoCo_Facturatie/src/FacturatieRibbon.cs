@@ -132,7 +132,7 @@ namespace CoCoCo_Facturatie
             }
             #endregion
 
-            #region Vul text in en bewaar provisie
+            #region Vul text in en bewaar derdengeld
             using (var context = new FacturatieModel())
             {
                 derdengeld = new DerdenGeld(Convert.ToDecimal(form.SchadeloosStelling), Convert.ToDecimal(form.Gerechtskosten),
@@ -149,10 +149,32 @@ namespace CoCoCo_Facturatie
 
         private void Factuur_Klick(object sender, RibbonControlEventArgs e)
         {
-            Boolean einde = false;
             FacturatieForm1 form = new FacturatieForm1();
+            Factuur Factuur;
+            decimal Bedrag;
 
             form.ShowDialog();
+
+            if (form.DialogResult != System.Windows.Forms.DialogResult.OK)
+                return;
+
+            #region Vul text in en bewaar factuur
+            using (var context = new FacturatieModel())
+            {
+                if (form.Tab == 1)
+                {
+                    var OGMCode = form.OGM;
+                    Bedrag = form.OGM_Bedrag;
+                    Factuur = new Factuur(OGMCode, Bedrag);
+                }
+                else if (form.Tab == 2)
+                {
+                    var DossierNummer = form.DossierNummer;
+                    Bedrag = form.Dossier_Bedrag;
+                    Factuur = new Factuur(DossierNummer, Bedrag);
+                }
+            }
+            #endregion
         }
         private void LeesCSV_Click(object sender, RibbonControlEventArgs e)
         {

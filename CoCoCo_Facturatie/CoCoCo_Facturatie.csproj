@@ -224,6 +224,10 @@
     <Compile Include="Migrations\201707172024096_DerdenGelden.Designer.cs">
       <DependentUpon>201707172024096_DerdenGelden.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707192110272_Ereloon.cs" />
+    <Compile Include="Migrations\201707192110272_Ereloon.Designer.cs">
+      <DependentUpon>201707192110272_Ereloon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Ribbon.cs">
       <XmlRibbon>true</XmlRibbon>
@@ -271,6 +275,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707172024096_DerdenGelden.resx">
       <DependentUpon>201707172024096_DerdenGelden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707192110272_Ereloon.resx">
+      <DependentUpon>201707192110272_Ereloon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

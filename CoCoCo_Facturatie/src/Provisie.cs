@@ -59,6 +59,10 @@ namespace CoCoCo_Facturatie
             InterCompany = _InterCompany;
         }
 
+        internal Provisie()
+        {
+        }
+
         internal void PrintText(Selection selection)
         {
             String Text = null;

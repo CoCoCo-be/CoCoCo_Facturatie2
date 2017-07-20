@@ -33,10 +33,10 @@ namespace CoCoCo_Facturatie
         public String DossierNaam { get; set; }
         [Required]
         public Partij Partij { get; set; }
-        public UInt16 Dactylo { get; set; }
-        public UInt16 Fotokopie { get; set; }
-        public UInt16 Fax { get; set; }
-        public UInt16 Verplaatsing { get; set; }
+        public Int16 Dactylo { get; set; }
+        public Int16 Fotokopie { get; set; }
+        public Int16 Fax { get; set; }
+        public Int16 Verplaatsing { get; set; }
         public Decimal BijkomendeKosten { get; set; }
         public Decimal Forfait { get; set; }
         public TimeSpan EreloonUren { get; set; }
@@ -219,7 +219,7 @@ namespace CoCoCo_Facturatie
             rij.Borders.Enable = (int)WdLineStyle.wdLineStyleNone;
         }
 
-        private void InsertKostRij(Table tabel, string omschrijving, ushort hoeveelheid, decimal bedrag, string eenheid)
+        private void InsertKostRij(Table tabel, string omschrijving, short hoeveelheid, decimal bedrag, string eenheid)
         {
             var rij = tabel.Rows.Add();
             rij.Cells[1].Range.Text = omschrijving;

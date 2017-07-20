@@ -40,10 +40,4 @@ namespace CoCoCo_Facturatie
         public virtual DbSet<DerdenGeld> DerdenGelden { get; set; }
 
     }
-
-    //public class MyEntity
-    //{
-    //    public int Id { get; set; }
-    //    public string Name { get; set; }
-    //}
 }
