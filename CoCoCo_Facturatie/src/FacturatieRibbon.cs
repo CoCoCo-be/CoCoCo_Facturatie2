@@ -55,7 +55,7 @@ namespace CoCoCo_Facturatie
             }
             #endregion
 
-            form.Dispose();    
+            form.Dispose();
         }
 
         private void EreloonNota_Click(object sender, RibbonControlEventArgs e)
@@ -99,7 +99,7 @@ namespace CoCoCo_Facturatie
             }
             #endregion
 
-                form.Dispose();
+            form.Dispose();
         }
 
         private void DerdenGeldNota_Klick(object sender, RibbonControlEventArgs e)
@@ -118,7 +118,7 @@ namespace CoCoCo_Facturatie
                     Double Totaal = form.Totaal;
                     DialogResult Bevestigd = MessageBox.Show("Klopt het dat je een derdengeld voor " + Totaal.ToString("C", Variabelen.Cultuur) + " wil invoegen?",
                         "Bevestiging", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if(Bevestigd == DialogResult.Yes)
+                    if (Bevestigd == DialogResult.Yes)
                     {
                         einde = true;
                         form.Hide();
@@ -150,6 +150,7 @@ namespace CoCoCo_Facturatie
         private void Factuur_Klick(object sender, RibbonControlEventArgs e)
         {
             FacturatieForm1 form = new FacturatieForm1();
+            FactuurModel FactuurModel = null;
             Factuur Factuur;
             decimal Bedrag;
 
@@ -161,21 +162,32 @@ namespace CoCoCo_Facturatie
             #region Vul text in en bewaar factuur
             using (var context = new FacturatieModel())
             {
-                if (form.Tab == 1)
+                switch (form.Tab)
                 {
-                    var OGMCode = form.OGM;
-                    Bedrag = form.OGM_Bedrag;
-                    Factuur = new Factuur(OGMCode, Bedrag);
+                    case 1:
+                        var OGMCode = form.OGM;
+                        Bedrag = form.OGM_Bedrag;
+                        FactuurModel = new FactuurModel(Bedrag, EreloonNota.EreloonNotaOGM(OGMCode.ToString(), context),
+                            Provisie.ProvisieOGM(OGMCode.ToString(), context));
+                        break;
+                    case 2:
+                        var DossierNummer = form.DossierNummer;
+                        Bedrag = form.Dossier_Bedrag;
+                        FactuurModel = new FactuurModel(Bedrag, EreloonNota.EreloonNotaDossierNr(DossierNummer, context),
+                            Provisie.ProvisieDossierNr(DossierNummer, context));
+                        break;
+                    default:
+                        throw new NotImplementedException("Factuur maken, zonder dat er Ereloon of Provisie voor bestaat is nog niet gemaakt!");
+
                 }
-                else if (form.Tab == 2)
-                {
-                    var DossierNummer = form.DossierNummer;
-                    Bedrag = form.Dossier_Bedrag;
-                    Factuur = new Factuur(DossierNummer, Bedrag);
-                }
+
+                Factuur = FactuurModel.Genereer();
+                Factuur.PrintText(Globals.CoCoCo_Facturatie_Plugin.Application.Selection);
+                context.SaveChanges();
             }
             #endregion
         }
+
         private void LeesCSV_Click(object sender, RibbonControlEventArgs e)
         {
             try
@@ -197,9 +209,9 @@ namespace CoCoCo_Facturatie
         public void ToggleKnoppen(Boolean Waarde)
         {
             ProvisieNota.Enabled = Waarde;
-            EreloonNota.Enabled = Waarde;
+            BtEreloonNota.Enabled = Waarde;
             DerdenGeldenNota.Enabled = Waarde;
-            Facturen.Enabled = Waarde;
+            //Facturen.Enabled = Waarde;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace CoCoCo_Facturatie
         public decimal TotaalProvisiesBTW { get; }
         [NotMapped]
         public decimal TotaalProvisiesGerechtskosten { get; }
-
+        [NotMapped]
         private decimal totaalBTW, totaalNietBTW;
         #endregion
 
@@ -53,14 +53,13 @@ namespace CoCoCo_Facturatie
         public String OGMNummer { get; set; }
         public Int16 Status { get; set; }
         public Boolean InterCompany { get; set; }
-    #endregion
+        #endregion
 
-    #region foreignKeys
+        #region foreignKeys
         [Required]
         public virtual KostenSchema KostenSchema { get; set; }
-
         public virtual ICollection<Provisie> Provisies { get; }
-        public virtual ICollection<Factuur> Facturen { get; }
+        public virtual ICollection<EreloonNotaFactuur> Facturen { get; }
         public virtual ICollection<Aanmaning> Aanmaningen { get; }
         #endregion
 
@@ -82,9 +81,9 @@ namespace CoCoCo_Facturatie
                 IQueryable<Provisie> provisies = context.Provisies.Where(p => (p.Betaald == false) && (p.DossierNummer == DossierNummer));
                 if (provisies.Count() > 0)
                 {
-                    TotaalProvisiesErelonen = provisies.Sum(p => p.Ereloon) - provisies.Sum(p => p.EreloonBetaald);
-                    TotaalProvisiesBTW = provisies.Sum(p => p.BTW) - provisies.Sum(p => p.BTWBetaald);
-                    TotaalProvisiesGerechtskosten = provisies.Sum(p => p.Gerechtskosten) - provisies.Sum(p => p.GerechtskostenBetaald);
+                    TotaalProvisiesErelonen = provisies.Sum(p => p.Ereloon) - provisies.Sum(p => p.Facturen.Sum(f => f.ProvisieErelonen));
+                    TotaalProvisiesBTW = provisies.Sum(p => p.BTW) - provisies.Sum(p => p.Facturen.Sum(f => f.ProvisieBTW));
+                    TotaalProvisiesGerechtskosten = provisies.Sum(p => p.Gerechtskosten) - provisies.Sum(p => p.Facturen.Sum(f => f.ProvisiegerechtsKosten));
                 }
             }
         }
@@ -134,11 +133,12 @@ namespace CoCoCo_Facturatie
                 text = Environment.NewLine + "U kunt dit bedrag overmaken op rekeningnummer BE96 0012 4751 7505 met als mededeling: " +
                     OGMNummer + ".";
             }
-            else if (decimal.Round(totaalBedrag, 2) < 0 )
+            else if (decimal.Round(totaalBedrag, 2) < 0)
             {
                 InsertKostRij(tabel, "uit te keren saldo", totaalBedrag);
                 text = Environment.NewLine + "Dit bedrag zal overgemaakt worden op uw rekening binnen de 3 maanden.";
-            } else
+            }
+            else
             {
                 InsertKostRij(tabel, "Totaal", totaalBedrag);
                 text = Environment.NewLine;
@@ -155,8 +155,8 @@ namespace CoCoCo_Facturatie
 
         private void InsertGerechtsKosten(Table tabel)
         {
-            if (Rolzetting > 0)    InsertKostRij(tabel, "gerechtskosten(Rolzetting)", Rolzetting);
-            if (Dagvaarding > 0)  InsertKostRij(tabel, "gerechtskosten(Dagvaarding)", Dagvaarding);
+            if (Rolzetting > 0) InsertKostRij(tabel, "gerechtskosten(Rolzetting)", Rolzetting);
+            if (Dagvaarding > 0) InsertKostRij(tabel, "gerechtskosten(Dagvaarding)", Dagvaarding);
             if (Betekening > 0) InsertKostRij(tabel, "gerechtskosten(Betekening)", Betekening);
             if (Uitvoering > 0) InsertKostRij(tabel, "gerechtskosten(Uitvoering)", Uitvoering);
             if (Anderen > 0) InsertKostRij(tabel, "gerechtskosten(Anderen)", Anderen);
@@ -183,8 +183,8 @@ namespace CoCoCo_Facturatie
             cels[6].SetWidth(Globals.CoCoCo_Facturatie_Plugin.Application.CentimetersToPoints(0.5F), WdRulerStyle.wdAdjustNone);
             cels[7].SetWidth(Globals.CoCoCo_Facturatie_Plugin.Application.CentimetersToPoints(3.0F), WdRulerStyle.wdAdjustNone);
 
-            if (Dactylo > 0)    InsertKostRij(tabel, "- pagina's", Dactylo, KostenSchema.Dactylo, "pag.");
-            if (Fotokopie > 0)  InsertKostRij(tabel, "- fotokopies", Fotokopie, KostenSchema.Fotokopie, "kop.");
+            if (Dactylo > 0) InsertKostRij(tabel, "- pagina's", Dactylo, KostenSchema.Dactylo, "pag.");
+            if (Fotokopie > 0) InsertKostRij(tabel, "- fotokopies", Fotokopie, KostenSchema.Fotokopie, "kop.");
             if (Fax > 0) InsertKostRij(tabel, "- inkomende mails/fax", Fax, KostenSchema.Mail, "");
             if (Verplaatsing > 0) InsertKostRij(tabel, "- verplaatsingen", Verplaatsing, KostenSchema.Verplaatsing, "km.");
             if (BijkomendeKosten > 0) InsertKostRij(tabel, "- bijkomende kosten", BijkomendeKosten);
@@ -248,7 +248,7 @@ namespace CoCoCo_Facturatie
             var rij = tabel.Rows.Add();
             rij.Cells[1].Range.Text = omschrijving;
 
-            rij.Cells[2].Range.Text = Decimal.Truncate((decimal)hoeveelheid.TotalHours).ToString("###0") +":" + hoeveelheid.ToString(@"mm");
+            rij.Cells[2].Range.Text = Decimal.Truncate((decimal)hoeveelheid.TotalHours).ToString("###0") + ":" + hoeveelheid.ToString(@"mm");
             rij.Cells[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphRight;
 
             rij.Cells[3].Range.Text = eenheid;
@@ -266,6 +266,21 @@ namespace CoCoCo_Facturatie
 
             rij.Borders.Enable = (int)WdLineStyle.wdLineStyleNone;
         }
-    }
 
+        internal void Close(Factuur factuur)
+        {
+            Betaald = true;
+            Facturen.Add((EreloonNotaFactuur)factuur);
+        }
+
+        public static IQueryable<EreloonNota> EreloonNotaOGM(String OGM, FacturatieModel context)
+        {
+            return context.EreloonNotas.Where(p => (p.OGMNummer == OGM) && (p.Betaald == false));
+        }
+
+        public static IQueryable<EreloonNota> EreloonNotaDossierNr(String DossierNummer, FacturatieModel context)
+        {
+            return context.EreloonNotas.Where(p => (p.DossierNummer == DossierNummer) && (p.Betaald == false));
+        }
+    }
 }

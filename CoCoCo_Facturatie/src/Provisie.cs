@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.Office.Interop.Word;
+using System.Linq;
 
 namespace CoCoCo_Facturatie
 {
     public class Provisie
     {
-    #region Fields
+        #region Fields
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProvisieId { get; set; }
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -27,17 +28,14 @@ namespace CoCoCo_Facturatie
         public Decimal Totaal { get; set; }
         public Boolean Betaald { get; set; }
         public String OGMNummer { get; set; }
-        public Decimal EreloonBetaald { get; set; }
-        public Decimal BTWBetaald { get; set; }
-        public Decimal GerechtskostenBetaald { get; set; }
         public Int16 Status { get; set; }
         public Boolean InterCompany { get; set; }
-    #endregion
+        #endregion
 
-    #region ForeignKeys
-        public virtual ICollection<Factuur> Facturen { get; }
+        #region ForeignKeys
+        public virtual ICollection<ProvisieFactuur> Facturen { get; }
         public virtual ICollection<Aanmaning> Aanmaningen { get; }
-    #endregion
+        #endregion
 
         public Provisie(Decimal _Ereloon, Decimal _BTW, Decimal _Gerechtskosten, Decimal _Totaal, Boolean _InterCompany)
         {
@@ -52,9 +50,6 @@ namespace CoCoCo_Facturatie
             Totaal = _Totaal;
             Betaald = false;
             OGMNummer = new OGMNummer(DossierNummer).ToString();
-            EreloonBetaald = 0;
-            BTWBetaald = 0;
-            GerechtskostenBetaald = 0;
             Status = 0;
             InterCompany = _InterCompany;
         }
@@ -107,5 +102,22 @@ namespace CoCoCo_Facturatie
 
             selection.TypeText(Text);
         }
+
+        public static IQueryable<Provisie> ProvisieOGM(string OGM, FacturatieModel context)
+        {
+            return context.Provisies.Where(p => (p.OGMNummer == OGM) && (p.Betaald == false));
+        }
+
+        public static IQueryable<Provisie> ProvisieDossierNr(String DossierNummer, FacturatieModel context)
+        {
+            return context.Provisies.Where(p => (p.DossierNummer == DossierNummer) && (p.Betaald == false));
+        }
+
+        internal void Close(Factuur factuur)
+        {
+            Betaald = true;
+            Facturen.Add((ProvisieFactuur)factuur);
+        }
+
     }
 }

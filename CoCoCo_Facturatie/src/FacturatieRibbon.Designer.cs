@@ -37,7 +37,7 @@
             this.Facturatietab1 = this.Factory.CreateRibbonTab();
             this.FacturatieGroep1 = this.Factory.CreateRibbonGroup();
             this.ProvisieNota = this.Factory.CreateRibbonButton();
-            this.EreloonNota = this.Factory.CreateRibbonButton();
+            this.BtEreloonNota = this.Factory.CreateRibbonButton();
             this.DerdenGeldenNota = this.Factory.CreateRibbonButton();
             this.FacturatieGroep2 = this.Factory.CreateRibbonGroup();
             this.Facturen = this.Factory.CreateRibbonButton();
@@ -62,7 +62,7 @@
             // FacturatieGroep1
             // 
             this.FacturatieGroep1.Items.Add(this.ProvisieNota);
-            this.FacturatieGroep1.Items.Add(this.EreloonNota);
+            this.FacturatieGroep1.Items.Add(this.BtEreloonNota);
             this.FacturatieGroep1.Items.Add(this.DerdenGeldenNota);
             this.FacturatieGroep1.Label = "Invoegen";
             this.FacturatieGroep1.Name = "FacturatieGroep1";
@@ -78,12 +78,12 @@
             // 
             // EreloonNota
             // 
-            this.EreloonNota.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.EreloonNota.Image = global::CoCoCo_Facturatie.Properties.Resources.ereloon;
-            this.EreloonNota.Label = "Ereloon Nota";
-            this.EreloonNota.Name = "EreloonNota";
-            this.EreloonNota.ShowImage = true;
-            this.EreloonNota.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.EreloonNota_Click);
+            this.BtEreloonNota.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.BtEreloonNota.Image = global::CoCoCo_Facturatie.Properties.Resources.ereloon;
+            this.BtEreloonNota.Label = "Ereloon Nota";
+            this.BtEreloonNota.Name = "EreloonNota";
+            this.BtEreloonNota.ShowImage = true;
+            this.BtEreloonNota.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.EreloonNota_Click);
             // 
             // DerdenGeldenNota
             // 
@@ -155,7 +155,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonTab Facturatietab1;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup FacturatieGroep1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton ProvisieNota;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton EreloonNota;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton BtEreloonNota;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton DerdenGeldenNota;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup FacturatieGroep2;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Facturen;

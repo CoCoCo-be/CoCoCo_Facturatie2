@@ -228,6 +228,10 @@
     <Compile Include="Migrations\201707192110272_Ereloon.Designer.cs">
       <DependentUpon>201707192110272_Ereloon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707262013469_Facturatie-toegevoegd.cs" />
+    <Compile Include="Migrations\201707262013469_Facturatie-toegevoegd.Designer.cs">
+      <DependentUpon>201707262013469_Facturatie-toegevoegd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Ribbon.cs">
       <XmlRibbon>true</XmlRibbon>
@@ -246,6 +250,7 @@
       <DependentUpon>FacturatieRibbon.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Factuur.cs" />
+    <Compile Include="src\FactuurModel.cs" />
     <Compile Include="src\KostenSchema.cs" />
     <Compile Include="src\DerdenGelden.cs" />
     <Compile Include="src\Provisie.cs" />
@@ -278,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707192110272_Ereloon.resx">
       <DependentUpon>201707192110272_Ereloon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707262013469_Facturatie-toegevoegd.resx">
+      <DependentUpon>201707262013469_Facturatie-toegevoegd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
