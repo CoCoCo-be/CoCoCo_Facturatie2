@@ -46,5 +46,17 @@ namespace CoCoCo_Facturatie.Properties {
                 this["GebruikerInitialen"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\krisc\\OneDrive\\Documents\\01. CoCoCo\\ImagoInvest\\Factuur.dotx")]
+        public string FactuurTemplate {
+            get {
+                return ((string)(this["FactuurTemplate"]));
+            }
+            set {
+                this["FactuurTemplate"] = value;
+            }
+        }
     }
 }

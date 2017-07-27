@@ -137,12 +137,115 @@ namespace CoCoCo_Facturatie
                 ProvisiegerechtsKosten += provisie.Gerechtskosten - provisie.Facturen.Sum(f => f.ProvisiegerechtsKosten);
                 Totaal += provisie.Totaal - provisie.Facturen.Sum(f => f.Totaal);
             }
-
+            
             if (Totaal != _totaal)
                 throw new Exception("Totaal komt niet overeen, factuur niet gemaakt");
         }
 
         internal override void PrintText(Selection selection)
+        {
+            Document document = selection.Application.Documents.Add(Properties.Settings.Default.FactuurTemplate);
+            AddHeader(document, GetFactuurNummer());
+
+            var table = document.Tables[1];
+            table.Range.ParagraphFormat.KeepWithNext = 1;
+
+
+//        subtotal_ExVAT = AddWages(table:= table, kind:= "provisie")
+//        subtotal_NoVAT = AddLitigation(table:= table, kind:= "provisie")
+
+//        'Remove border of second row
+//        table.Rows(2).Borders(WdBorderType.wdBorderBottom).Visible = False
+
+//        ' Add Total
+//        bottomRow = table.Rows.Add
+
+//        REM insert if for not empty
+//        With bottomRow
+//            .Cells.Borders(WdBorderType.wdBorderVertical).Visible = False
+//            .Cells.Borders(WdBorderType.wdBorderBottom).Visible = False
+//            .Cells.Borders(WdBorderType.wdBorderLeft).Visible = False
+//            .Cells.Borders(WdBorderType.wdBorderRight).Visible = False
+//            .Range.ParagraphFormat.KeepWithNext = True
+//        End With
+
+//        If(subtotal_ExVAT <> 0) Then
+//            With table.Rows.Add
+//                .Cells(2).Merge(MergeTo:= .Cells(5))
+//                .Cells(2).Range.InsertAfter(Text:= "Subtotaal excl Btw")
+//                .Cells(2).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphLeft
+//                .Cells(3).Range.InsertAfter(Text:= Format(Expression:= subtotal_ExVAT, Style:= GlobalValues.NumberFormat))
+//                .Range.ParagraphFormat.KeepWithNext = True
+//            End With
+
+//            With table.Rows.Add
+//                .Cells(2).Range.InsertAfter(Text:= "Subtotaal Btw")
+//                .Cells(3).Range.InsertAfter(Text:= Format(Expression:= Math.Round(subtotal_ExVAT * (1 + VAT), 2) - subtotal_ExVAT, Style:= GlobalValues.NumberFormat))
+//                .Range.ParagraphFormat.KeepWithNext = True
+//            End With
+//        End If
+
+//        If(subtotal_NoVAT <> 0) Then
+//            With table.Rows.Add
+//                .Cells(2).Range.InsertAfter(Text:= "Subtotaal derden en gerechtskosten")
+//                .Cells(3).Range.InsertAfter(Text:= Format(Expression:= subtotal_NoVAT, Style:= GlobalValues.NumberFormat))
+//                .Range.ParagraphFormat.KeepWithNext = True
+//            End With
+//        End If
+
+//        If(subtotal_NoVAT <> 0) Or(subtotal_ExVAT <> 0) Then
+//            With table.Rows.Add
+//                .Cells(2).Range.InsertAfter(Text:= "Totaal")
+//                .Cells(2).Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter
+//                .Cells(3).Range.InsertAfter(Text:= Format(Expression:= subtotal_ExVAT * (1 + VAT) + subtotal_NoVAT, Style:= GlobalValues.NumberFormat))
+//                .Cells(3).Borders(WdBorderType.wdBorderTop).Visible = True
+//                .Cells(2).Range.Font.Bold = True
+//                .Cells(3).Range.Font.Bold = True
+//                .Range.ParagraphFormat.KeepWithNext = True
+//            End With
+//        End If
+
+//        'add border under table
+//        Dim newTable As Table
+//        newTable = table.Split(bottomRow.Index + 1)
+//        bottomRow.Borders(WdBorderType.wdBorderTop).Visible = True
+//        bottomRow.Delete()
+//        table.Columns.SetWidth(ColumnWidth:= ObjExcel.CentimetersToPoints(2.25), RulerStyle:= WdRulerStyle.wdAdjustNone)
+//        table.Columns(1).SetWidth(ColumnWidth:= ObjExcel.CentimetersToPoints(5.25), RulerStyle:= WdRulerStyle.wdAdjustNone)
+//        table.Columns(2).SetWidth(ColumnWidth:= ObjExcel.CentimetersToPoints(1.5), RulerStyle:= WdRulerStyle.wdAdjustNone)
+//        table.Columns(6).SetWidth(ColumnWidth:= ObjExcel.CentimetersToPoints(3), RulerStyle:= WdRulerStyle.wdAdjustNone)
+
+//        newTable.Columns.SetWidth(ColumnWidth:= ObjExcel.CentimetersToPoints(1.47), RulerStyle:= WdRulerStyle.wdAdjustNone)
+//        newTable.Columns(2).SetWidth(ColumnWidth:= ObjExcel.CentimetersToPoints(9.5), RulerStyle:= WdRulerStyle.wdAdjustNone)
+//        newTable.Columns(3).SetWidth(ColumnWidth:= ObjExcel.CentimetersToPoints(5.25), RulerStyle:= WdRulerStyle.wdAdjustNone)
+
+
+//Final:
+//        'Log invoice
+//        logInvoice(provisie:= True)
+
+//        objWord.Visible = True
+//        Document.PrintPreview()
+//        MsgBox("Kijk de factuur na")
+//        Workbook1.Close(SaveChanges:= vbYes)
+
+//        Document.SaveAs2(FileName:= GlobalValues.InvoicePath + Factuurnummer)
+//        objWord.ActivePrinter = "Standaard"
+//        Document.PrintOut(Background:= True)
+//        objWord.ActivePrinter = "Standaard"
+//        On Error GoTo closeWord
+//        If objWord.Documents.Count > 1 Then
+//            Document.Close(SaveChanges:= True)
+//        Else
+//            objWord.Quit(SaveChanges:= True)
+//        End If
+//closeWord:
+//        objWord = Nothing
+//        globalvalues.Dispose()
+            throw new NotImplementedException();
+        }
+
+        private void AddHeader(Document document, int v)
         {
             throw new NotImplementedException();
         }
