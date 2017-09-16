@@ -44,6 +44,7 @@
             this.BetalingsOverzicht = this.Factory.CreateRibbonButton();
             this.Gegevens = this.Factory.CreateRibbonGroup();
             this.LeesCSV = this.Factory.CreateRibbonButton();
+            this.KostenSchemaEdit = this.Factory.CreateRibbonButton();
             this.Facturatietab1.SuspendLayout();
             this.FacturatieGroep1.SuspendLayout();
             this.FacturatieGroep2.SuspendLayout();
@@ -76,12 +77,12 @@
             this.ProvisieNota.ShowImage = true;
             this.ProvisieNota.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ProvisieNota_Click);
             // 
-            // EreloonNota
+            // BtEreloonNota
             // 
             this.BtEreloonNota.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.BtEreloonNota.Image = global::CoCoCo_Facturatie.Properties.Resources.ereloon;
             this.BtEreloonNota.Label = "Ereloon Nota";
-            this.BtEreloonNota.Name = "EreloonNota";
+            this.BtEreloonNota.Name = "BtEreloonNota";
             this.BtEreloonNota.ShowImage = true;
             this.BtEreloonNota.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.EreloonNota_Click);
             // 
@@ -121,6 +122,7 @@
             // Gegevens
             // 
             this.Gegevens.Items.Add(this.LeesCSV);
+            this.Gegevens.Items.Add(this.KostenSchemaEdit);
             this.Gegevens.Label = "Gegevens";
             this.Gegevens.Name = "Gegevens";
             // 
@@ -131,6 +133,13 @@
             this.LeesCSV.Name = "LeesCSV";
             this.LeesCSV.ShowImage = true;
             this.LeesCSV.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.LeesCSV_Click);
+            // 
+            // KostenSchemaEdit
+            // 
+            this.KostenSchemaEdit.Label = "Lees partij informatie";
+            this.KostenSchemaEdit.Name = "KostenSchemaEdit";
+            this.KostenSchemaEdit.ShowImage = true;
+            this.KostenSchemaEdit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.KostenSchemaEdit_Click);
             // 
             // FacturatieRibbon
             // 
@@ -162,6 +171,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton BetalingsOverzicht;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup Gegevens;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton LeesCSV;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton KostenSchemaEdit;
     }
 
     partial class ThisRibbonCollection

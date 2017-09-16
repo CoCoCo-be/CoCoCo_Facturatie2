@@ -81,9 +81,27 @@ namespace CoCoCo_Facturatie
                 IQueryable<Provisie> provisies = context.Provisies.Where(p => (p.Betaald == false) && (p.DossierNummer == DossierNummer));
                 if (provisies.Count() > 0)
                 {
-                    TotaalProvisiesErelonen = provisies.Sum(p => p.Ereloon) - provisies.Sum(p => p.Facturen.Sum(f => f.ProvisieErelonen));
-                    TotaalProvisiesBTW = provisies.Sum(p => p.BTW) - provisies.Sum(p => p.Facturen.Sum(f => f.ProvisieBTW));
-                    TotaalProvisiesGerechtskosten = provisies.Sum(p => p.Gerechtskosten) - provisies.Sum(p => p.Facturen.Sum(f => f.ProvisiegerechtsKosten));
+                    try
+                    {
+                        var queryable = from p in Provisies
+                                        where p.Facturen != null
+                                        select new
+                                        {
+                                            totaalEreloon = p.Facturen.Sum(f => f.ProvisieErelonen),
+                                            totaalBTW = p.Facturen.Sum(f => f.ProvisieBTW),
+                                            totaalGerechtskosten = p.Facturen.Sum(f => f.ProvisiegerechtsKosten)
+                                        };
+                        TotaalProvisiesErelonen = provisies.Sum(p => p.Ereloon) - queryable.Select(n => n.totaalEreloon).DefaultIfEmpty(0).Sum();
+                        TotaalProvisiesBTW = provisies.Sum(p => p.BTW) - queryable.Select(n => n.totaalBTW).DefaultIfEmpty(0).Sum();
+                        TotaalProvisiesGerechtskosten = provisies.Sum(p => p.Gerechtskosten) - queryable.Select(n => n.totaalGerechtskosten).DefaultIfEmpty(0).Sum();
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        TotaalProvisiesErelonen = provisies.Sum(p => p.Ereloon);
+                        TotaalProvisiesBTW = provisies.Sum(p => p.BTW);
+                        TotaalProvisiesGerechtskosten = provisies.Sum(p => p.Gerechtskosten);
+                    }
+                    
                 }
             }
         }

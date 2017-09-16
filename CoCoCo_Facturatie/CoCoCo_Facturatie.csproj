@@ -132,11 +132,9 @@
     </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -211,6 +209,12 @@
     <Compile Include="Forms\FacturatieForm1.Designer.cs">
       <DependentUpon>FacturatieForm1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\KostenSchemaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\KostenSchemaForm.Designer.cs">
+      <DependentUpon>KostenSchemaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Migrations\201707011911505_Initial.cs" />
     <Compile Include="Migrations\201707011911505_Initial.Designer.cs">
@@ -272,6 +276,9 @@
     <EmbeddedResource Include="Forms\FacturatieForm1.resx">
       <DependentUpon>FacturatieForm1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\KostenSchemaForm.resx">
+      <DependentUpon>KostenSchemaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707011911505_Initial.resx">
       <DependentUpon>201707011911505_Initial.cs</DependentUpon>
     </EmbeddedResource>
@@ -306,7 +313,6 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="CoCoCo_Facturatie_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -348,10 +354,11 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>CoCoCo_Facturatie_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>F1AD2B62B5AE169038C8B596C3BFA21DE31C551A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>7F79A85CADFC3D695E32A3F11591DE3A9C18BA05</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Office.Tools.Ribbon;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace CoCoCo_Facturatie
 {
@@ -212,6 +213,32 @@ namespace CoCoCo_Facturatie
             BtEreloonNota.Enabled = Waarde;
             DerdenGeldenNota.Enabled = Waarde;
             //Facturen.Enabled = Waarde;
+        }
+
+        private void KostenSchemaEdit_Click(object sender, RibbonControlEventArgs e)
+        {
+            KostenSchemaForm form = new KostenSchemaForm();
+
+            using (var context = new FacturatieModel())
+            {
+                System.Data.Entity.DbSet<KostenSchema> KostenSchemaLijst = context.KostenSchemas;
+                form.KostenSchemaOverzicht.DataSource = KostenSchemaLijst.ToList();
+                form.KostenSchemaOverzicht.DefaultCellStyle.Format = "C";
+                form.KostenSchemaOverzicht.Columns["KostenSchemaId"].Visible = false;
+                form.KostenSchemaOverzicht.Columns["Naam"].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+                form.KostenSchemaOverzicht.Columns["BTW"].DefaultCellStyle.Format = "P0";
+
+                foreach (DataGridViewColumn dc in form.KostenSchemaOverzicht.Columns)
+                {
+                    dc.ReadOnly = true;
+                }
+                form.KostenSchemaOverzicht.Columns["Archive"].ReadOnly = false;
+
+                form.KostenSchemaLijst = KostenSchemaLijst;
+                
+                form.Show();
+            }
+
         }
     }
 }

@@ -89,6 +89,8 @@
             this.CancelButton1 = new System.Windows.Forms.Button();
             this.OKButton = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label28 = new System.Windows.Forms.Label();
+            this.ToegestaneKorting = new System.Windows.Forms.TextBox();
             this.tabEreloonNotaForm.SuspendLayout();
             this.tabBureelKosten.SuspendLayout();
             this.TabErelonen.SuspendLayout();
@@ -650,11 +652,13 @@
             this.tabOverzicht.BackColor = System.Drawing.SystemColors.Control;
             this.tabOverzicht.Controls.Add(this.label26);
             this.tabOverzicht.Controls.Add(this.TotaalBedrag);
+            this.tabOverzicht.Controls.Add(this.ToegestaneKorting);
             this.tabOverzicht.Controls.Add(this.DerdenBedrag);
             this.tabOverzicht.Controls.Add(this.ProvisieGerechtskostenBedrag);
             this.tabOverzicht.Controls.Add(this.ProvisieErelonenBedrag);
             this.tabOverzicht.Controls.Add(this.TeBetalenBedrag);
             this.tabOverzicht.Controls.Add(this.label27);
+            this.tabOverzicht.Controls.Add(this.label28);
             this.tabOverzicht.Controls.Add(this.label22);
             this.tabOverzicht.Controls.Add(this.label23);
             this.tabOverzicht.Controls.Add(this.label24);
@@ -669,7 +673,7 @@
             // label26
             // 
             this.label26.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label26.Location = new System.Drawing.Point(8, 144);
+            this.label26.Location = new System.Drawing.Point(8, 167);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(496, 2);
             this.label26.TabIndex = 11;
@@ -748,7 +752,7 @@
             this.label27.CausesValidation = false;
             this.label27.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label27.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label27.Location = new System.Drawing.Point(8, 160);
+            this.label27.Location = new System.Drawing.Point(8, 174);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(65, 24);
             this.label27.TabIndex = 3;
@@ -829,6 +833,29 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.CausesValidation = false;
+            this.label28.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label28.Location = new System.Drawing.Point(8, 133);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(144, 22);
+            this.label28.TabIndex = 3;
+            this.label28.Text = "Toegestane korting";
+            // 
+            // ToegestaneKorting
+            // 
+            this.ToegestaneKorting.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ToegestaneKorting.Location = new System.Drawing.Point(400, 135);
+            this.ToegestaneKorting.Name = "ToegestaneKorting";
+            this.ToegestaneKorting.Size = new System.Drawing.Size(100, 26);
+            this.ToegestaneKorting.TabIndex = 7;
+            this.ToegestaneKorting.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ToegestaneKorting.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_CurrentValidation);
+            this.ToegestaneKorting.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // EreloonNotaForm
             // 
@@ -921,5 +948,7 @@
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Button KostenSchemaButton;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.TextBox ToegestaneKorting;
+        private System.Windows.Forms.Label label28;
     }
 }
