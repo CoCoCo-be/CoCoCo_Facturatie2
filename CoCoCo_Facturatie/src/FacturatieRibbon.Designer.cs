@@ -136,7 +136,7 @@
             // 
             // KostenSchemaEdit
             // 
-            this.KostenSchemaEdit.Label = "Lees partij informatie";
+            this.KostenSchemaEdit.Label = "kosten schema\'s";
             this.KostenSchemaEdit.Name = "KostenSchemaEdit";
             this.KostenSchemaEdit.ShowImage = true;
             this.KostenSchemaEdit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.KostenSchemaEdit_Click);

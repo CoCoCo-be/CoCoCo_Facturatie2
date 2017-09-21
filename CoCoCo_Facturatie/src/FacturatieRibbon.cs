@@ -219,26 +219,30 @@ namespace CoCoCo_Facturatie
         {
             KostenSchemaForm form = new KostenSchemaForm();
 
+
             using (var context = new FacturatieModel())
             {
-                System.Data.Entity.DbSet<KostenSchema> KostenSchemaLijst = context.KostenSchemas;
-                form.KostenSchemaOverzicht.DataSource = KostenSchemaLijst.ToList();
-                form.KostenSchemaOverzicht.DefaultCellStyle.Format = "C";
-                form.KostenSchemaOverzicht.Columns["KostenSchemaId"].Visible = false;
-                form.KostenSchemaOverzicht.Columns["Naam"].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
-                form.KostenSchemaOverzicht.Columns["BTW"].DefaultCellStyle.Format = "P0";
+                form.dataGridView1.DataSource = context.KostenSchemas.ToList();
+                form.dataGridView1.DefaultCellStyle.Format = "C";
+                form.dataGridView1.Columns["KostenSchemaId"].Visible = false;
+                form.dataGridView1.Columns["Naam"].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+                form.dataGridView1.Columns["BTW"].DefaultCellStyle.Format = "P0";
 
-                foreach (DataGridViewColumn dc in form.KostenSchemaOverzicht.Columns)
+                foreach (DataGridViewColumn dc in form.dataGridView1.Columns)
                 {
                     dc.ReadOnly = true;
                 }
-                form.KostenSchemaOverzicht.Columns["Archive"].ReadOnly = false;
+                form.dataGridView1.Columns["Archive"].ReadOnly = false;
 
-                form.KostenSchemaLijst = KostenSchemaLijst;
-                
-                form.Show();
+                form.ShowDialog();
+
+                List<KostenSchema> Lijst = form.Schemas;
+                if (null != Lijst)
+                    foreach(var schema in Lijst)
+                        context.KostenSchemas.Add(schema);
+
+                context.SaveChanges();
             }
-
         }
     }
 }

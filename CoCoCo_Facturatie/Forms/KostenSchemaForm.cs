@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -14,27 +15,25 @@ namespace CoCoCo_Facturatie
     public partial class KostenSchemaForm : Form
     {
         private static CultureInfo Culture = Variabelen.Cultuur;
-        public System.Data.Entity.DbSet<KostenSchema> KostenSchemaLijst { get; set; }
         Decimal BTW = 0;
+
+        public List<KostenSchema> Schemas { get; private set; }
 
         public KostenSchemaForm()
         {
             InitializeComponent();
         }
 
-        private void splitContainer2_SplitterMoved(object sender, SplitterEventArgs e)
+        private void splitContainer_SplitterMoved(object sender, SplitterEventArgs e)
         {
-
         }
 
-        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
+        private void splitContainer_Panel1_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void KostenSchemaForm_Load(object sender, EventArgs e)
         {
-
         }
 
         
@@ -69,17 +68,26 @@ namespace CoCoCo_Facturatie
 
         private void KSString_Validating(object sender, CancelEventArgs e)
         {
-            
+            if(((TextBox)sender).Text.Trim().Length == 0 ) 
+            {
+                errorProvider1.SetError((TextBox)sender, "Mag niet leeg zijn");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorProvider1.Clear();
+            }
+
         }
 
         private void Toevoegen_kostenschema(object sender, EventArgs e)
         {
-            this.splitContainer2.Panel2Collapsed = false;
+            SplitContainer.Panel2Collapsed = !SplitContainer.Panel2Collapsed;
         }
 
         private void Verwijder_knop(object sender, EventArgs e)
         {
-            this.splitContainer2.Panel2Collapsed = true;
+            SplitContainer.Panel2Collapsed = true;
             KSNaam.Clear();
             KSPrestaties.Clear();
             KSWacht.Clear();
@@ -92,19 +100,21 @@ namespace CoCoCo_Facturatie
 
         private void Toevoeg_knop(object sender, EventArgs e)
         {
-            this.splitContainer2.Panel2Collapsed = true;
-            KostenSchema schema = new KostenSchema();
-            schema.Naam = KSNaam.Text;
-            schema.Prestaties = decimal.Parse(KSPrestaties.Text, NumberStyles.Currency, Culture);
-            schema.Wacht = decimal.Parse(KSWacht.Text, NumberStyles.Currency, Culture);
-            schema.Verplaatsing = decimal.Parse(KSVerplaatsing.Text, NumberStyles.Currency, Culture);
-            schema.Mail= decimal.Parse(KSMail.Text, NumberStyles.Currency, Culture);
-            schema.Fotokopie = decimal.Parse(KSFotokopie.Text, NumberStyles.Currency, Culture);
-            schema.Dactylo = decimal.Parse(KSDactylo.Text, NumberStyles.Currency, Culture);
-            schema.BTW = BTW;
-            schema.Archive = false;
-            KostenSchemaLijst.Add(schema);
-            this.splitContainer2.Panel2Collapsed = true;
+            this.SplitContainer.Panel2Collapsed = true;
+            Schemas.Add(new KostenSchema
+            {
+                Naam = KSNaam.Text,
+                Prestaties = decimal.Parse(KSPrestaties.Text, NumberStyles.Currency, Culture),
+                Wacht = decimal.Parse(KSWacht.Text, NumberStyles.Currency, Culture),
+                Verplaatsing = decimal.Parse(KSVerplaatsing.Text, NumberStyles.Currency, Culture),
+                Mail = decimal.Parse(KSMail.Text, NumberStyles.Currency, Culture),
+                Fotokopie = decimal.Parse(KSFotokopie.Text, NumberStyles.Currency, Culture),
+                Dactylo = decimal.Parse(KSDactylo.Text, NumberStyles.Currency, Culture),
+                BTW = BTW,
+                Archive = false
+            }
+            );
+
         }
     }
 }

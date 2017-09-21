@@ -29,13 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.KostenSchemaOverzicht = new System.Windows.Forms.DataGridView();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.SplitContainer = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
-            this.OKButton = new System.Windows.Forms.Button();
             this.CancelButton1 = new System.Windows.Forms.Button();
+            this.OKButton = new System.Windows.Forms.Button();
             this.KSBTW = new System.Windows.Forms.TextBox();
             this.KSFotokopie = new System.Windows.Forms.TextBox();
             this.KSDactylo = new System.Windows.Forms.TextBox();
@@ -53,100 +51,58 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Label0 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.KostenSchemaOverzicht)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).BeginInit();
+            this.SplitContainer.Panel1.SuspendLayout();
+            this.SplitContainer.Panel2.SuspendLayout();
+            this.SplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
-            // splitContainer1
+            // SplitContainer
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.SplitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(12, 12);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.SplitContainer.Location = new System.Drawing.Point(12, 12);
+            this.SplitContainer.Name = "SplitContainer";
+            this.SplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer1.Panel1
+            // SplitContainer.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.KostenSchemaOverzicht);
-            this.splitContainer1.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.SplitContainer.Panel1.Controls.Add(this.dataGridView1);
+            this.SplitContainer.Panel1.Controls.Add(this.button1);
+            this.SplitContainer.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.SplitContainer.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer_Panel1_Paint);
             // 
-            // splitContainer1.Panel2
+            // SplitContainer.Panel2
             // 
-            this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer1.Size = new System.Drawing.Size(927, 346);
-            this.splitContainer1.SplitterDistance = 238;
-            this.splitContainer1.TabIndex = 14;
-            // 
-            // KostenSchemaOverzicht
-            // 
-            this.KostenSchemaOverzicht.AllowUserToAddRows = false;
-            this.KostenSchemaOverzicht.AllowUserToDeleteRows = false;
-            this.KostenSchemaOverzicht.AllowUserToOrderColumns = true;
-            this.KostenSchemaOverzicht.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.KostenSchemaOverzicht.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.KostenSchemaOverzicht.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.KostenSchemaOverzicht.Location = new System.Drawing.Point(0, 3);
-            this.KostenSchemaOverzicht.Name = "KostenSchemaOverzicht";
-            this.KostenSchemaOverzicht.ReadOnly = true;
-            this.KostenSchemaOverzicht.Size = new System.Drawing.Size(927, 209);
-            this.KostenSchemaOverzicht.TabIndex = 2;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer2.Location = new System.Drawing.Point(12, 12);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.dataGridView1);
-            this.splitContainer2.Panel1.Controls.Add(this.button1);
-            this.splitContainer2.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer2.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Panel1_Paint);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.AccessibleName = "Pannel_KostenSchema";
-            this.splitContainer2.Panel2.Controls.Add(this.CancelButton1);
-            this.splitContainer2.Panel2.Controls.Add(this.OKButton);
-            this.splitContainer2.Panel2.Controls.Add(this.KSBTW);
-            this.splitContainer2.Panel2.Controls.Add(this.KSFotokopie);
-            this.splitContainer2.Panel2.Controls.Add(this.KSDactylo);
-            this.splitContainer2.Panel2.Controls.Add(this.KSMail);
-            this.splitContainer2.Panel2.Controls.Add(this.KSWacht);
-            this.splitContainer2.Panel2.Controls.Add(this.KSVerplaatsing);
-            this.splitContainer2.Panel2.Controls.Add(this.KSPrestaties);
-            this.splitContainer2.Panel2.Controls.Add(this.label7);
-            this.splitContainer2.Panel2.Controls.Add(this.label5);
-            this.splitContainer2.Panel2.Controls.Add(this.KSNaam);
-            this.splitContainer2.Panel2.Controls.Add(this.label6);
-            this.splitContainer2.Panel2.Controls.Add(this.label4);
-            this.splitContainer2.Panel2.Controls.Add(this.label2);
-            this.splitContainer2.Panel2.Controls.Add(this.label3);
-            this.splitContainer2.Panel2.Controls.Add(this.label1);
-            this.splitContainer2.Panel2.Controls.Add(this.Label0);
-            this.splitContainer2.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer2.Panel2Collapsed = true;
-            this.splitContainer2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer2.Size = new System.Drawing.Size(927, 346);
-            this.splitContainer2.SplitterDistance = 206;
-            this.splitContainer2.TabIndex = 14;
-            this.splitContainer2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer2_SplitterMoved);
+            this.SplitContainer.Panel2.AccessibleName = "Pannel_KostenSchema";
+            this.SplitContainer.Panel2.Controls.Add(this.CancelButton1);
+            this.SplitContainer.Panel2.Controls.Add(this.OKButton);
+            this.SplitContainer.Panel2.Controls.Add(this.KSBTW);
+            this.SplitContainer.Panel2.Controls.Add(this.KSFotokopie);
+            this.SplitContainer.Panel2.Controls.Add(this.KSDactylo);
+            this.SplitContainer.Panel2.Controls.Add(this.KSMail);
+            this.SplitContainer.Panel2.Controls.Add(this.KSWacht);
+            this.SplitContainer.Panel2.Controls.Add(this.KSVerplaatsing);
+            this.SplitContainer.Panel2.Controls.Add(this.KSPrestaties);
+            this.SplitContainer.Panel2.Controls.Add(this.label7);
+            this.SplitContainer.Panel2.Controls.Add(this.label5);
+            this.SplitContainer.Panel2.Controls.Add(this.KSNaam);
+            this.SplitContainer.Panel2.Controls.Add(this.label6);
+            this.SplitContainer.Panel2.Controls.Add(this.label4);
+            this.SplitContainer.Panel2.Controls.Add(this.label2);
+            this.SplitContainer.Panel2.Controls.Add(this.label3);
+            this.SplitContainer.Panel2.Controls.Add(this.label1);
+            this.SplitContainer.Panel2.Controls.Add(this.Label0);
+            this.SplitContainer.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.SplitContainer.Panel2Collapsed = true;
+            this.SplitContainer.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.SplitContainer.Size = new System.Drawing.Size(927, 346);
+            this.SplitContainer.SplitterDistance = 206;
+            this.SplitContainer.TabIndex = 14;
+            this.SplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
             // 
             // dataGridView1
             // 
@@ -177,18 +133,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Toevoegen_kostenschema);
             // 
-            // OKButton
-            // 
-            this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OKButton.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OKButton.Location = new System.Drawing.Point(817, 31);
-            this.OKButton.Name = "OKButton";
-            this.OKButton.Size = new System.Drawing.Size(107, 32);
-            this.OKButton.TabIndex = 13;
-            this.OKButton.Text = "Toevoegen";
-            this.OKButton.UseVisualStyleBackColor = true;
-            this.OKButton.Click += new System.EventHandler(this.Toevoeg_knop);
-            // 
             // CancelButton1
             // 
             this.CancelButton1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -200,6 +144,18 @@
             this.CancelButton1.Text = "Verwijderen";
             this.CancelButton1.UseVisualStyleBackColor = true;
             this.CancelButton1.Click += new System.EventHandler(this.Verwijder_knop);
+            // 
+            // OKButton
+            // 
+            this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.OKButton.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OKButton.Location = new System.Drawing.Point(817, 31);
+            this.OKButton.Name = "OKButton";
+            this.OKButton.Size = new System.Drawing.Size(107, 32);
+            this.OKButton.TabIndex = 13;
+            this.OKButton.Text = "Toevoegen";
+            this.OKButton.UseVisualStyleBackColor = true;
+            this.OKButton.Click += new System.EventHandler(this.Toevoeg_knop);
             // 
             // KSBTW
             // 
@@ -386,20 +342,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 370);
-            this.Controls.Add(this.splitContainer2);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.SplitContainer);
             this.Name = "KostenSchemaForm";
             this.Text = "KostenSchemaForm";
             this.Load += new System.EventHandler(this.KostenSchemaForm_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.KostenSchemaOverzicht)).EndInit();
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.SplitContainer.Panel1.ResumeLayout(false);
+            this.SplitContainer.Panel2.ResumeLayout(false);
+            this.SplitContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).EndInit();
+            this.SplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
@@ -407,9 +358,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        internal System.Windows.Forms.DataGridView KostenSchemaOverzicht;
-        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer SplitContainer;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.Button CancelButton1;
         private System.Windows.Forms.TextBox KSWacht;
