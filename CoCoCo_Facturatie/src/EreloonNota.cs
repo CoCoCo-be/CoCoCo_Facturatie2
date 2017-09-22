@@ -48,7 +48,8 @@ namespace CoCoCo_Facturatie
         public Decimal Uitvoering { get; set; }
         public Decimal Anderen { get; set; }
         public Decimal Derden { get; set; } // Bedragen al ontvangen van derden (Niet in Totaal).
-        public Decimal Totaal { get; set; } // Totaal zonder rekening te houden met derden en provisies.
+        public Decimal Korting { get; set; } // Bedragen die niet betaald dienen te worden. (Niet in Totaal)
+        public Decimal Totaal { get; set; } // Totaal zonder rekening te houden met derden, korting en provisies.
         public Boolean Betaald { get; set; }
         public String OGMNummer { get; set; }
         public Int16 Status { get; set; }
@@ -70,7 +71,7 @@ namespace CoCoCo_Facturatie
             DossierNaam = Variabelen.DossierNaam;
             Wie = Variabelen.Wie;
             Dactylo = Fotokopie = Fax = Verplaatsing = 0;
-            BijkomendeKosten = Forfait = BTW = Rolzetting = Dagvaarding = Betekening = Uitvoering = Anderen = Derden = Totaal = 0;
+            BijkomendeKosten = Forfait = BTW = Rolzetting = Dagvaarding = Betekening = Uitvoering = Anderen = Derden = Korting = Totaal = 0;
             EreloonUren = WachtUren = new TimeSpan(0);
             OGMNummer = new OGMNummer(DossierNummer).ToString();
             Status = 0;
@@ -144,7 +145,10 @@ namespace CoCoCo_Facturatie
             if (Derden > 0)
                 InsertKostRij(tabel, "ontvangen van derden", -Derden);
 
-            var totaalBedrag = Totaal - provisies - Derden;
+            if (Korting > 0)
+                InsertKostRij(tabel, "toegestane korting", -Korting);
+
+            var totaalBedrag = Totaal - provisies - Derden - Korting;
             if (decimal.Round(totaalBedrag, 2) > 0)
             {
                 InsertKostRij(tabel, "te betalen saldo", totaalBedrag);

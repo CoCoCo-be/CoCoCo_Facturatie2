@@ -77,11 +77,13 @@
             this.tabOverzicht = new System.Windows.Forms.TabPage();
             this.label26 = new System.Windows.Forms.Label();
             this.TotaalBedrag = new System.Windows.Forms.TextBox();
+            this.ToegestaneKorting = new System.Windows.Forms.TextBox();
             this.DerdenBedrag = new System.Windows.Forms.TextBox();
             this.ProvisieGerechtskostenBedrag = new System.Windows.Forms.TextBox();
             this.ProvisieErelonenBedrag = new System.Windows.Forms.TextBox();
             this.TeBetalenBedrag = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -89,8 +91,6 @@
             this.CancelButton1 = new System.Windows.Forms.Button();
             this.OKButton = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label28 = new System.Windows.Forms.Label();
-            this.ToegestaneKorting = new System.Windows.Forms.TextBox();
             this.tabEreloonNotaForm.SuspendLayout();
             this.tabBureelKosten.SuspendLayout();
             this.TabErelonen.SuspendLayout();
@@ -685,13 +685,24 @@
             this.TotaalBedrag.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TotaalBedrag.CausesValidation = false;
             this.TotaalBedrag.Font = new System.Drawing.Font("Trebuchet MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotaalBedrag.Location = new System.Drawing.Point(400, 159);
+            this.TotaalBedrag.Location = new System.Drawing.Point(400, 176);
             this.TotaalBedrag.Name = "TotaalBedrag";
             this.TotaalBedrag.ReadOnly = true;
             this.TotaalBedrag.Size = new System.Drawing.Size(100, 23);
             this.TotaalBedrag.TabIndex = 7;
             this.TotaalBedrag.TabStop = false;
             this.TotaalBedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // ToegestaneKorting
+            // 
+            this.ToegestaneKorting.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ToegestaneKorting.Location = new System.Drawing.Point(400, 135);
+            this.ToegestaneKorting.Name = "ToegestaneKorting";
+            this.ToegestaneKorting.Size = new System.Drawing.Size(100, 26);
+            this.ToegestaneKorting.TabIndex = 7;
+            this.ToegestaneKorting.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ToegestaneKorting.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_CurrentValidation);
+            this.ToegestaneKorting.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // DerdenBedrag
             // 
@@ -757,6 +768,18 @@
             this.label27.Size = new System.Drawing.Size(65, 24);
             this.label27.TabIndex = 3;
             this.label27.Text = "Totaal";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.CausesValidation = false;
+            this.label28.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label28.Location = new System.Drawing.Point(8, 133);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(144, 22);
+            this.label28.TabIndex = 3;
+            this.label28.Text = "Toegestane korting";
             // 
             // label22
             // 
@@ -833,29 +856,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.CausesValidation = false;
-            this.label28.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label28.Location = new System.Drawing.Point(8, 133);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(144, 22);
-            this.label28.TabIndex = 3;
-            this.label28.Text = "Toegestane korting";
-            // 
-            // ToegestaneKorting
-            // 
-            this.ToegestaneKorting.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ToegestaneKorting.Location = new System.Drawing.Point(400, 135);
-            this.ToegestaneKorting.Name = "ToegestaneKorting";
-            this.ToegestaneKorting.Size = new System.Drawing.Size(100, 26);
-            this.ToegestaneKorting.TabIndex = 7;
-            this.ToegestaneKorting.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.ToegestaneKorting.Validating += new System.ComponentModel.CancelEventHandler(this.EreloonNotaForm_CurrentValidation);
-            this.ToegestaneKorting.Validated += new System.EventHandler(this.EreloonNotaForm_Validated);
             // 
             // EreloonNotaForm
             // 

@@ -236,8 +236,12 @@
     <Compile Include="Migrations\201707262013469_Facturatie-toegevoegd.Designer.cs">
       <DependentUpon>201707262013469_Facturatie-toegevoegd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709221629218_Korting.cs" />
+    <Compile Include="Migrations\201709221629218_Korting.Designer.cs">
+      <DependentUpon>201709221629218_Korting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Ribbon.cs">
+    <Compile Include="src\Ribbon.cs">
       <XmlRibbon>true</XmlRibbon>
     </Compile>
     <Compile Include="src\Aanmaning.cs" />
@@ -294,6 +298,9 @@
     <EmbeddedResource Include="Migrations\201707262013469_Facturatie-toegevoegd.resx">
       <DependentUpon>201707262013469_Facturatie-toegevoegd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709221629218_Korting.resx">
+      <DependentUpon>201709221629218_Korting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -337,7 +344,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Ribbon.xml" />
+    <EmbeddedResource Include="src\Ribbon.xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\derdengelden.ico" />

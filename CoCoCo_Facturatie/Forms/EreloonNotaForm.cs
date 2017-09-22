@@ -31,7 +31,7 @@ namespace CoCoCo_Facturatie
         {
             using (var context = new FacturatieModel())
             {
-                kostenSchemasLijst = context.KostenSchemas.Where(c => c.Archive==true).ToList();
+                kostenSchemasLijst = context.KostenSchemas.Where(c => c.Archive==false).ToList();
                 KostenSchemaCB.DataSource = kostenSchemasLijst;
                 KostenSchemaCB.ValueMember = "KostenSchemaId";
                 KostenSchemaCB.DisplayMember = "Naam";
@@ -71,6 +71,9 @@ namespace CoCoCo_Facturatie
                         break;
                     case "DerdenBedrag":
                         EreloonNota.Derden = waarde;
+                        break;
+                    case "ToegestaneKorting":
+                        EreloonNota.Korting = waarde;
                         break;
                 }
                 ((TextBox)sender).Text = waarde.ToString("C", Culture);
@@ -135,7 +138,7 @@ namespace CoCoCo_Facturatie
         {
             EreloonNota.Berekenen();
             Totaal = EreloonNota.Totaal - EreloonNota.TotaalProvisiesBTW - EreloonNota.TotaalProvisiesErelonen 
-                - EreloonNota.TotaalProvisiesGerechtskosten - EreloonNota.Derden;
+                - EreloonNota.TotaalProvisiesGerechtskosten - EreloonNota.Derden - EreloonNota.Korting;
             TeBetalenBedrag.Text = EreloonNota.Totaal.ToString("C", Culture);
             TotaalBedrag.Text = Totaal.ToString("C", Culture);
         }
