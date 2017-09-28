@@ -241,6 +241,7 @@
       <DependentUpon>201709221629218_Korting.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="src\KostenSchemaComparer.cs" />
     <Compile Include="src\Ribbon.cs">
       <XmlRibbon>true</XmlRibbon>
     </Compile>

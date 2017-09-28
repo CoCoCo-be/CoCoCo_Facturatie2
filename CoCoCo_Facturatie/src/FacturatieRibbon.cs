@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Office.Tools.Ribbon;
 using System.Windows.Forms;
 using System.Drawing;
@@ -222,17 +221,7 @@ namespace CoCoCo_Facturatie
 
             using (var context = new FacturatieModel())
             {
-                form.dataGridView1.DataSource = context.KostenSchemas.ToList();
-                form.dataGridView1.DefaultCellStyle.Format = "C";
-                form.dataGridView1.Columns["KostenSchemaId"].Visible = false;
-                form.dataGridView1.Columns["Naam"].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
-                form.dataGridView1.Columns["BTW"].DefaultCellStyle.Format = "P0";
-
-                foreach (DataGridViewColumn dc in form.dataGridView1.Columns)
-                {
-                    dc.ReadOnly = true;
-                }
-                form.dataGridView1.Columns["Archive"].ReadOnly = false;
+                form.KostenSchemaSource = context.KostenSchemas.ToList();
 
                 form.ShowDialog();
 
