@@ -28,7 +28,8 @@ namespace CoCoCo_Facturatie
 
         internal Factuur Genereer()
         {
-            Factuur Factuur;
+            Boolean found = false;
+            Factuur Factuur = null;
             Decimal EreloonBedrag = EreloonNotas.Sum(p => p.Totaal) - EreloonNotas.Sum(p => p.Facturen.Sum(f => f.Totaal));
             Decimal ProvisieBedrag = Provisies.Sum(p => p.Totaal) - Provisies.Sum(p => p.Facturen.Sum(f => f.Totaal));
 
@@ -40,9 +41,27 @@ namespace CoCoCo_Facturatie
                 foreach (var EreloonNota in EreloonNotas)
                 {
                     EreloonNota.Close(Factuur);
-                } 
+                }
+                found = true;
             }
-            else if (Bedrag == ProvisieBedrag)
+            else if (Bedrag < EreloonBedrag)
+            {
+                // Kijk of Bedrag het bedrag van 1 ereloonnota is.
+                foreach (var EreloonNota in EreloonNotas)
+                {
+                    if (Bedrag == EreloonNota.Totaal)
+                    {
+                        // EreloonNota gevonden
+                        Factuur = new EreloonNotaFactuur( EreloonNota.ToQueryable(), Bedrag);
+                        EreloonNota.Close(Factuur);
+                        found = true;
+                        // Spring uit lus
+                        break;
+                    }
+                }
+            }
+
+            if (Bedrag == ProvisieBedrag && !found)
             {
                 // Bedrag = som van openstaande bedragen voor provisies's
                 Factuur = new ProvisieFactuur(Provisies, Bedrag);
@@ -52,8 +71,30 @@ namespace CoCoCo_Facturatie
                     Provisie.Close(Factuur);
                 }
             }
+            else if (Bedrag < ProvisieBedrag && !found)
+            {
+                // Kijk of Bedrag het bedrag van 1 provisie is
+                foreach (var Provisie in Provisies)
+                {
+                    if (Bedrag == Provisie.Totaal)
+                    {
+                        // Provisie gevonden
+                        Factuur = new ProvisieFactuur(Provisie.ToQueryable(), Bedrag);
+                        Provisie.Close(Factuur);
+                        found = true;
+                        //spring uit lus
+                        break;
+                    }
+                }
+            }
+
             // TODO: Schrijf factuur generatie code hieronder. 
-            throw new NotImplementedException();
+            if (found && Factuur != null)
+                Factuur.PrintText(selection);
+            else
+                throw new NotImplementedException();
+
+            return Factuur;
         }
     }
 }

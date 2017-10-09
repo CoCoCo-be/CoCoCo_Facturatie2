@@ -164,13 +164,13 @@ namespace CoCoCo_Facturatie
             {
                 switch (form.Tab)
                 {
-                    case 1:
+                    case 0:
                         var OGMCode = form.OGM;
                         Bedrag = form.OGM_Bedrag;
                         FactuurModel = new FactuurModel(Bedrag, EreloonNota.EreloonNotaOGM(OGMCode.ToString(), context),
                             Provisie.ProvisieOGM(OGMCode.ToString(), context));
                         break;
-                    case 2:
+                    case 1:
                         var DossierNummer = form.DossierNummer;
                         Bedrag = form.Dossier_Bedrag;
                         FactuurModel = new FactuurModel(Bedrag, EreloonNota.EreloonNotaDossierNr(DossierNummer, context),

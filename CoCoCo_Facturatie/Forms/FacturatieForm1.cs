@@ -173,5 +173,10 @@ namespace CoCoCo_Facturatie
             else
                 Dossier_Bedrag = bedrag;
         }
+
+        private void OKButton_Click(object sender, EventArgs e)
+        {
+            Tab = tabControl1.SelectedIndex;
+        }
     }
 }

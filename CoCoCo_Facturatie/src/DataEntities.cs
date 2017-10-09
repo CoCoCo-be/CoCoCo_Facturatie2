@@ -107,7 +107,8 @@ namespace CoCoCo_Facturatie
             using (var context = new FacturatieModel())
             {
                 Count = context.Provisies.Where(p => p.DossierNummer.Contains(Dossier)).Count();
-                Count += context.Aanmaningen.Where(p => p.DossierNummer.Contains(Dossier)).Count();
+                Count += context.DerdenGelden.Where(p => p.DossierNummer.Contains(Dossier)).Count();
+                Count += context.EreloonNotas.Where(p => p.DossierNummer.Contains(Dossier)).Count();
             }
             if (DerdenGelden)
                 Count += 3000;
@@ -133,6 +134,14 @@ namespace CoCoCo_Facturatie
         public override string ToString()
         {
             return string.Format("+++{0:000}/{1:0000}/{2:00000}+++", DossierNr, Year, Count*100+Rest);
+        }
+    }
+
+    public static class ObjectExtensionMethods
+    {
+        public static IQueryable<TEntityType> ToQueryable<TEntityType>(this TEntityType instance)
+        {
+            return new[] { instance }.AsQueryable();
         }
     }
 }
