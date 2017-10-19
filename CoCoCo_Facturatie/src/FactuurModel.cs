@@ -30,8 +30,21 @@ namespace CoCoCo_Facturatie
         {
             Boolean found = false;
             Factuur Factuur = null;
-            Decimal EreloonBedrag = EreloonNotas.Sum(p => p.Totaal) - EreloonNotas.Sum(p => p.Facturen.Sum(f => f.Totaal));
-            Decimal ProvisieBedrag = Provisies.Sum(p => p.Totaal) - Provisies.Sum(p => p.Facturen.Sum(f => f.Totaal));
+            Decimal EreloonBedrag = 0;
+            Decimal ProvisieBedrag = 0;
+
+            if (0 != EreloonNotas.Count())
+            {
+                EreloonBedrag = EreloonNotas.Sum(p => p.Totaal);
+                if (EreloonNotas.Any(p => p.Facturen.Any()))
+                    EreloonBedrag -= EreloonNotas.Sum(p => p.Facturen.Sum(f => f.Totaal));;
+            }
+            if (0 != Provisies.Count())
+            {
+                ProvisieBedrag = Provisies.Sum(p => p.Totaal);
+                if (Provisies.Any(p => p.Facturen.Any()))
+                    ProvisieBedrag -= Provisies.Sum(p => p.Facturen.Sum(f => f.Totaal)); 
+            }
 
             if (Bedrag == EreloonBedrag)
             {
@@ -70,6 +83,7 @@ namespace CoCoCo_Facturatie
                 {
                     Provisie.Close(Factuur);
                 }
+                found = true;
             }
             else if (Bedrag < ProvisieBedrag && !found)
             {
@@ -89,8 +103,8 @@ namespace CoCoCo_Facturatie
             }
 
             // TODO: Schrijf factuur generatie code hieronder. 
-            if (found && Factuur != null)
-                Factuur.PrintText(selection);
+            if (found && Factuur != null) ;
+            //Factuur.PrintText(selection);
             else
                 throw new NotImplementedException();
 

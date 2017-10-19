@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.Office.Interop.Word;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace CoCoCo_Facturatie
 {
@@ -33,8 +34,8 @@ namespace CoCoCo_Facturatie
         #endregion
 
         #region ForeignKeys
-        public virtual ICollection<ProvisieFactuur> Facturen { get; }
-        public virtual ICollection<Aanmaning> Aanmaningen { get; }
+        public virtual ICollection<ProvisieFactuur> Facturen { get; internal set; }
+        public virtual ICollection<Aanmaning> Aanmaningen { get; internal set; }
         #endregion
 
         public Provisie(Decimal _Ereloon, Decimal _BTW, Decimal _Gerechtskosten, Decimal _Totaal, Boolean _InterCompany)
@@ -116,6 +117,8 @@ namespace CoCoCo_Facturatie
         internal void Close(Factuur factuur)
         {
             Betaald = true;
+            if (Facturen == null)
+                Facturen = new Collection<ProvisieFactuur>();
             Facturen.Add((ProvisieFactuur)factuur);
         }
 

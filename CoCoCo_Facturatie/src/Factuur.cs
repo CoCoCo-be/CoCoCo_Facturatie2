@@ -132,10 +132,17 @@ namespace CoCoCo_Facturatie
         {
             foreach (var provisie in _provisies)
             {
-                ProvisieErelonen += provisie.Ereloon - provisie.Facturen.Sum(f => f.ProvisieErelonen);
-                ProvisieBTW += provisie.BTW - provisie.Facturen.Sum(f => f.ProvisieBTW);
-                ProvisiegerechtsKosten += provisie.Gerechtskosten - provisie.Facturen.Sum(f => f.ProvisiegerechtsKosten);
-                Totaal += provisie.Totaal - provisie.Facturen.Sum(f => f.Totaal);
+                ProvisieErelonen += provisie.Ereloon;
+                ProvisieBTW += provisie.BTW;
+                ProvisiegerechtsKosten += provisie.Gerechtskosten;
+                Totaal += provisie.Totaal ;
+                if (provisie.Facturen != null)
+                {
+                    ProvisieBTW -= provisie.Facturen.Sum(f => f.ProvisieBTW);
+                    ProvisieErelonen -= provisie.Facturen.Sum(f => f.ProvisieErelonen);
+                    ProvisiegerechtsKosten -= provisie.Facturen.Sum(f => f.ProvisiegerechtsKosten);
+                    Totaal -= provisie.Facturen.Sum(f => f.Totaal);
+                }
             }
             
             if (Totaal != _totaal)
