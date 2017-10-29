@@ -33,7 +33,7 @@ namespace CoCoCo_Facturatie
         [NotMapped]
         internal Decimal Subtotal_NoVat { get; set; } = 0;
         [NotMapped]
-        internal Decimal BTW { get; set; } = 0.21M;
+        internal Decimal BTW { get; set; }
 
         public Factuur(string wie, string dossierNummer, string dossierNaam, Partij partij, Decimal totaal)
         {
@@ -79,6 +79,7 @@ namespace CoCoCo_Facturatie
 
             AddWages(table);
             AddLitigation(table);
+            //AddProvision(table);
 
             // Remove border of second row
             table.Rows[2].Borders[WdBorderType.wdBorderBottom].Visible = false;
@@ -218,7 +219,10 @@ namespace CoCoCo_Facturatie
                 Totaal += ereloonNota.Totaal - ereloonNota.Facturen.Sum(f => f.Totaal);
 
                 if (KostenSchema is null)
+                {
                     KostenSchema = ereloonNota.KostenSchema;
+                    BTW = KostenSchema.BTW;
+                }
                 else if (KostenSchema != ereloonNota.KostenSchema)
                     throw new NotImplementedException("Factuur voor ereloonNotas met verschillende kostenschemas");
             }
@@ -227,14 +231,59 @@ namespace CoCoCo_Facturatie
                 throw new Exception("Totaal komt niet overeen, factuur niet gemaakt");
         }
 
+        internal void AddRowLit(Row _Row, String _text, Decimal _amount)
+        {
+            _Row.Borders[WdBorderType.wdBorderTop].Visible = false;
+            _Row.Cells[1].Range.InsertAfter(_text);
+            _Row.Cells[6].Range.InsertAfter(_amount.ToString("C", Variabelen.Cultuur));
+            _Row.Range.ParagraphFormat.KeepWithNext = -1;
+            Subtotal_NoVat += _amount;
+        }
+
         internal override void AddLitigation(Table table)
         {
-            throw new NotImplementedException();
+            if (Dagvaarding != 0)
+                AddRowLit(table.Rows.Add(), "- dagvaardingen:", Dagvaarding);
+            if (Betekening != 0)
+                AddRowLit(table.Rows.Add(), "- betekeningen:", Betekening);
+            if (Uitvoering != 0)
+                AddRowLit(table.Rows.Add(), "- uitvoeringen:", Uitvoering);
+            if (Anderen != 0)
+                AddRowLit(table.Rows.Add(), "- andereen:", Anderen);
+        }
+
+        internal void AddRowWag(Row _row, String _text, Decimal _amount, TimeSpan _time = new TimeSpan(), Decimal _tarief = 0)
+        {
+            _row.Borders[WdBorderType.wdBorderTop].Visible = false;
+            _row.Cells[1].Range.InsertAfter(_text);
+            if (!_time.Equals(TimeSpan.Zero))
+            {
+                _row.Cells[2].Range.InsertAfter($"{Math.Floor(_time.TotalHours):00}.{_time.Minutes:00}");
+                _row.Cells[3].Range.InsertAfter(_tarief.ToString("C", Variabelen.Cultuur));
+            }
+            _row.Cells[4].Range.InsertAfter(_amount.ToString("C", Variabelen.Cultuur));
+            _row.Cells[5].Range.InsertAfter((_amount * BTW).ToString("C", Variabelen.Cultuur));
+            _row.Cells[6].Range.InsertAfter((_amount * (1 + BTW)).ToString("C", Variabelen.Cultuur));
+            _row.Range.ParagraphFormat.KeepWithNext = -1;
+            subtotal_ExVAT += _amount;
         }
 
         internal override void AddWages(Table table)
         {
-            throw new NotImplementedException();
+            Row titleRow = table.Rows.Add();
+
+            Decimal Wages = ((Decimal) EreloonUren.TotalHours) * KostenSchema.Prestaties;
+            if (Wages != 0)
+                AddRowWag(table.Rows.Add(), "- erelonen:", Wages, EreloonUren, KostenSchema.Prestaties);
+            Decimal Wait = ((Decimal) WachtUren.TotalHours) * KostenSchema.Wacht;
+            if (Wait != 0)
+                AddRowWag(table.Rows.Add(), "- verplaatsingen/wachttijden:", Wait, WachtUren, KostenSchema.Wacht);
+
+            if (Subtotal_NoVat != 0)
+            {
+
+            }
+
         }
     }
 
@@ -263,6 +312,7 @@ namespace CoCoCo_Facturatie
                 ProvisieErelonen += provisie.Ereloon;
                 ProvisieBTW += provisie.BTW;
                 ProvisiegerechtsKosten += provisie.Gerechtskosten;
+                BTW = 0.21;
                 Totaal += provisie.Totaal ;
                 if (provisie.Facturen != null)
                 {
