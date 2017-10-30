@@ -29,11 +29,13 @@ namespace CoCoCo_Facturatie
         #endregion
 
         [NotMapped]
-        internal Decimal subtotal_ExVAT { get; set; } = 0;
+        internal Decimal Subtotal_ExVAT { get; set; } = 0;
         [NotMapped]
         internal Decimal Subtotal_NoVat { get; set; } = 0;
         [NotMapped]
-        internal Decimal BTW { get; set; }
+        internal Decimal Subtotal_Derden { get; set; } = 0;
+        [NotMapped]
+        internal Decimal BTWpercentage { get; set; }
 
         public Factuur(string wie, string dossierNummer, string dossierNaam, Partij partij, Decimal totaal)
         {
@@ -64,6 +66,22 @@ namespace CoCoCo_Facturatie
             document.Fields.Update();
         }
 
+        internal void AddSubTotal(Table _table, Decimal _amount)
+        {
+            if (0 != _amount)
+            {
+                Row row = _table.Rows.Add();
+                row.Cells[6].Range.InsertAfter(_amount.ToString("C", Variabelen.Cultuur));
+                // Add empty row after total
+                _table.Rows.Add();
+
+                row.Cells[1].Range.InsertAfter("       subtotaal:");
+                row.Cells[6].Borders[WdBorderType.wdBorderTop].Color = WdColor.wdColorBlack;
+                row.Cells[6].Borders[WdBorderType.wdBorderTop].Visible = true;
+                row.Range.ParagraphFormat.KeepWithNext = -1;
+            }
+        }
+
         internal abstract void AddWages(Table table);
 
         internal abstract void AddLitigation(Table table);
@@ -79,7 +97,6 @@ namespace CoCoCo_Facturatie
 
             AddWages(table);
             AddLitigation(table);
-            //AddProvision(table);
 
             // Remove border of second row
             table.Rows[2].Borders[WdBorderType.wdBorderBottom].Visible = false;
@@ -95,7 +112,7 @@ namespace CoCoCo_Facturatie
             newRow.Cells.Borders[WdBorderType.wdBorderRight].Visible = false;
             newRow.Range.ParagraphFormat.KeepWithNext = -1;
 
-            if (subtotal_ExVAT != 0)
+            if (Subtotal_ExVAT != 0)
             {
                 newRow = table.Rows.Add();
                 newRow.Cells[2].Merge(newRow.Cells[5]);
@@ -106,7 +123,7 @@ namespace CoCoCo_Facturatie
 
                 newRow = table.Rows.Add();
                 newRow.Cells[2].Range.InsertAfter("Subtotaal Btw");
-                newRow.Cells[3].Range.InsertAfter((Subtotal_NoVat * BTW).ToString("C", Variabelen.Cultuur));
+                newRow.Cells[3].Range.InsertAfter((Subtotal_NoVat * BTWpercentage).ToString("C", Variabelen.Cultuur));
                 newRow.Range.ParagraphFormat.KeepWithNext = -1;
             }
 
@@ -118,7 +135,7 @@ namespace CoCoCo_Facturatie
                 newRow.Range.ParagraphFormat.KeepWithNext = -1;
             }
 
-            if (Subtotal_NoVat != 0 || subtotal_ExVAT != 0)
+            if (Subtotal_NoVat != 0 || Subtotal_ExVAT != 0)
             {
                 newRow = table.Rows.Add(); ;
                 newRow.Cells[2].Range.InsertAfter("Totaal");
@@ -240,6 +257,15 @@ namespace CoCoCo_Facturatie
             Subtotal_NoVat += _amount;
         }
 
+        internal void AddRowDer(Row _Row, String _text, Decimal _amount)
+        {
+            _Row.Borders[WdBorderType.wdBorderTop].Visible = false;
+            _Row.Cells[1].Range.InsertAfter(_text);
+            _Row.Cells[6].Range.InsertAfter(_amount.ToString("C", Variabelen.Cultuur));
+            _Row.Range.ParagraphFormat.KeepWithNext = -1;
+            Subtotal_Derden += _amount;
+        }
+
         internal override void AddLitigation(Table table)
         {
             if (Dagvaarding != 0)
@@ -249,7 +275,11 @@ namespace CoCoCo_Facturatie
             if (Uitvoering != 0)
                 AddRowLit(table.Rows.Add(), "- uitvoeringen:", Uitvoering);
             if (Anderen != 0)
-                AddRowLit(table.Rows.Add(), "- andereen:", Anderen);
+                AddRowLit(table.Rows.Add(), "- anderen:", Anderen);
+
+            if (Derden != 0)
+                AddRowDer(table.Rows.Add(), "- derden:", Derden);
+                // TODO: provisies bekijken
         }
 
         internal void AddRowWag(Row _row, String _text, Decimal _amount, TimeSpan _time = new TimeSpan(), Decimal _tarief = 0)
@@ -265,24 +295,47 @@ namespace CoCoCo_Facturatie
             _row.Cells[5].Range.InsertAfter((_amount * BTW).ToString("C", Variabelen.Cultuur));
             _row.Cells[6].Range.InsertAfter((_amount * (1 + BTW)).ToString("C", Variabelen.Cultuur));
             _row.Range.ParagraphFormat.KeepWithNext = -1;
-            subtotal_ExVAT += _amount;
+            Subtotal_ExVAT += _amount;
         }
 
         internal override void AddWages(Table table)
         {
             Row titleRow = table.Rows.Add();
 
+            if (Rolzetting != 0)
+                AddRowWag(table.Rows.Add(), "- rolzetting:", Rolzetting);
+            if (Dagvaarding !=0)
+                AddRowWag(table.Rows.Add(), "- dagvaarding:", Dagvaarding);
+            if (Betekening != 0)
+                AddRowWag(table.Rows.Add(), "- betekening:", Betekening);
+            if (Uitvoering != 0)
+                AddRowWag(table.Rows.Add(), "- uitvoering:", Uitvoering);
+            if (Anderen != 0)
+                AddRowWag(table.Rows.Add(), "- andere:", Anderen);
+            if (Subtotal_ExVAT != 0)
+            {
+                AddSubTotal(table, Subtotal_ExVAT);
+                titleRow.Cells[1].Range.InsertAfter("Gerechts- en andere kosten:");
+                titleRow.Cells[1].Range.Font.Bold = -1;
+                titleRow.Cells[1].Range.Font.Underline = WdUnderline.wdUnderlineSingle;
+                titleRow.Range.ParagraphFormat.KeepWithNext = -1;
+            }
+
+            Decimal subtotaal_voor = Subtotal_ExVAT;
             Decimal Wages = ((Decimal) EreloonUren.TotalHours) * KostenSchema.Prestaties;
             if (Wages != 0)
                 AddRowWag(table.Rows.Add(), "- erelonen:", Wages, EreloonUren, KostenSchema.Prestaties);
             Decimal Wait = ((Decimal) WachtUren.TotalHours) * KostenSchema.Wacht;
             if (Wait != 0)
                 AddRowWag(table.Rows.Add(), "- verplaatsingen/wachttijden:", Wait, WachtUren, KostenSchema.Wacht);
-
-            if (Subtotal_NoVat != 0)
+            if (Subtotal_ExVAT != subtotaal_voor)
             {
-
-            }
+                AddSubTotal(table, Subtotal_ExVAT - subtotaal_voor);
+                titleRow.Cells[1].Range.InsertAfter("Erelonen");
+                titleRow.Cells[1].Range.Font.Bold = -1;
+                titleRow.Cells[1].Range.Font.Underline = WdUnderline.wdUnderlineSingle;
+                titleRow.Range.ParagraphFormat.KeepWithNext = -1;
+            }  
 
         }
     }
@@ -312,7 +365,7 @@ namespace CoCoCo_Facturatie
                 ProvisieErelonen += provisie.Ereloon;
                 ProvisieBTW += provisie.BTW;
                 ProvisiegerechtsKosten += provisie.Gerechtskosten;
-                BTW = 0.21;
+                BTWpercentage = 0.21M;
                 Totaal += provisie.Totaal ;
                 if (provisie.Facturen != null)
                 {
@@ -340,7 +393,7 @@ namespace CoCoCo_Facturatie
                 row.Cells[5].Range.InsertAfter(ProvisieBTW.ToString("C", Variabelen.Cultuur));
                 row.Cells[6].Range.InsertAfter((ProvisieErelonen + ProvisieBTW).ToString("C", Variabelen.Cultuur));
                 row.Range.ParagraphFormat.KeepWithNext = -1;
-                subtotal_ExVAT += ProvisieErelonen;
+                Subtotal_ExVAT += ProvisieErelonen;
             }
 
         }
@@ -357,6 +410,12 @@ namespace CoCoCo_Facturatie
                 row.Cells[6].Range.InsertAfter(ProvisiegerechtsKosten.ToString("C", Variabelen.Cultuur));
                 row.Range.ParagraphFormat.KeepWithNext = -1;
                 Subtotal_NoVat += ProvisiegerechtsKosten;
+
+                AddSubTotal(table, Subtotal_NoVat);
+                titleRow.Cells[1].Range.InsertAfter("Gerechts- en ander kosten:");
+                titleRow.Cells[1].Range.Font.Bold = -1;
+                titleRow.Cells[1].Range.Font.Underline = WdUnderline.wdUnderlineSingle;
+                titleRow.Range.ParagraphFormat.KeepWithNext = -1;
             }
         }
 
