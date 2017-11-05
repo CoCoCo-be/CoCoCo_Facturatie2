@@ -26,7 +26,6 @@ namespace CoCoCo_Facturatie
         public Partij Partij { get; set; }
         [Required]
         public Decimal Totaal { get; set; }
-        #endregion
 
         [NotMapped]
         internal Decimal Subtotal_ExVAT { get; set; } = 0;
@@ -36,6 +35,7 @@ namespace CoCoCo_Facturatie
         internal Decimal Subtotal_Derden { get; set; } = 0;
         [NotMapped]
         internal Decimal BTWpercentage { get; set; }
+        #endregion
 
         public Factuur(string wie, string dossierNummer, string dossierNaam, Partij partij, Decimal totaal)
         {
@@ -94,6 +94,8 @@ namespace CoCoCo_Facturatie
 
             var table = document.Tables[2];
             table.Range.ParagraphFormat.KeepWithNext = -1;
+            table.Borders[WdBorderType.wdBorderVertical].LineStyle = WdLineStyle.wdLineStyleDot;
+            table.Borders[WdBorderType.wdBorderHorizontal].LineStyle = WdLineStyle.wdLineStyleDot;
 
             AddWages(table);
             AddLitigation(table);
@@ -106,10 +108,12 @@ namespace CoCoCo_Facturatie
             Row BottomRow = newRow;
 
             //insert if for not empty
-            newRow.Cells.Borders[WdBorderType.wdBorderVertical].Visible = false;
+            newRow.Cells.Borders[WdBorderType.wdBorderTop].Visible = false;
             newRow.Cells.Borders[WdBorderType.wdBorderBottom].Visible = false;
             newRow.Cells.Borders[WdBorderType.wdBorderLeft].Visible = false;
             newRow.Cells.Borders[WdBorderType.wdBorderRight].Visible = false;
+            newRow.Cells.Borders[WdBorderType.wdBorderHorizontal].Visible = false;
+            newRow.Cells.Borders[WdBorderType.wdBorderVertical].Visible = false;
             newRow.Range.ParagraphFormat.KeepWithNext = -1;
 
             if (Subtotal_ExVAT != 0)
@@ -118,12 +122,12 @@ namespace CoCoCo_Facturatie
                 newRow.Cells[2].Merge(newRow.Cells[5]);
                 newRow.Cells[2].Range.InsertAfter("Subtotaal excl Btw");
                 newRow.Cells[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
-                newRow.Cells[3].Range.InsertAfter(Subtotal_NoVat.ToString("C", Variabelen.Cultuur));
+                newRow.Cells[3].Range.InsertAfter(Subtotal_ExVAT.ToString("C", Variabelen.Cultuur));
                 newRow.Range.ParagraphFormat.KeepWithNext = -1;
 
                 newRow = table.Rows.Add();
                 newRow.Cells[2].Range.InsertAfter("Subtotaal Btw");
-                newRow.Cells[3].Range.InsertAfter((Subtotal_NoVat * BTWpercentage).ToString("C", Variabelen.Cultuur));
+                newRow.Cells[3].Range.InsertAfter((Subtotal_ExVAT * BTWpercentage).ToString("C", Variabelen.Cultuur));
                 newRow.Range.ParagraphFormat.KeepWithNext = -1;
             }
 
@@ -137,7 +141,7 @@ namespace CoCoCo_Facturatie
 
             if (Subtotal_NoVat != 0 || Subtotal_ExVAT != 0)
             {
-                newRow = table.Rows.Add(); ;
+                newRow = table.Rows.Add();
                 newRow.Cells[2].Range.InsertAfter("Totaal");
                 newRow.Cells[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 newRow.Cells[3].Range.InsertAfter(Totaal.ToString("C", Variabelen.Cultuur));
@@ -147,8 +151,10 @@ namespace CoCoCo_Facturatie
                 newRow.Range.ParagraphFormat.KeepWithNext = -1;
             }
 
-            // add border under table
             var newTable = table.Split(BottomRow);
+            // add border under table
+            table.Borders[WdBorderType.wdBorderBottom].LineStyle = WdLineStyle.wdLineStyleSingle;
+            //table.Borders[WdBorderType.wdBorderTop]
             BottomRow.Borders[WdBorderType.wdBorderTop].Visible = true;
             BottomRow.Delete();
             table.Columns.SetWidth(app.CentimetersToPoints(2.25f), WdRulerStyle.wdAdjustNone);
@@ -156,31 +162,18 @@ namespace CoCoCo_Facturatie
             table.Columns[2].SetWidth(app.CentimetersToPoints(1.5f), WdRulerStyle.wdAdjustNone);
             table.Columns[6].SetWidth(app.CentimetersToPoints(3f), WdRulerStyle.wdAdjustNone);
 
-            newTable.Columns.SetWidth(app.CentimetersToPoints(1.47f), WdRulerStyle.wdAdjustNone);
+            newTable.Columns.SetWidth(app.CentimetersToPoints(0.47f), WdRulerStyle.wdAdjustNone);
+            newTable.Columns[1].SetWidth(app.CentimetersToPoints(1.47f), WdRulerStyle.wdAdjustNone);
             newTable.Columns[2].SetWidth(app.CentimetersToPoints(9.5f), WdRulerStyle.wdAdjustNone);
             newTable.Columns[3].SetWidth(app.CentimetersToPoints(5.25f), WdRulerStyle.wdAdjustNone);
 
-            // Log invoice
-            //        logInvoice(provisie:= True)
+            document.PrintPreview();
 
-            //        objWord.Visible = True
-            //        Document.PrintPreview()
-            //        MsgBox("Kijk de factuur na")
-            //        Workbook1.Close(SaveChanges:= vbYes)
-
-            //        Document.SaveAs2(FileName:= GlobalValues.InvoicePath + Factuurnummer)
-            //        objWord.ActivePrinter = "Standaard"
-            //        Document.PrintOut(Background:= True)
-            //        objWord.ActivePrinter = "Standaard"
-            //        On Error GoTo closeWord
-            //        If objWord.Documents.Count > 1 Then
-            //            Document.Close(SaveChanges:= True)
-            //        Else
-            //            objWord.Quit(SaveChanges:= True)
-            //        End If
-            //closeWord:
-            //        objWord = Nothing
-            //        globalvalues.Dispose()
+            document.SaveAs2(FileName: Properties.Settings.Default.InvoicePath + FactuurJaar.ToString() + FactuurID.ToString());
+            app.ActivePrinter = "Standaard";
+            document.PrintOut(Background: true);
+            app.ActivePrinter = "Standaard";
+            document.Close(SaveChanges: true);
         }
     }
 
@@ -394,6 +387,13 @@ namespace CoCoCo_Facturatie
                 row.Cells[6].Range.InsertAfter((ProvisieErelonen + ProvisieBTW).ToString("C", Variabelen.Cultuur));
                 row.Range.ParagraphFormat.KeepWithNext = -1;
                 Subtotal_ExVAT += ProvisieErelonen;
+
+                AddSubTotal(table, ProvisieErelonen + ProvisieBTW);
+                titleRow.Cells[1].Range.InsertAfter("Erelonen:");
+                titleRow.Cells[1].Range.Font.Bold = -1;
+                titleRow.Cells[1].Range.Font.Underline = WdUnderline.wdUnderlineSingle;
+                titleRow.Range.ParagraphFormat.KeepWithNext = -1;
+                titleRow.Borders[WdBorderType.wdBorderTop].Visible = false;
             }
 
         }
@@ -416,6 +416,7 @@ namespace CoCoCo_Facturatie
                 titleRow.Cells[1].Range.Font.Bold = -1;
                 titleRow.Cells[1].Range.Font.Underline = WdUnderline.wdUnderlineSingle;
                 titleRow.Range.ParagraphFormat.KeepWithNext = -1;
+                titleRow.Borders[WdBorderType.wdBorderTop].Visible = false;
             }
         }
 
