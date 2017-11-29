@@ -292,17 +292,18 @@ namespace CoCoCo_Facturatie
         internal void Close(Factuur factuur)
         {
             Betaald = true;
-            Facturen.Add((EreloonNotaFactuur)factuur);
+            if (!( Facturen is null))
+                Facturen.Add((EreloonNotaFactuur)factuur);
         }
 
         public static IQueryable<EreloonNota> EreloonNotaOGM(String OGM, FacturatieModel context)
         {
-            return context.EreloonNotas.Where(p => (p.OGMNummer == OGM) && (p.Betaald == false));
+            return context.EreloonNotas.Include("KostenSchema").Where(p => (p.OGMNummer == OGM) && (p.Betaald == false));
         }
 
         public static IQueryable<EreloonNota> EreloonNotaDossierNr(String DossierNummer, FacturatieModel context)
         {
-            return context.EreloonNotas.Where(p => (p.DossierNummer == DossierNummer) && (p.Betaald == false));
+            return context.EreloonNotas.Include("KostenSchema").Where(p => (p.DossierNummer == DossierNummer) && (p.Betaald == false));
         }
     }
 }

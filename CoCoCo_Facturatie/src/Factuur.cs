@@ -66,18 +66,34 @@ namespace CoCoCo_Facturatie
             document.Fields.Update();
         }
 
-        internal void AddSubTotal(Table _table, Decimal _amount)
+        internal void AddSubTotal(Table _table, Decimal _amount, Boolean _BTW = false)
         {
             if (0 != _amount)
             {
                 Row row = _table.Rows.Add();
-                row.Cells[6].Range.InsertAfter(_amount.ToString("C", Variabelen.Cultuur));
                 // Add empty row after total
                 _table.Rows.Add();
 
+                if (_BTW)
+                {
+                    row.Cells[4].Range.InsertAfter(_amount.ToString("C", Variabelen.Cultuur));
+                    row.Cells[5].Range.InsertAfter((_amount * BTWpercentage).ToString("C", Variabelen.Cultuur));
+                    row.Cells[6].Range.InsertAfter((_amount * (1 + BTWpercentage)).ToString("C", Variabelen.Cultuur));
+                    row.Cells[4].Borders[WdBorderType.wdBorderTop].Color = WdColor.wdColorBlack;
+                    row.Cells[4].Borders[WdBorderType.wdBorderTop].Visible = true;
+                    row.Cells[5].Borders[WdBorderType.wdBorderTop].Color = WdColor.wdColorBlack;
+                    row.Cells[5].Borders[WdBorderType.wdBorderTop].Visible = true;
+                    row.Cells[6].Borders[WdBorderType.wdBorderTop].Color = WdColor.wdColorBlack;
+                    row.Cells[6].Borders[WdBorderType.wdBorderTop].Visible = true;
+                }
+                else
+                {
+                    row.Cells[6].Range.InsertAfter(_amount.ToString("C", Variabelen.Cultuur));
+                    row.Cells[6].Borders[WdBorderType.wdBorderTop].Color = WdColor.wdColorBlack;
+                    row.Cells[6].Borders[WdBorderType.wdBorderTop].Visible = true;
+                }
+
                 row.Cells[1].Range.InsertAfter("       subtotaal:");
-                row.Cells[6].Borders[WdBorderType.wdBorderTop].Color = WdColor.wdColorBlack;
-                row.Cells[6].Borders[WdBorderType.wdBorderTop].Visible = true;
                 row.Range.ParagraphFormat.KeepWithNext = -1;
             }
         }
@@ -135,7 +151,7 @@ namespace CoCoCo_Facturatie
             {
                 newRow = table.Rows.Add();
                 newRow.Cells[2].Range.InsertAfter("Subtotaal derden en gerechtskosten");
-                newRow.Cells[3].Range.InsertAfter(Subtotal_NoVat.ToString("C", Variabelen.Cultuur));
+                newRow.Cells[3].Range.InsertAfter((Subtotal_NoVat + Subtotal_Derden).ToString("C", Variabelen.Cultuur));
                 newRow.Range.ParagraphFormat.KeepWithNext = -1;
             }
 
@@ -157,7 +173,7 @@ namespace CoCoCo_Facturatie
             //table.Borders[WdBorderType.wdBorderTop]
             BottomRow.Borders[WdBorderType.wdBorderTop].Visible = true;
             BottomRow.Delete();
-            table.Columns.SetWidth(app.CentimetersToPoints(2.25f), WdRulerStyle.wdAdjustNone);
+            table.Columns.SetWidth(app.CentimetersToPoints(2.5f), WdRulerStyle.wdAdjustNone);
             table.Columns[1].SetWidth(app.CentimetersToPoints(5.25f), WdRulerStyle.wdAdjustNone);
             table.Columns[2].SetWidth(app.CentimetersToPoints(1.5f), WdRulerStyle.wdAdjustNone);
             table.Columns[6].SetWidth(app.CentimetersToPoints(3f), WdRulerStyle.wdAdjustNone);
@@ -212,26 +228,45 @@ namespace CoCoCo_Facturatie
         {
             foreach (var ereloonNota in _ereloonNotas)
             {
-                Dactylo += (short)(ereloonNota.Dactylo - ereloonNota.Facturen.Sum(f => f.Dactylo));
-                Fotokopie += (short)(ereloonNota.Fotokopie - ereloonNota.Facturen.Sum(f => f.Fotokopie));
-                Fax += (short)(ereloonNota.Fax - ereloonNota.Facturen.Sum(f => f.Fax));
-                Verplaatsing += (short)(ereloonNota.Verplaatsing - ereloonNota.Facturen.Sum(f => f.Verplaatsing));
-                BijkomendeKosten += ereloonNota.BijkomendeKosten - ereloonNota.Facturen.Sum(f => f.BijkomendeKosten);
-                EreloonUren += ereloonNota.EreloonUren - TimeSpan.FromHours(ereloonNota.Facturen.Sum(f => f.EreloonUren.TotalHours));
-                WachtUren += ereloonNota.WachtUren - TimeSpan.FromHours(ereloonNota.Facturen.Sum(f => f.WachtUren.TotalHours));
-                BTW = ereloonNota.BTW - ereloonNota.Facturen.Sum(f => f.BTW);
-                Rolzetting += ereloonNota.Rolzetting - ereloonNota.Facturen.Sum(f => f.Rolzetting);
-                Dagvaarding += ereloonNota.Dagvaarding - ereloonNota.Facturen.Sum(f => f.Dagvaarding);
-                Betekening += ereloonNota.Betekening - ereloonNota.Facturen.Sum(f => f.Betekening);
-                Uitvoering += ereloonNota.Uitvoering - ereloonNota.Facturen.Sum(f => f.Uitvoering);
-                Anderen += ereloonNota.Anderen - ereloonNota.Facturen.Sum(f => f.Anderen);
-                Derden += ereloonNota.Derden - ereloonNota.Facturen.Sum(f => f.Derden);
-                Totaal += ereloonNota.Totaal - ereloonNota.Facturen.Sum(f => f.Totaal);
+                Dactylo += (short)(ereloonNota.Dactylo) ;
+                Fotokopie += (short)(ereloonNota.Fotokopie) ;
+                Fax += (short)(ereloonNota.Fax) ;
+                Verplaatsing += (short)(ereloonNota.Verplaatsing) ;
+                BijkomendeKosten += ereloonNota.BijkomendeKosten ;
+                EreloonUren += ereloonNota.EreloonUren ;
+                WachtUren += ereloonNota.WachtUren ;
+                BTW = ereloonNota.BTW ;
+                Rolzetting += ereloonNota.Rolzetting ;
+                Dagvaarding += ereloonNota.Dagvaarding ;
+                Betekening += ereloonNota.Betekening ;
+                Uitvoering += ereloonNota.Uitvoering ;
+                Anderen += ereloonNota.Anderen ;
+                Derden += ereloonNota.Derden ;
+                Totaal += ereloonNota.Totaal ;
 
-                if (KostenSchema is null)
+                if (ereloonNota.Facturen != null)
+                {
+                    Dactylo -= (short)(ereloonNota.Facturen.Sum(f => f.Dactylo));
+                    Fotokopie -= (short)(ereloonNota.Facturen.Sum(f => f.Fotokopie));
+                    Fax -= (short)(ereloonNota.Facturen.Sum(f => f.Fax));
+                    Verplaatsing -= (short)(ereloonNota.Facturen.Sum(f => f.Verplaatsing));
+                    BijkomendeKosten -= ereloonNota.Facturen.Sum(f => f.BijkomendeKosten);
+                    EreloonUren -= TimeSpan.FromHours(ereloonNota.Facturen.Sum(f => f.EreloonUren.TotalHours));
+                    WachtUren -= TimeSpan.FromHours(ereloonNota.Facturen.Sum(f => f.WachtUren.TotalHours));
+                    BTW = ereloonNota.BTW - ereloonNota.Facturen.Sum(f => f.BTW);
+                    Rolzetting -= ereloonNota.Facturen.Sum(f => f.Rolzetting);
+                    Dagvaarding -= ereloonNota.Facturen.Sum(f => f.Dagvaarding);
+                    Betekening -= ereloonNota.Facturen.Sum(f => f.Betekening);
+                    Uitvoering -= ereloonNota.Facturen.Sum(f => f.Uitvoering);
+                    Anderen -= ereloonNota.Facturen.Sum(f => f.Anderen);
+                    Derden -= ereloonNota.Facturen.Sum(f => f.Derden);
+                    Totaal -= ereloonNota.Facturen.Sum(f => f.Totaal);
+                }
+
+                if (KostenSchema is null && ! (ereloonNota.KostenSchema is null))
                 {
                     KostenSchema = ereloonNota.KostenSchema;
-                    BTW = KostenSchema.BTW;
+                    BTWpercentage = KostenSchema.BTW;
                 }
                 else if (KostenSchema != ereloonNota.KostenSchema)
                     throw new NotImplementedException("Factuur voor ereloonNotas met verschillende kostenschemas");
@@ -261,6 +296,10 @@ namespace CoCoCo_Facturatie
 
         internal override void AddLitigation(Table table)
         {
+            Row titleRow = table.Rows.Add();
+
+            if (Rolzetting != 0)
+                AddRowLit(table.Rows.Add(), "- rolzetting:", Rolzetting);
             if (Dagvaarding != 0)
                 AddRowLit(table.Rows.Add(), "- dagvaardingen:", Dagvaarding);
             if (Betekening != 0)
@@ -269,10 +308,42 @@ namespace CoCoCo_Facturatie
                 AddRowLit(table.Rows.Add(), "- uitvoeringen:", Uitvoering);
             if (Anderen != 0)
                 AddRowLit(table.Rows.Add(), "- anderen:", Anderen);
+            if (Subtotal_NoVat != 0)
+            {
+                AddSubTotal(table, Subtotal_NoVat);
+                titleRow.Cells[1].Range.InsertAfter("Gerechts- en andere kosten:");
+                titleRow.Cells[1].Range.Font.Bold = -1;
+                titleRow.Cells[1].Range.Font.Underline = WdUnderline.wdUnderlineSingle;
+                titleRow.Range.ParagraphFormat.KeepWithNext = -1;
+            }
+
+            titleRow = table.Rows.Add();
 
             if (Derden != 0)
                 AddRowDer(table.Rows.Add(), "- derden:", Derden);
-                // TODO: provisies bekijken
+            // TODO: provisies bekijken
+            if (Subtotal_Derden != 0)
+            {
+                AddSubTotal(table, Subtotal_Derden);
+                titleRow.Cells[1].Range.InsertAfter("Derdengelden en provisies:");
+                titleRow.Cells[1].Range.Font.Bold = -1;
+                titleRow.Cells[1].Range.Font.Underline = WdUnderline.wdUnderlineSingle;
+                titleRow.Range.ParagraphFormat.KeepWithNext = -1;
+            }
+        }
+
+        internal void AddRowWag(Row _row, String _text, short _aantal, Decimal _tarief)
+        {
+            Decimal _amount = _aantal * _tarief;
+            _row.Borders[WdBorderType.wdBorderTop].Visible = false;
+            _row.Cells[1].Range.InsertAfter(_text);
+            _row.Cells[2].Range.InsertAfter(_aantal.ToString());
+            _row.Cells[3].Range.InsertAfter(_tarief.ToString("C", Variabelen.Cultuur));
+            _row.Cells[4].Range.InsertAfter(_amount.ToString("C", Variabelen.Cultuur));
+            _row.Cells[5].Range.InsertAfter((_amount * BTWpercentage).ToString("C", Variabelen.Cultuur));
+            _row.Cells[6].Range.InsertAfter((_amount * (1 + BTWpercentage)).ToString("C", Variabelen.Cultuur));
+            _row.Range.ParagraphFormat.KeepWithNext = -1;
+            Subtotal_ExVAT += _amount;
         }
 
         internal void AddRowWag(Row _row, String _text, Decimal _amount, TimeSpan _time = new TimeSpan(), Decimal _tarief = 0)
@@ -281,12 +352,12 @@ namespace CoCoCo_Facturatie
             _row.Cells[1].Range.InsertAfter(_text);
             if (!_time.Equals(TimeSpan.Zero))
             {
-                _row.Cells[2].Range.InsertAfter($"{Math.Floor(_time.TotalHours):00}.{_time.Minutes:00}");
+                _row.Cells[2].Range.InsertAfter($"{Math.Floor(_time.TotalHours):00}:{_time.Minutes:00}");
                 _row.Cells[3].Range.InsertAfter(_tarief.ToString("C", Variabelen.Cultuur));
             }
             _row.Cells[4].Range.InsertAfter(_amount.ToString("C", Variabelen.Cultuur));
-            _row.Cells[5].Range.InsertAfter((_amount * BTW).ToString("C", Variabelen.Cultuur));
-            _row.Cells[6].Range.InsertAfter((_amount * (1 + BTW)).ToString("C", Variabelen.Cultuur));
+            _row.Cells[5].Range.InsertAfter((_amount * BTWpercentage).ToString("C", Variabelen.Cultuur));
+            _row.Cells[6].Range.InsertAfter((_amount * (1 + BTWpercentage)).ToString("C", Variabelen.Cultuur));
             _row.Range.ParagraphFormat.KeepWithNext = -1;
             Subtotal_ExVAT += _amount;
         }
@@ -295,25 +366,28 @@ namespace CoCoCo_Facturatie
         {
             Row titleRow = table.Rows.Add();
 
-            if (Rolzetting != 0)
-                AddRowWag(table.Rows.Add(), "- rolzetting:", Rolzetting);
-            if (Dagvaarding !=0)
-                AddRowWag(table.Rows.Add(), "- dagvaarding:", Dagvaarding);
-            if (Betekening != 0)
-                AddRowWag(table.Rows.Add(), "- betekening:", Betekening);
-            if (Uitvoering != 0)
-                AddRowWag(table.Rows.Add(), "- uitvoering:", Uitvoering);
-            if (Anderen != 0)
-                AddRowWag(table.Rows.Add(), "- andere:", Anderen);
+            if (Dactylo!= 0)
+                AddRowWag(table.Rows.Add(), "- briefwisseling / dactylo:", Dactylo, KostenSchema.Dactylo);
+            if (Fotokopie !=0)
+                AddRowWag(table.Rows.Add(), "- fotokopie:", Fotokopie, KostenSchema.Fotokopie);
+            if (Fax != 0)
+                AddRowWag(table.Rows.Add(), "- inkomende fax of mail:", Fax, KostenSchema.Mail);
+            if (Verplaatsing != 0)
+                AddRowWag(table.Rows.Add(), "- verplaatsingen (km):", Verplaatsing, KostenSchema.Verplaatsing);
+            if (BijkomendeKosten != 0)
+                AddRowWag(table.Rows.Add(), "- andere kostenen:", BijkomendeKosten);
+            if (Forfait != 0)
+                AddRowWag(table.Rows.Add(), "- opstarten dossier:", Forfait);
             if (Subtotal_ExVAT != 0)
             {
-                AddSubTotal(table, Subtotal_ExVAT);
-                titleRow.Cells[1].Range.InsertAfter("Gerechts- en andere kosten:");
+                AddSubTotal(table, Subtotal_ExVAT, true);
+                titleRow.Cells[1].Range.InsertAfter("Bureelkosten:");
                 titleRow.Cells[1].Range.Font.Bold = -1;
                 titleRow.Cells[1].Range.Font.Underline = WdUnderline.wdUnderlineSingle;
                 titleRow.Range.ParagraphFormat.KeepWithNext = -1;
             }
 
+            titleRow = table.Rows.Add();
             Decimal subtotaal_voor = Subtotal_ExVAT;
             Decimal Wages = ((Decimal) EreloonUren.TotalHours) * KostenSchema.Prestaties;
             if (Wages != 0)
@@ -323,7 +397,7 @@ namespace CoCoCo_Facturatie
                 AddRowWag(table.Rows.Add(), "- verplaatsingen/wachttijden:", Wait, WachtUren, KostenSchema.Wacht);
             if (Subtotal_ExVAT != subtotaal_voor)
             {
-                AddSubTotal(table, Subtotal_ExVAT - subtotaal_voor);
+                AddSubTotal(table, (Subtotal_ExVAT - subtotaal_voor), true);
                 titleRow.Cells[1].Range.InsertAfter("Erelonen");
                 titleRow.Cells[1].Range.Font.Bold = -1;
                 titleRow.Cells[1].Range.Font.Underline = WdUnderline.wdUnderlineSingle;

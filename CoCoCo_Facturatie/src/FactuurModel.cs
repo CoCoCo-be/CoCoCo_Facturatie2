@@ -12,6 +12,7 @@ namespace CoCoCo_Facturatie
         IQueryable<Provisie> Provisies;
         IQueryable<EreloonNota> EreloonNotas;
         decimal Bedrag;
+        FacturatieModel context;
         #endregion
 
         internal FactuurModel()
@@ -19,11 +20,12 @@ namespace CoCoCo_Facturatie
             throw new NotImplementedException();
         }
 
-        public FactuurModel(decimal _Bedrag, IQueryable<EreloonNota> _EreloonNotas, IQueryable<Provisie> _Provisies)
+        public FactuurModel(decimal _Bedrag, IQueryable<EreloonNota> _EreloonNotas, IQueryable<Provisie> _Provisies, FacturatieModel _context)
         {
             Bedrag = _Bedrag;
             EreloonNotas = _EreloonNotas;
             Provisies = _Provisies;
+            context = _context;
         }
 
         internal Factuur Genereer()
@@ -103,8 +105,8 @@ namespace CoCoCo_Facturatie
             }
 
             // TODO: Schrijf factuur generatie code hieronder. 
-            if (found && Factuur != null) ;
-            //Factuur.PrintText(selection);
+            if (found && Factuur != null) 
+                Factuur.PrintText(Globals.CoCoCo_Facturatie_Plugin.Application.Selection);
             else
                 throw new NotImplementedException();
 

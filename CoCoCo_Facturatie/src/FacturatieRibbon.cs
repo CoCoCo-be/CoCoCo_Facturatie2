@@ -167,14 +167,14 @@ namespace CoCoCo_Facturatie
                     case 0:
                         var OGMCode = form.OGM;
                         Bedrag = form.OGM_Bedrag;
-                        FactuurModel = new FactuurModel(Bedrag, EreloonNota.EreloonNotaOGM(OGMCode.ToString(), context),
-                            Provisie.ProvisieOGM(OGMCode.ToString(), context));
+                        FactuurModel = new FactuurModel(Bedrag, EreloonNota.EreloonNotaOGM(OGMCode.ToString(), context ),
+                            Provisie.ProvisieOGM(OGMCode.ToString(), context), context);
                         break;
                     case 1:
                         var DossierNummer = form.DossierNummer;
                         Bedrag = form.Dossier_Bedrag;
                         FactuurModel = new FactuurModel(Bedrag, EreloonNota.EreloonNotaDossierNr(DossierNummer, context),
-                            Provisie.ProvisieDossierNr(DossierNummer, context));
+                            Provisie.ProvisieDossierNr(DossierNummer, context), context);
                         break;
                     default:
                         throw new NotImplementedException("Factuur maken, zonder dat er Ereloon of Provisie voor bestaat is nog niet gemaakt!");
@@ -182,7 +182,6 @@ namespace CoCoCo_Facturatie
                 }
 
                 Factuur = FactuurModel.Genereer();
-                Factuur.PrintText(Globals.CoCoCo_Facturatie_Plugin.Application.Selection);
                 context.SaveChanges();
             }
             #endregion
