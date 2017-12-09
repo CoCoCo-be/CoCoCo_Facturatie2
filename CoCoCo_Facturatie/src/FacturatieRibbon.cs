@@ -232,5 +232,74 @@ namespace CoCoCo_Facturatie
                 context.SaveChanges();
             }
         }
+
+        private void BetalingsOverzicht_Click(object sender, RibbonControlEventArgs e)
+        {
+            BetalingsOverzichtForm form = new BetalingsOverzichtForm();
+
+            using (var context = new FacturatieModel())
+            {
+                IQueryable<Provisie> ResultaatP = context.Provisies.Where(p => p.Betaald == false);
+                IQueryable<OverzichtBetalingen> OverzichtProvisies = null;
+                Decimal _Betaald = 0;
+                if (ResultaatP.Any(p => p.Facturen.Any()))
+                    _Betaald = ResultaatP.Sum(p => p.Facturen.Sum(f => f.Totaal));
+                if (ResultaatP.Count() != 0)
+                {
+                    OverzichtProvisies = ResultaatP.Select(p => new OverzichtBetalingen
+                    {
+                        Tijd = p.Tijd,
+                        Wie = p.Wie,
+                        DossierNummer = p.DossierNummer,
+                        DossierNaam = p.DossierNaam,
+                        BTW = p.BTW,
+                        Totaal = p.Totaal,
+                        Betaald = _Betaald
+                    }
+                    );
+                }
+
+                IQueryable<EreloonNota> ResultaatE= context.EreloonNotas.Where(f => f.Betaald == false);
+                IQueryable<OverzichtBetalingen> OverzichtEreloonNotas = null;
+                if (ResultaatE.Any(p => p.Facturen.Any()))
+                    _Betaald = ResultaatE.Sum(p => p.Facturen.Sum(f => f.Totaal));
+                else
+                    _Betaald = 0;
+                if (ResultaatE.Count() != 0)
+                {
+                    OverzichtEreloonNotas = ResultaatE.Select(p => new OverzichtBetalingen
+                    {
+                        Tijd = p.Tijd,
+                        Wie = p.Wie,
+                        DossierNummer = p.DossierNummer,
+                        DossierNaam = p.DossierNaam,
+                        BTW = p.BTW,
+                        Totaal = p.Totaal,
+                        Betaald = _Betaald
+
+                     }
+                    );
+                }
+
+                if (OverzichtProvisies == null)
+                {
+                    if (OverzichtEreloonNotas == null)
+                        return;
+                    else
+                        form.OverzichtSource = OverzichtEreloonNotas.ToList();
+                }
+                else
+                {
+                    if (OverzichtEreloonNotas == null)
+                        form.OverzichtSource = OverzichtProvisies.ToList();
+                    else
+                        form.OverzichtSource = OverzichtProvisies.Union(OverzichtEreloonNotas).ToList();
+                }
+
+                form.ShowDialog();
+
+            }
+
+        }
     }
 }

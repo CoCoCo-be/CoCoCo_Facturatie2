@@ -118,6 +118,7 @@
             this.BetalingsOverzicht.Label = "Betalings Overzicht";
             this.BetalingsOverzicht.Name = "BetalingsOverzicht";
             this.BetalingsOverzicht.ShowImage = true;
+            this.BetalingsOverzicht.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.BetalingsOverzicht_Click);
             // 
             // Gegevens
             // 

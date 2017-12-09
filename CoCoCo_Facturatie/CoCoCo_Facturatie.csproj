@@ -191,6 +191,12 @@
     <Compile Include="Forms\AlgemeenDataGrid.Designer.cs">
       <DependentUpon>AlgemeenDataGrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\BetalingsOverzichtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BetalingsOverzichtForm.Designer.cs">
+      <DependentUpon>BetalingsOverzichtForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EreloonNotaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +221,7 @@
     <Compile Include="Forms\KostenSchemaForm.Designer.cs">
       <DependentUpon>KostenSchemaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\OverzichBetalingenComparer.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Migrations\201707011911505_Initial.cs" />
     <Compile Include="Migrations\201707011911505_Initial.Designer.cs">
@@ -242,6 +249,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="src\KostenSchemaComparer.cs" />
+    <Compile Include="src\OverzichtBetalingen.cs" />
     <Compile Include="src\Ribbon.cs">
       <XmlRibbon>true</XmlRibbon>
     </Compile>
@@ -271,6 +279,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\AlgemeenDataGrid.resx">
       <DependentUpon>AlgemeenDataGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BetalingsOverzichtForm.resx">
+      <DependentUpon>BetalingsOverzichtForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EreloonNotaForm.resx">
       <DependentUpon>EreloonNotaForm.cs</DependentUpon>

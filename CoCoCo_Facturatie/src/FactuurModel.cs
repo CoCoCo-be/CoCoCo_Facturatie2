@@ -41,6 +41,7 @@ namespace CoCoCo_Facturatie
                 if (EreloonNotas.Any(p => p.Facturen.Any()))
                     EreloonBedrag -= EreloonNotas.Sum(p => p.Facturen.Sum(f => f.Totaal));;
             }
+
             if (0 != Provisies.Count())
             {
                 ProvisieBedrag = Provisies.Sum(p => p.Totaal);
@@ -104,7 +105,6 @@ namespace CoCoCo_Facturatie
                 }
             }
 
-            // TODO: Schrijf factuur generatie code hieronder. 
             if (found && Factuur != null) 
                 Factuur.PrintText(Globals.CoCoCo_Facturatie_Plugin.Application.Selection);
             else

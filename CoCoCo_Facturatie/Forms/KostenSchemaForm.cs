@@ -33,7 +33,7 @@ namespace CoCoCo_Facturatie
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = KostenSchemaSource;
             dataGridView1.DefaultCellStyle.Format = "C";
-            dataGridView1.Columns["BTW"].DefaultCellStyle.Format = "G";
+            dataGridView1.Columns["BTW"].DefaultCellStyle.Format = "P";
             dataGridView1.Columns["KostenSchemaId"].Visible = false;
             dataGridView1.Columns["Naam"].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
             dataGridView1.Columns["Archive"].SortMode = DataGridViewColumnSortMode.Programmatic;
