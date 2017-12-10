@@ -26,13 +26,36 @@
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>CoCoCo_Facturatie</RootNamespace>
     <AssemblyName>CoCoCo_Facturatie</AssemblyName>
-    <LoadBehavior>3</LoadBehavior>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <BootstrapperComponentsLocation>HomeSite</BootstrapperComponentsLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <InstallUrl />
+    <TargetCulture>en</TargetCulture>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>days</UpdateIntervalUnits>
+    <ProductName>CoCoCo_Facturatie</ProductName>
+    <PublisherName />
+    <SupportUrl />
+    <FriendlyName>CoCoCo_Facturatie</FriendlyName>
+    <OfficeApplicationDescription />
+    <LoadBehavior>3</LoadBehavior>
   </PropertyGroup>
   <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.VSTORuntime.4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft Visual Studio 2010 Tools for Office Runtime %28x86 and x64%29</ProductName>
@@ -70,6 +93,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>CoCoCo.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <!--
     This section defines properties that are set when the "Release" configuration is selected.
@@ -94,6 +118,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <!--
     This section specifies references for the project.
@@ -108,11 +134,9 @@
     </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -163,9 +187,143 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Forms\AlgemeenDataGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AlgemeenDataGrid.Designer.cs">
+      <DependentUpon>AlgemeenDataGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BetalingsOverzichtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BetalingsOverzichtForm.Designer.cs">
+      <DependentUpon>BetalingsOverzichtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EreloonNotaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EreloonNotaForm.Designer.cs">
+      <DependentUpon>EreloonNotaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DerdenGeldenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DerdenGeldenForm.Designer.cs">
+      <DependentUpon>DerdenGeldenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FacturatieForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FacturatieForm1.Designer.cs">
+      <DependentUpon>FacturatieForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\KostenSchemaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\KostenSchemaForm.Designer.cs">
+      <DependentUpon>KostenSchemaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Setup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Setup.Designer.cs">
+      <DependentUpon>Setup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\OverzichBetalingenComparer.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Migrations\201707011911505_Initial.cs" />
+    <Compile Include="Migrations\201707011911505_Initial.Designer.cs">
+      <DependentUpon>201707011911505_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707012020380_Factuur_Increment.cs" />
+    <Compile Include="Migrations\201707012020380_Factuur_Increment.Designer.cs">
+      <DependentUpon>201707012020380_Factuur_Increment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707172024096_DerdenGelden.cs" />
+    <Compile Include="Migrations\201707172024096_DerdenGelden.Designer.cs">
+      <DependentUpon>201707172024096_DerdenGelden.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707192110272_Ereloon.cs" />
+    <Compile Include="Migrations\201707192110272_Ereloon.Designer.cs">
+      <DependentUpon>201707192110272_Ereloon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707262013469_Facturatie-toegevoegd.cs" />
+    <Compile Include="Migrations\201707262013469_Facturatie-toegevoegd.Designer.cs">
+      <DependentUpon>201707262013469_Facturatie-toegevoegd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709221629218_Korting.cs" />
+    <Compile Include="Migrations\201709221629218_Korting.Designer.cs">
+      <DependentUpon>201709221629218_Korting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="src\KostenSchemaComparer.cs" />
+    <Compile Include="src\OverzichtBetalingen.cs" />
+    <Compile Include="src\Ribbon.cs">
+      <XmlRibbon>true</XmlRibbon>
+    </Compile>
+    <Compile Include="src\Aanmaning.cs" />
+    <Compile Include="src\EreloonNota.cs" />
+    <Compile Include="src\FacturatieModel.cs" />
+    <Compile Include="src\DataEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\FacturatieRibbon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="src\FacturatieRibbon.Designer.cs">
+      <DependentUpon>FacturatieRibbon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Factuur.cs" />
+    <Compile Include="src\FactuurModel.cs" />
+    <Compile Include="src\KostenSchema.cs" />
+    <Compile Include="src\DerdenGelden.cs" />
+    <Compile Include="src\Provisie.cs" />
+    <Compile Include="Forms\ProvisieNotaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProvisieNotaForm.Designer.cs">
+      <DependentUpon>ProvisieNotaForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\AlgemeenDataGrid.resx">
+      <DependentUpon>AlgemeenDataGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BetalingsOverzichtForm.resx">
+      <DependentUpon>BetalingsOverzichtForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EreloonNotaForm.resx">
+      <DependentUpon>EreloonNotaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DerdenGeldenForm.resx">
+      <DependentUpon>DerdenGeldenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FacturatieForm1.resx">
+      <DependentUpon>FacturatieForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\KostenSchemaForm.resx">
+      <DependentUpon>KostenSchemaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Setup.resx">
+      <DependentUpon>Setup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707011911505_Initial.resx">
+      <DependentUpon>201707011911505_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707012020380_Factuur_Increment.resx">
+      <DependentUpon>201707012020380_Factuur_Increment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707172024096_DerdenGelden.resx">
+      <DependentUpon>201707172024096_DerdenGelden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707192110272_Ereloon.resx">
+      <DependentUpon>201707192110272_Ereloon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707262013469_Facturatie-toegevoegd.resx">
+      <DependentUpon>201707262013469_Facturatie-toegevoegd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709221629218_Korting.resx">
+      <DependentUpon>201709221629218_Korting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -174,12 +332,22 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="src\FacturatieRibbon.resx">
+      <DependentUpon>FacturatieRibbon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProvisieNotaForm.resx">
+      <DependentUpon>ProvisieNotaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.Config">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="CoCoCo_Facturatie_TemporaryKey.pfx" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -187,6 +355,7 @@
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="CoCoCo_Facturatie_Plugin.cs">
       <SubType>Code</SubType>
@@ -199,6 +368,20 @@
     </Compile>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="src\Ribbon.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\setup.jpg" />
+    <None Include="Resources\CoCoCo.bmp" />
+    <Content Include="Resources\derdengelden.ico" />
+    <Content Include="Resources\ereloon.ico" />
+    <Content Include="Resources\factuur.ico" />
+    <None Include="Resources\group.png" />
+    <Content Include="Resources\overzicht.ico" />
+    <Content Include="Resources\provisie.ico" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -207,10 +390,14 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>CoCoCo_Facturatie_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>F1AD2B62B5AE169038C8B596C3BFA21DE31C551A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>7F79A85CADFC3D695E32A3F11591DE3A9C18BA05</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

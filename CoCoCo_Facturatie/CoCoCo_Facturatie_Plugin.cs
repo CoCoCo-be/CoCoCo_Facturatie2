@@ -1,18 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-using Word = Microsoft.Office.Interop.Word;
-using Office = Microsoft.Office.Core;
-using Microsoft.Office.Tools.Word;
+﻿using System.Data.Entity;
+using CoCoCo_Facturatie.Migrations;
+using System;
+using System.Windows.Forms;
 
 namespace CoCoCo_Facturatie
 {
+
     public partial class CoCoCo_Facturatie_Plugin
     {
+
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<FacturatieModel, Configuration>());
+
+            try
+            {
+                if (! Variabelen.LeesCSV())
+                    Globals.Ribbons.FacturatieRibbon.ToggleKnoppen(false);
+            }
+            catch (Exception ex)
+            {
+                String FoutMelding = "Fout bij opstarten van Plugin\n" + ex.ToString();
+                MessageBox.Show(FoutMelding, "Fout bij opstarten Facturatie", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.ThisAddIn_Shutdown(sender, e);
+            }
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
