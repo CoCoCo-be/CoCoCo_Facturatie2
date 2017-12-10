@@ -301,5 +301,28 @@ namespace CoCoCo_Facturatie
             }
 
         }
+
+        private void Setup_Click(object sender, RibbonControlEventArgs e)
+        {
+            SetupForm form = new SetupForm
+            {
+                PartijFile = Properties.Settings.Default.PartijFile,
+                GebruikersInitialen = Properties.Settings.Default.GebruikerInitialen,
+                FactuurTemplate = Properties.Settings.Default.FactuurTemplate,
+                FactuurDirectory = Properties.Settings.Default.InvoicePath
+            };
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.PartijFile = form.PartijFile;
+                Properties.Settings.Default.GebruikerInitialen = form.GebruikersInitialen;
+                Properties.Settings.Default.FactuurTemplate = form.FactuurTemplate;
+                Properties.Settings.Default.InvoicePath = form.FactuurDirectory;
+                Properties.Settings.Default.Save();
+            }
+
+
+
+        }
     }
 }

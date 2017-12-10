@@ -36,15 +36,16 @@
         {
             this.Facturatietab1 = this.Factory.CreateRibbonTab();
             this.FacturatieGroep1 = this.Factory.CreateRibbonGroup();
+            this.FacturatieGroep2 = this.Factory.CreateRibbonGroup();
+            this.Gegevens = this.Factory.CreateRibbonGroup();
+            this.KostenSchemaEdit = this.Factory.CreateRibbonButton();
             this.ProvisieNota = this.Factory.CreateRibbonButton();
             this.BtEreloonNota = this.Factory.CreateRibbonButton();
             this.DerdenGeldenNota = this.Factory.CreateRibbonButton();
-            this.FacturatieGroep2 = this.Factory.CreateRibbonGroup();
             this.Facturen = this.Factory.CreateRibbonButton();
             this.BetalingsOverzicht = this.Factory.CreateRibbonButton();
-            this.Gegevens = this.Factory.CreateRibbonGroup();
             this.LeesCSV = this.Factory.CreateRibbonButton();
-            this.KostenSchemaEdit = this.Factory.CreateRibbonButton();
+            this.Setup = this.Factory.CreateRibbonButton();
             this.Facturatietab1.SuspendLayout();
             this.FacturatieGroep1.SuspendLayout();
             this.FacturatieGroep2.SuspendLayout();
@@ -67,6 +68,28 @@
             this.FacturatieGroep1.Items.Add(this.DerdenGeldenNota);
             this.FacturatieGroep1.Label = "Invoegen";
             this.FacturatieGroep1.Name = "FacturatieGroep1";
+            // 
+            // FacturatieGroep2
+            // 
+            this.FacturatieGroep2.Items.Add(this.Facturen);
+            this.FacturatieGroep2.Items.Add(this.BetalingsOverzicht);
+            this.FacturatieGroep2.Label = "Overzichten";
+            this.FacturatieGroep2.Name = "FacturatieGroep2";
+            // 
+            // Gegevens
+            // 
+            this.Gegevens.Items.Add(this.LeesCSV);
+            this.Gegevens.Items.Add(this.KostenSchemaEdit);
+            this.Gegevens.Items.Add(this.Setup);
+            this.Gegevens.Label = "Gegevens";
+            this.Gegevens.Name = "Gegevens";
+            // 
+            // KostenSchemaEdit
+            // 
+            this.KostenSchemaEdit.Label = "kosten schema\'s";
+            this.KostenSchemaEdit.Name = "KostenSchemaEdit";
+            this.KostenSchemaEdit.ShowImage = true;
+            this.KostenSchemaEdit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.KostenSchemaEdit_Click);
             // 
             // ProvisieNota
             // 
@@ -95,13 +118,6 @@
             this.DerdenGeldenNota.ShowImage = true;
             this.DerdenGeldenNota.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.DerdenGeldNota_Klick);
             // 
-            // FacturatieGroep2
-            // 
-            this.FacturatieGroep2.Items.Add(this.Facturen);
-            this.FacturatieGroep2.Items.Add(this.BetalingsOverzicht);
-            this.FacturatieGroep2.Label = "Overzichten";
-            this.FacturatieGroep2.Name = "FacturatieGroep2";
-            // 
             // Facturen
             // 
             this.Facturen.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -120,13 +136,6 @@
             this.BetalingsOverzicht.ShowImage = true;
             this.BetalingsOverzicht.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.BetalingsOverzicht_Click);
             // 
-            // Gegevens
-            // 
-            this.Gegevens.Items.Add(this.LeesCSV);
-            this.Gegevens.Items.Add(this.KostenSchemaEdit);
-            this.Gegevens.Label = "Gegevens";
-            this.Gegevens.Name = "Gegevens";
-            // 
             // LeesCSV
             // 
             this.LeesCSV.Image = global::CoCoCo_Facturatie.Properties.Resources.group;
@@ -135,12 +144,13 @@
             this.LeesCSV.ShowImage = true;
             this.LeesCSV.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.LeesCSV_Click);
             // 
-            // KostenSchemaEdit
+            // Setup
             // 
-            this.KostenSchemaEdit.Label = "kosten schema\'s";
-            this.KostenSchemaEdit.Name = "KostenSchemaEdit";
-            this.KostenSchemaEdit.ShowImage = true;
-            this.KostenSchemaEdit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.KostenSchemaEdit_Click);
+            this.Setup.Image = global::CoCoCo_Facturatie.Properties.Resources.setup;
+            this.Setup.Label = "opties";
+            this.Setup.Name = "Setup";
+            this.Setup.ShowImage = true;
+            this.Setup.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Setup_Click);
             // 
             // FacturatieRibbon
             // 
@@ -173,6 +183,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup Gegevens;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton LeesCSV;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton KostenSchemaEdit;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton Setup;
     }
 
     partial class ThisRibbonCollection

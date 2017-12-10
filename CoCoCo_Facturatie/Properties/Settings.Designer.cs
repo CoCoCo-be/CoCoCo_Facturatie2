@@ -61,7 +61,7 @@ namespace CoCoCo_Facturatie.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\TEMP\\")]
         public string InvoicePath {
             get {
                 return ((string)(this["InvoicePath"]));

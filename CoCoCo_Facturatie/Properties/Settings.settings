@@ -12,7 +12,7 @@
       <Value Profile="(Default)">C:\Users\krisc\OneDrive\Documents\01. CoCoCo\ImagoInvest\Factuur.dotx</Value>
     </Setting>
     <Setting Name="InvoicePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\</Value>
+      <Value Profile="(Default)">C:\TEMP\</Value>
     </Setting>
   </Settings>
 </SettingsFile>
