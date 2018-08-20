@@ -13,7 +13,7 @@ namespace CoCoCo_Facturatie.Migrations
                 c => new
                     {
                         AanmaningId = c.Int(nullable: false, identity: true),
-                        Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                        Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP", storeType: "timestamp"),
                         Wie = c.String(nullable: false, maxLength: 2, storeType: "nvarchar"),
                         DossierNummer = c.String(nullable: false, unicode: false),
                         DossierNaam = c.String(nullable: false, unicode: false),
@@ -36,7 +36,7 @@ namespace CoCoCo_Facturatie.Migrations
                 c => new
                     {
                         EreloonNotaId = c.Int(nullable: false, identity: true),
-                        Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                        Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP", storeType: "timestamp"),
                         Wie = c.String(nullable: false, maxLength: 2, storeType: "nvarchar"),
                         DossierNummer = c.String(nullable: false, unicode: false),
                         DossierNaam = c.String(nullable: false, unicode: false),
@@ -72,7 +72,7 @@ namespace CoCoCo_Facturatie.Migrations
                 {
                     FactuurJaar = c.Int(nullable: false),
                     FactuurID = c.Int(nullable: false),
-                    Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                    Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP", storeType: "timestamp"),
                     Wie = c.String(nullable: false, maxLength: 2, storeType: "nvarchar"),
                     DossierNummer = c.String(nullable: false, unicode: false),
                     DossierNaam = c.String(nullable: false, unicode: false),
@@ -131,7 +131,7 @@ namespace CoCoCo_Facturatie.Migrations
                 c => new
                     {
                         ProvisieId = c.Int(nullable: false, identity: true),
-                        Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                        Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP", storeType: "timestamp"),
                         Wie = c.String(nullable: false, maxLength: 2, storeType: "nvarchar"),
                         DossierNummer = c.String(nullable: false, unicode: false),
                         DossierNaam = c.String(nullable: false, unicode: false),

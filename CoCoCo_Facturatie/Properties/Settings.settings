@@ -2,17 +2,17 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CoCoCo_Facturatie.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="PartijFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Users\krisc\OneDrive\Documents\01. CoCoCo\ImagoInvest\JUDAIMP.CSV</Value>
-    </Setting>
     <Setting Name="GebruikerInitialen" Type="System.String" Scope="User">
       <Value Profile="(Default)">EW</Value>
     </Setting>
-    <Setting Name="FactuurTemplate" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Users\krisc\OneDrive\Documents\01. CoCoCo\ImagoInvest\Factuur.dotx</Value>
-    </Setting>
     <Setting Name="InvoicePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\TEMP\</Value>
+    </Setting>
+    <Setting Name="PartijFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\eric.ADVOGENK\AppData\Local\Temp\JUDAIMP.CSV</Value>
+    </Setting>
+    <Setting Name="FactuurTemplate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">I:\Advogenk\Factuur.dotx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

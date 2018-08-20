@@ -12,7 +12,7 @@ namespace CoCoCo_Facturatie.Migrations
                 c => new
                     {
                         DerdenGeldId = c.Int(nullable: false, identity: true),
-                        Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP()"),
+                        Tijd = c.DateTime(nullable: false, precision: 0, defaultValueSql: "CURRENT_TIMESTAMP", storeType: "timestamp"),
                         Wie = c.String(nullable: false, maxLength: 2, storeType: "nvarchar"),
                         DossierNummer = c.String(nullable: false, unicode: false),
                         DossierNaam = c.String(nullable: false, unicode: false),
